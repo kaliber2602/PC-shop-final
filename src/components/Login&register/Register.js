@@ -115,7 +115,7 @@ const Register = () => {
       admin: false
     };
     await postData(data);
-    
+
     setToast({ type: "success", message: "Registration successful!" });
     setTimeout(() => {
       navigate("/Login");
@@ -224,7 +224,7 @@ const Register = () => {
       return;
     }
 
-    
+
     //add
     const Username = document.getElementById("userName").value;
     const firstName = document.getElementById("firstName").value;
@@ -236,9 +236,9 @@ const Register = () => {
     // const gender = document.getElementById("gender").value;
     const gender = document.querySelector('input[name="gender"]:checked').value;
 
-    
+
     register(Username, firstName, lastName, phoneNumber, address, email, password, gender);
-    
+
   };
 
   return (
@@ -299,7 +299,7 @@ const Register = () => {
             onBlur={() => handleValidation("address")}
           />
           <div className="mb-3 w-75 mx-auto">
-            <label className="d-block mb-2 text-white">Gender</label>
+            <label className="d-block mb-2 text-muted">Gender</label>
             <div className="form-check form-check-inline">
               <input
                 className="form-check-input"
@@ -311,7 +311,7 @@ const Register = () => {
                 onChange={handleChange}
                 onBlur={() => handleValidation("gender")}
               />
-              <label className="form-check-label text-white" htmlFor="male">
+              <label className="form-check-label text-muted" htmlFor="male">
                 Male
               </label>
             </div>
@@ -326,7 +326,7 @@ const Register = () => {
                 onChange={handleChange}
                 onBlur={() => handleValidation("gender")}
               />
-              <label className="form-check-label text-white" htmlFor="female">
+              <label className="form-check-label text-muted" htmlFor="female">
                 Female
               </label>
             </div>
@@ -341,7 +341,7 @@ const Register = () => {
                 onChange={handleChange}
                 onBlur={() => handleValidation("gender")}
               />
-              <label className="form-check-label text-white" htmlFor="other">
+              <label className="form-check-label text-muted" htmlFor="other">
                 Other
               </label>
             </div>
@@ -393,7 +393,7 @@ const Register = () => {
           </div>
         </form>
 
-       
+
       </div>
       {/* Toast Message Call */}
       <div id="toast">

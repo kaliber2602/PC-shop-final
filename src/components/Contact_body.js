@@ -2,8 +2,20 @@ import React, { useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-const Contact_body = () => {
+import 'leaflet/dist/leaflet.css';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
 
+const customMarker = new L.Icon({
+  iconUrl: '/marker.png',
+  iconSize: [30, 45],
+  iconAnchor: [15, 45],
+  popupAnchor: [0, -40],
+});
+
+
+const Contact_body = () => {
+  const position = [10.731910307054187, 106.69915404131008];
   const form = useRef();
 
   const sendEmail = (e) => {
@@ -81,7 +93,16 @@ const Contact_body = () => {
           <div className="col-lg-6" style={{ height: "400px" }} >
 
             <div className="map shadow" style={{ height: "100%" }}>
-              <img src="/contact.png" alt="Contact" style={{ width: "100%", height: "100%" }} />
+              <MapContainer center={position} zoom={16} style={{ height: "400px", width: "100%" }}>
+                <TileLayer
+                  url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                  attribution='&copy; <a href="https://carto.com/">CartoDB</a> contributors'
+                />
+
+                <Marker position={position} icon={customMarker}>
+                  <Popup>GearZone</Popup>
+                </Marker>
+              </MapContainer>
             </div>
           </div>
         </div>
