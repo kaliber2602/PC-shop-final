@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
-const Menu = ({ onSelectCategory }) => {
+const Menu = ({ onSelectCategory, onPriceFilter, onSortPrice }) => {
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(1000);
+
   const handleCategoryClick = (category) => {
     onSelectCategory(category);
+  };
+
+  const handlePriceFilter = () => {
+    onPriceFilter({ min: minPrice, max: maxPrice });
+  };
+
+  const handleSortPrice = (order) => {
+    onSortPrice(order);
   };
 
   const menuItems = [
@@ -50,7 +61,7 @@ const Menu = ({ onSelectCategory }) => {
   ];
 
   return (
-    <div className="col-lg-2 col-xl-2 col-sm-12 col-md-12 mb-4 menu">
+    <div className="col-lg-2 col-xl-2 col-sm-12 col-md-12 mb-4 menu" style={{ backgroundColor: "white" }}>
       <h1
         className="p-1 text-center"
         style={{
@@ -66,11 +77,11 @@ const Menu = ({ onSelectCategory }) => {
       </h1>
 
       {menuItems.map((item, index) => (
-        <div key={index} className="dropdown show p-2 rounded mb-0">
+        <div key={index} className="dropdown show p-2 mb-0">
           {item.subItems ? (
             <button
-              className="btn btn-secondary col-12 dropdown-toggle"
-              type="button" // Required for buttons to clarify their role
+              className="btn  col-12 dropdown-toggle"
+              type="button"
               id={`dropdownMenuLink-${index}`}
               data-bs-toggle="dropdown"
               aria-expanded="false"
@@ -87,7 +98,7 @@ const Menu = ({ onSelectCategory }) => {
             </button>
           ) : (
             <button
-              className="btn btn-secondary col-12"
+              className="btn  col-12"
               onClick={() => handleCategoryClick(item.title)}
               style={{
                 whiteSpace: "normal",
@@ -114,10 +125,57 @@ const Menu = ({ onSelectCategory }) => {
           )}
         </div>
       ))}
+
+      {/* Price Filter */}
+      <div className="p-3 mt-3" style={{ backgroundColor: "white" }}>
+        <h5 className="text-center">Filter by Price</h5>
+        <div className="mb-2">
+          <label htmlFor="minPrice" className="form-label">
+            Min Price:
+          </label>
+          <input
+            type="number"
+            id="minPrice"
+            className="form-control"
+            value={minPrice}
+            onChange={(e) => setMinPrice(Number(e.target.value))}
+          />
+        </div>
+        <div className="mb-2">
+          <label htmlFor="maxPrice" className="form-label">
+            Max Price:
+          </label>
+          <input
+            type="number"
+            id="maxPrice"
+            className="form-control"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(Number(e.target.value))}
+          />
+        </div>
+        <button className="btn btn-primary w-100" onClick={handlePriceFilter}>
+          Apply Filter
+        </button>
+      </div>
+
+      {/* Price Sorting */}
+      <div className="p-3 mt-3" style={{ backgroundColor: "white" }}>
+        <h5 className="text-center">Sort by Price</h5>
+        <button
+          className="btn btn-outline-primary w-100 mb-2"
+          onClick={() => handleSortPrice("low-to-high")}
+        >
+          Low to High
+        </button>
+        <button
+          className="btn btn-outline-primary w-100"
+          onClick={() => handleSortPrice("high-to-low")}
+        >
+          High to Low
+        </button>
+      </div>
     </div>
   );
 };
-
-
 
 export default Menu;

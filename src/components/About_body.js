@@ -40,7 +40,8 @@ const About_body = () => {
   return (
     <section>
       <div className="container-fluid">
-        <img src="/Home_image/about1.jpg" alt="about" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
+      <img src="/Home_image/banner.jpg" alt="about" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
+
       </div>
 
       <div className="container" style={{ marginBottom: "0px", paddingBottom: "0px" }}>
@@ -62,6 +63,7 @@ const About_body = () => {
                 {profile.name}<br />
                 <span>{profile.role}</span>
               </h2>
+              <p style={{ fontSize: "1rem", marginTop: "10px" }}>{profile.description}</p>
             </div>
           </div>
         ))}
@@ -95,8 +97,46 @@ const About_body = () => {
         </section>
       </div>
 
+      {/* New Section: Our Values and Mission */}
+      <div className="container py-5">
+        <section className="values-mission-section">
+          <div className="row">
+            <div className="col-md-6 border p-3 shadow">
+              <h2 style={{ fontSize: "2rem", fontWeight: "bold", textAlign: "center" }}>Our Values</h2>
+              <p style={{ fontSize: "1.2rem",marginLeft: "20px" }}>
+                At GearZone, we believe in integrity, innovation, and customer satisfaction. 
+                Our values drive us to deliver the best products and services to our customers, 
+                ensuring a seamless and enjoyable experience.
+              </p>
+            </div>
+            <div className="col-md-6 border p-3 shadow">
+              <h2 style={{ fontSize: "2rem", fontWeight: "bold", textAlign: "center" }}>Our Mission</h2>
+              <p style={{ fontSize: "1.2rem",marginLeft: "20px" }}>
+                Our mission is to empower individuals and businesses with cutting-edge technology 
+                and exceptional service. We strive to be a global leader in providing innovative 
+                solutions that enhance productivity and quality of life.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* New Section: History of Development */}
+      <div className="container py-5 border shadow mb-5">
+        <section className="history-section">
+          <h2 className="text-center" style={{ fontSize: "2.5rem", fontWeight: "bold" }}>History of Development</h2>
+          <p style={{ fontSize: "1.2rem", marginTop: "20px" ,margin:"0 auto", width: "80%" }}>
+            GearZone started as a small local business specializing in computer hardware in 2010. Over the years, 
+            we have grown into a trusted name in the industry, serving customers worldwide. Our journey has been 
+            marked by continuous innovation, a commitment to quality, and a passion for technology. Today, we are 
+            proud to be a leader in providing cutting-edge hardware solutions, helping individuals and businesses 
+            achieve their goals with the best tools available.
+          </p>
+        </section>
+      </div>
+
       <div className="container-fluid">
-        <img src="/Home_image/about2.jpg" alt="about" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
+      <img src="/Home_image/about1.jpg" alt="about" style={{ height: "100%", width: "100%", objectFit: "cover" }} />
       </div>
     </section>
   );

@@ -1834,19 +1834,6 @@
       "category": "Mechanical Keyboards"
     },
     {
-      "id": "146",
-      "image": "Products/Q6 Max QMK/VIA Wireless Custom Mechanical Keyboard.jpg",
-      "title": "Q6 Max QMK/VIA Wireless Custom Mechanical Keyboard",
-      "price": "239.99",
-      "description": "Key Features\n \n \n  \t-    Standard Mechanical Keyboard\n  \n  \t-    104 Standard, 13 Function\n  \n  \t-    Bluetooth, IR Wireless, Wired USB Connectivity",
-      "list_anh": [
-        "Products/Q6 Max QMK/VIA Wireless Custom Mechanical Keyboard_0.jpg",
-        "Products/Q6 Max QMK/VIA Wireless Custom Mechanical Keyboard_1.jpg",
-        "Products/Q6 Max QMK/VIA Wireless Custom Mechanical Keyboard_2.jpg"
-      ],
-      "category": "Mechanical Keyboards"
-    },
-    {
       "id": "147",
       "image": "Products/BlackWidow V4 Wired Mechanical Gaming Keyboard  - Black.jpg",
       "title": "BlackWidow V4 Wired Mechanical Gaming Keyboard  - Black",
@@ -3639,6 +3626,695 @@
         "Products/KAPPLAKE LED spotlight, white_2.jpg"
       ],
       "category": "LED Lighting"
+    },
+    {
+      "id": "289",
+      "image": "Products/Cooler Master TD5 Pro - Intel Core Ultra 9-285K - GeForce RTX 5080 - 32GB DDR5 6000MHz - 2TB M.2.jpg",
+      "title": "Cooler Master TD5 Pro - Intel Core Ultra 9-285K - GeForce RTX 5080 - 32GB DDR5 6000MHz - 2TB M.2",
+      "price": "3,399.99",
+      "description": "-\\tPower Supply: Cooler Master V Platinum 1600W V2\\n -\\tGraphics: NVIDIA GeForce RTX 5080\\n -\\tType: Gaming &amp; Entertainment\\n -\\tUsage: Consumer\\n -\\tModel #: AYG-M6C9-N68GIA32-N1",
+      "list_anh": [
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 9-285K - GeForce RTX 5080 - 32GB DDR5 6000MHz - 2TB M.2_0.jpg",
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 9-285K - GeForce RTX 5080 - 32GB DDR5 6000MHz - 2TB M.2_1.jpg",
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 9-285K - GeForce RTX 5080 - 32GB DDR5 6000MHz - 2TB M.2_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "290",
+      "image": "Products/Acer Veriton VN4690GT VVN4690GT-I716G1 Desktop Computer - Intel Core i7 12th Gen i7-12700T.jpg",
+      "title": "Acer Veriton VN4690GT VVN4690GT-I716G1 Desktop Computer - Intel Core i7 12th Gen i7-12700T",
+      "price": "803.99",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tForm Factor: Slim/Small Form Factor\\n -\\tPart Number: DT.VZHAA.002\\n -\\tUsage: Business\\n -\\tModel #: DT.VZHAA.002",
+      "list_anh": [
+        "Products/Acer Veriton VN4690GT VVN4690GT-I716G1 Desktop Computer - Intel Core i7 12th Gen i7-12700T_0.jpg",
+        "Products/Acer Veriton VN4690GT VVN4690GT-I716G1 Desktop Computer - Intel Core i7 12th Gen i7-12700T_1.jpg",
+        "Products/Acer Veriton VN4690GT VVN4690GT-I716G1 Desktop Computer - Intel Core i7 12th Gen i7-12700T_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "291",
+      "image": "Products/MSI Desktop Computer PRO DP180 13NUC-223US Intel Core i5-13400F 16GB DDR4 2TB PCIe SSD GeForce RTX.jpg",
+      "title": "MSI Desktop Computer PRO DP180 13NUC-223US Intel Core i5-13400F 16GB DDR4 2TB PCIe SSD GeForce RTX",
+      "price": "1,373.99",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tWLAN: WIFI 6E - AX 211\\n -\\tUsage: Business\\n -\\tColor: Black\\n -\\tModel #: PRO DP180 13NUC-223US",
+      "list_anh": [
+        "Products/MSI Desktop Computer PRO DP180 13NUC-223US Intel Core i5-13400F 16GB DDR4 2TB PCIe SSD GeForce RTX_0.jpg",
+        "Products/MSI Desktop Computer PRO DP180 13NUC-223US Intel Core i5-13400F 16GB DDR4 2TB PCIe SSD GeForce RTX_1.jpg",
+        "Products/MSI Desktop Computer PRO DP180 13NUC-223US Intel Core i5-13400F 16GB DDR4 2TB PCIe SSD GeForce RTX_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "292",
+      "image": "Products/HP Elite Mini 800 G9 Desktop Computer - Intel Core i7 12th Gen i7-12700T Dodeca-core (12 Core) 1.40.jpg",
+      "title": "HP Elite Mini 800 G9 Desktop Computer - Intel Core i7 12th Gen i7-12700T Dodeca-core (12 Core) 1.40",
+      "price": "1,033.99",
+      "description": "-\\tType: Desktop PC\\n -\\tForm Factor: Mini PC\\n -\\tPart Number: 9P2X0AT#ABA\\n -\\tColor: Black\\n -\\tModel #: 9P2X0AT#ABA",
+      "list_anh": [
+        "Products/HP Elite Mini 800 G9 Desktop Computer - Intel Core i7 12th Gen i7-12700T Dodeca-core (12 Core) 1.40_0.jpg",
+        "Products/HP Elite Mini 800 G9 Desktop Computer - Intel Core i7 12th Gen i7-12700T Dodeca-core (12 Core) 1.40_1.jpg",
+        "Products/HP Elite Mini 800 G9 Desktop Computer - Intel Core i7 12th Gen i7-12700T Dodeca-core (12 Core) 1.40_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "293",
+      "image": "Products/HP Z4 G5 Workstation - 1 x Intel Xeon Hexa-core (6 Core) w3-2423 2.10 GHz - 16 GB DDR5 SDRAM RAM .jpg",
+      "title": "HP Z4 G5 Workstation - 1 x Intel Xeon Hexa-core (6 Core) w3-2423 2.10 GHz - 16 GB DDR5 SDRAM RAM ",
+      "price": "3,656.00",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tPart Number: 8Z236UT#ABA\\n -\\tUsage: Business\\n -\\tColor: Black\\n -\\tModel #: 8Z236UT#ABA",
+      "list_anh": [
+        "Products/HP Z4 G5 Workstation - 1 x Intel Xeon Hexa-core (6 Core) w3-2423 2.10 GHz - 16 GB DDR5 SDRAM RAM _0.jpg",
+        "Products/HP Z4 G5 Workstation - 1 x Intel Xeon Hexa-core (6 Core) w3-2423 2.10 GHz - 16 GB DDR5 SDRAM RAM _1.jpg",
+        "Products/HP Z4 G5 Workstation - 1 x Intel Xeon Hexa-core (6 Core) w3-2423 2.10 GHz - 16 GB DDR5 SDRAM RAM _2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "294",
+      "image": "Products/MSI Desktop Computer PRO DP10 13M-057US Intel Core i7-1360P 16GB DDR4 1TB PCIe SSD Intel Iris Xe.jpg",
+      "title": "MSI Desktop Computer PRO DP10 13M-057US Intel Core i7-1360P 16GB DDR4 1TB PCIe SSD Intel Iris Xe",
+      "price": "849.99",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tLAN Speed: 2.5Gbps\\n -\\tWLAN: WIFI 6E - AX 211\\n -\\tUsage: Business\\n -\\tModel #: PRO DP10 13M-057US",
+      "list_anh": [
+        "Products/MSI Desktop Computer PRO DP10 13M-057US Intel Core i7-1360P 16GB DDR4 1TB PCIe SSD Intel Iris Xe_0.jpg",
+        "Products/MSI Desktop Computer PRO DP10 13M-057US Intel Core i7-1360P 16GB DDR4 1TB PCIe SSD Intel Iris Xe_1.jpg",
+        "Products/MSI Desktop Computer PRO DP10 13M-057US Intel Core i7-1360P 16GB DDR4 1TB PCIe SSD Intel Iris Xe_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "295",
+      "image": "Products/HP EliteDesk 805 G8 Mini Desktop AMD Ryzen 5 Pro 5650GE 8 GB RAM 256 GB SSD Windows 11 Pro.jpg",
+      "title": "HP EliteDesk 805 G8 Mini Desktop AMD Ryzen 5 Pro 5650GE 8 GB RAM 256 GB SSD Windows 11 Pro",
+      "price": "599.99",
+      "description": "-\\tPart Number: A98XTUT#ABA\\n -\\tProcessor: AMD Ryzen 5 PRO 5650GE (3.4 GHz base clock, up to 4.4 GHz max boost clock,16 MB L3 cache, 6 cores)\\n -\\tWindows 11: Ready\\n -\\tExternal I/O Ports: 1x Antenna Connector / 1x Ethernet / 2x DisplayPort 1.4 / 4x USB Type-A\\n -\\tModel #: A98XTUT#ABA",
+      "list_anh": [
+        "Products/HP EliteDesk 805 G8 Mini Desktop AMD Ryzen 5 Pro 5650GE 8 GB RAM 256 GB SSD Windows 11 Pro_0.jpg",
+        "Products/HP EliteDesk 805 G8 Mini Desktop AMD Ryzen 5 Pro 5650GE 8 GB RAM 256 GB SSD Windows 11 Pro_1.jpg",
+        "Products/HP EliteDesk 805 G8 Mini Desktop AMD Ryzen 5 Pro 5650GE 8 GB RAM 256 GB SSD Windows 11 Pro_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "296",
+      "image": "Products/HP Elite Mini 805 SFF Desktop Computer R7 PRO 5750GE 16GB 512GB SSD A98XWUT#ABA.jpg",
+      "title": "HP Elite Mini 805 SFF Desktop Computer R7 PRO 5750GE 16GB 512GB SSD A98XWUT#ABA",
+      "price": "987.99",
+      "description": "-\\tType: Desktop PC\\n -\\tModel #: A98XWUT#ABA",
+      "list_anh": [
+        "Products/HP Elite Mini 805 SFF Desktop Computer R7 PRO 5750GE 16GB 512GB SSD A98XWUT#ABA_0.jpg",
+        "Products/HP Elite Mini 805 SFF Desktop Computer R7 PRO 5750GE 16GB 512GB SSD A98XWUT#ABA_1.jpg",
+        "Products/HP Elite Mini 805 SFF Desktop Computer R7 PRO 5750GE 16GB 512GB SSD A98XWUT#ABA_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "297",
+      "image": "Products/Dell Vostro 3910 Desktop, Intel Core i5-12400 Upto 4.4GHz, 16GB RAM, 1TB NVMe SSD + 1TB HDD, HDMI.jpg",
+      "title": "Dell Vostro 3910 Desktop, Intel Core i5-12400 Upto 4.4GHz, 16GB RAM, 1TB NVMe SSD + 1TB HDD, HDMI",
+      "price": "859.99",
+      "description": "-\\tType: Student / Home Office\\n -\\tForm Factor: Desktop\\n -\\tColor: Black\\n -\\tProcessor: Intel 6-Core i5-12400 2.5GHz Upto 4.4GHz\\n -\\tModel #: 3910i512-161n1P",
+      "list_anh": [
+        "Products/Dell Vostro 3910 Desktop, Intel Core i5-12400 Upto 4.4GHz, 16GB RAM, 1TB NVMe SSD + 1TB HDD, HDMI_0.jpg",
+        "Products/Dell Vostro 3910 Desktop, Intel Core i5-12400 Upto 4.4GHz, 16GB RAM, 1TB NVMe SSD + 1TB HDD, HDMI_1.jpg",
+        "Products/Dell Vostro 3910 Desktop, Intel Core i5-12400 Upto 4.4GHz, 16GB RAM, 1TB NVMe SSD + 1TB HDD, HDMI_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "298",
+      "image": "Products/HP Business Desktop EliteDesk 800 G5-MINI Intel Core i5-9500T 16GB DDR4 256GB SSD Intel UHD.jpg",
+      "title": "HP Business Desktop EliteDesk 800 G5-MINI Intel Core i5-9500T 16GB DDR4 256GB SSD Intel UHD",
+      "price": "255.00",
+      "description": "-\\tForm Factor: Mini PC\\n -\\tType: Business Desktops &amp; Workstations\\n -\\tUsage: Business\\n -\\tProcessor: Intel Core i5-9500T 2.20 GHz\\n -\\tModel #: NE1-22258",
+      "list_anh": [
+        "Products/HP Business Desktop EliteDesk 800 G5-MINI Intel Core i5-9500T 16GB DDR4 256GB SSD Intel UHD_0.jpg",
+        "Products/HP Business Desktop EliteDesk 800 G5-MINI Intel Core i5-9500T 16GB DDR4 256GB SSD Intel UHD_1.jpg",
+        "Products/HP Business Desktop EliteDesk 800 G5-MINI Intel Core i5-9500T 16GB DDR4 256GB SSD Intel UHD_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "299",
+      "image": "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - GeForce RTX 5070 Ti - 32GB DDR5 6000MHz - 2TB.jpg",
+      "title": "Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - GeForce RTX 5070 Ti - 32GB DDR5 6000MHz - 2TB",
+      "price": "2,499.99",
+      "description": "-\\tPower Supply: Cooler Master MWE 750W Gold\\n -\\tDimensions (H x W x D): 19.7 inch x 8.3 inch x 19.7 inch\\n -\\tGraphics: NVIDIA GeForce RTX 5070 Ti\\n -\\tType: Gaming &amp; Entertainment\\n -\\tModel #: AYG-M6C7-N6CGIA32-N1",
+      "list_anh": [
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - GeForce RTX 5070 Ti - 32GB DDR5 6000MHz - 2TB_0.jpg",
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - GeForce RTX 5070 Ti - 32GB DDR5 6000MHz - 2TB_1.jpg",
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - GeForce RTX 5070 Ti - 32GB DDR5 6000MHz - 2TB_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "300",
+      "image": "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - GeForce RTX 5070 Ti - 32GB DDR5 6000MHz - 2TB.jpg",
+      "title": "Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - GeForce RTX 5070 Ti - 32GB DDR5 6000MHz - 2TB",
+      "price": "2,499.99",
+      "description": "-\\tPower Supply: Cooler Master MWE 750W Gold\\n -\\tDimensions (H x W x D): 19.7 inch x 8.3 inch x 19.7 inch\\n -\\tGraphics: NVIDIA GeForce RTX 5070 Ti\\n -\\tType: Gaming &amp; Entertainment\\n -\\tModel #: AYG-M6C7-N6CGIA32-N1",
+      "list_anh": [
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - GeForce RTX 5070 Ti - 32GB DDR5 6000MHz - 2TB_0.jpg",
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - GeForce RTX 5070 Ti - 32GB DDR5 6000MHz - 2TB_1.jpg",
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - GeForce RTX 5070 Ti - 32GB DDR5 6000MHz - 2TB_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "301",
+      "image": "Products/Acer Aspire Desktop Computer Intel Core i5-14400, Intel UHD Graphics 730, 8GB DDR5, 512 GB PCIe.jpg",
+      "title": "Acer Aspire Desktop Computer Intel Core i5-14400, Intel UHD Graphics 730, 8GB DDR5, 512 GB PCIe",
+      "price": "559.99",
+      "description": "-\\tType: Student / Home Office\\n -\\tLAN Speed: 10/100/1000Mbps\\n -\\tWLAN: Intel Wireless Wi-Fi 6E AX211 (Gig+) supports dual-stream Wi-Fi in the 2.4 GHz, 5 GHz and 6 GHz bands, including UL MU-MIMO\\n -\\tPart Number: DT.BLRAA.001\\n -\\tModel #: DT.BLRAA.001",
+      "list_anh": [
+        "Products/Acer Aspire Desktop Computer Intel Core i5-14400, Intel UHD Graphics 730, 8GB DDR5, 512 GB PCIe_0.jpg",
+        "Products/Acer Aspire Desktop Computer Intel Core i5-14400, Intel UHD Graphics 730, 8GB DDR5, 512 GB PCIe_1.jpg",
+        "Products/Acer Aspire Desktop Computer Intel Core i5-14400, Intel UHD Graphics 730, 8GB DDR5, 512 GB PCIe_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "302",
+      "image": "Products/HP Business Desktop EliteDesk 800 G4-SFF Intel Core i5-8500 16GB DDR4 500 GB M.2 NVMe SSD Intel UHD.jpg",
+      "title": "HP Business Desktop EliteDesk 800 G4-SFF Intel Core i5-8500 16GB DDR4 500 GB M.2 NVMe SSD Intel UHD",
+      "price": "205.99",
+      "description": "-\\tForm Factor: Slim/Small Form Factor\\n -\\tType: Business Desktops &amp; Workstations\\n -\\tUsage: Business\\n -\\tProcessor: Intel Core i5-8500 3.00 GHz\\n -\\tModel #: NE1-22255",
+      "list_anh": [
+        "Products/HP Business Desktop EliteDesk 800 G4-SFF Intel Core i5-8500 16GB DDR4 500 GB M.2 NVMe SSD Intel UHD_0.jpg",
+        "Products/HP Business Desktop EliteDesk 800 G4-SFF Intel Core i5-8500 16GB DDR4 500 GB M.2 NVMe SSD Intel UHD_1.jpg",
+        "Products/HP Business Desktop EliteDesk 800 G4-SFF Intel Core i5-8500 16GB DDR4 500 GB M.2 NVMe SSD Intel UHD_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "303",
+      "image": "Products/Acer Nitro 60 Gaming Desktop PC, Intel Core i5-14400F, GeForce RTX 4060, 16GB DDR5, 1TB PCIe Gen 4.jpg",
+      "title": "Acer Nitro 60 Gaming Desktop PC, Intel Core i5-14400F, GeForce RTX 4060, 16GB DDR5, 1TB PCIe Gen 4",
+      "price": "1,149.99",
+      "description": "-\\tPower Supply: 650W 80 Plus Gold\\n -\\tLAN Speed: 10/100/1000Mbps\\n -\\tWiFi Generation: Wi-Fi 5\\n -\\tDimensions (H x W x D): 15.90inch x 8.50inch x 14.90inch\\n -\\tModel #: DG.E4BAA.002",
+      "list_anh": [
+        "Products/Acer Nitro 60 Gaming Desktop PC, Intel Core i5-14400F, GeForce RTX 4060, 16GB DDR5, 1TB PCIe Gen 4_0.jpg",
+        "Products/Acer Nitro 60 Gaming Desktop PC, Intel Core i5-14400F, GeForce RTX 4060, 16GB DDR5, 1TB PCIe Gen 4_1.jpg",
+        "Products/Acer Nitro 60 Gaming Desktop PC, Intel Core i5-14400F, GeForce RTX 4060, 16GB DDR5, 1TB PCIe Gen 4_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "304",
+      "image": "Products/HP ProDesk 400 G9 Small Form Factor Business Desktop, Intel i7-12700 Processor, 64GB RAM, 2TB PCIe.jpg",
+      "title": "HP ProDesk 400 G9 Small Form Factor Business Desktop, Intel i7-12700 Processor, 64GB RAM, 2TB PCIe",
+      "price": "839.00",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tUsage: Business\\n -\\tMonitor: N/A\\n -\\tCPU Type: Intel Core i7\\n -\\tModel #: PRODESK3763_CTO_N1-D",
+      "list_anh": [
+        "Products/HP ProDesk 400 G9 Small Form Factor Business Desktop, Intel i7-12700 Processor, 64GB RAM, 2TB PCIe_0.jpg",
+        "Products/HP ProDesk 400 G9 Small Form Factor Business Desktop, Intel i7-12700 Processor, 64GB RAM, 2TB PCIe_1.jpg",
+        "Products/HP ProDesk 400 G9 Small Form Factor Business Desktop, Intel i7-12700 Processor, 64GB RAM, 2TB PCIe_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "305",
+      "image": "Products/Lenovo ThinkCentre neo 50q Gen 4 12LN000CUS Tiny Desktop Computer - Intel Core i5 13th Gen.jpg",
+      "title": "Lenovo ThinkCentre neo 50q Gen 4 12LN000CUS Tiny Desktop Computer - Intel Core i5 13th Gen",
+      "price": "714.99",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tForm Factor: Desktop\\n -\\tColor: Black\\n -\\tProcessor: Intel Core i5-13420H 2.10 GHz\\n -\\tModel #: 12LN000CUS",
+      "list_anh": [
+        "Products/Lenovo ThinkCentre neo 50q Gen 4 12LN000CUS Tiny Desktop Computer - Intel Core i5 13th Gen_0.jpg",
+        "Products/Lenovo ThinkCentre neo 50q Gen 4 12LN000CUS Tiny Desktop Computer - Intel Core i5 13th Gen_1.jpg",
+        "Products/Lenovo ThinkCentre neo 50q Gen 4 12LN000CUS Tiny Desktop Computer - Intel Core i5 13th Gen_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "306",
+      "image": "Products/Zotac MEK HERO AI Enhanced Gaming Desktop PC, AMD Ryzen 5 5500, Nvidia GeForce RTX 4060, 16GB DDR4.jpg",
+      "title": "Zotac MEK HERO AI Enhanced Gaming Desktop PC, AMD Ryzen 5 5500, Nvidia GeForce RTX 4060, 16GB DDR4",
+      "price": "849.99",
+      "description": "-\\tPower Supply: 650 watt 80+ Gold\\n -\\tLAN Speed: 10/100/1000Mbps\\n -\\tWiFi Generation: Wi-Fi 6E\\n -\\tDimensions (H x W x D): 16inch x 8.5inch x 15inch\\n -\\tModel #: MEK4060A55003V1",
+      "list_anh": [
+        "Products/Zotac MEK HERO AI Enhanced Gaming Desktop PC, AMD Ryzen 5 5500, Nvidia GeForce RTX 4060, 16GB DDR4_0.jpg",
+        "Products/Zotac MEK HERO AI Enhanced Gaming Desktop PC, AMD Ryzen 5 5500, Nvidia GeForce RTX 4060, 16GB DDR4_1.jpg",
+        "Products/Zotac MEK HERO AI Enhanced Gaming Desktop PC, AMD Ryzen 5 5500, Nvidia GeForce RTX 4060, 16GB DDR4_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "307",
+      "image": "Products/MSI Desktop Computer PRO DP21 13M-655US Intel Core i5-13400 16GB DDR4 1TB PCIe SSD Intel UHD.jpg",
+      "title": "MSI Desktop Computer PRO DP21 13M-655US Intel Core i5-13400 16GB DDR4 1TB PCIe SSD Intel UHD",
+      "price": "739.00",
+      "description": "-\\tType: Student / Home Office\\n -\\tLAN Speed: 10/100/1000Mbps\\n -\\tWLAN: WIFI 6E - AX 211\\n -\\tUsage: Consumer\\n -\\tModel #: PRO DP21 13M-655US",
+      "list_anh": [
+        "Products/MSI Desktop Computer PRO DP21 13M-655US Intel Core i5-13400 16GB DDR4 1TB PCIe SSD Intel UHD_0.jpg",
+        "Products/MSI Desktop Computer PRO DP21 13M-655US Intel Core i5-13400 16GB DDR4 1TB PCIe SSD Intel UHD_1.jpg",
+        "Products/MSI Desktop Computer PRO DP21 13M-655US Intel Core i5-13400 16GB DDR4 1TB PCIe SSD Intel UHD_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "308",
+      "image": "Products/HP EliteDesk 800 G9 Mini Desktop Intel Core i7-14700T 16GB RAM 256GB PCIe SSD Windows 11 Pro.jpg",
+      "title": "HP EliteDesk 800 G9 Mini Desktop Intel Core i7-14700T 16GB RAM 256GB PCIe SSD Windows 11 Pro",
+      "price": "959.99",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tForm Factor: Mini PC\\n -\\tWLAN: Wi-Fi 6E (802.11ax); Tri-Band (2.4, 5, &amp; 6 GHz) with MU-MIMO Support (2 x 2)\\n -\\tPart Number: A12GRUT#ABA\\n -\\tModel #: A12GRUT#ABA",
+      "list_anh": [
+        "Products/HP EliteDesk 800 G9 Mini Desktop Intel Core i7-14700T 16GB RAM 256GB PCIe SSD Windows 11 Pro_0.jpg",
+        "Products/HP EliteDesk 800 G9 Mini Desktop Intel Core i7-14700T 16GB RAM 256GB PCIe SSD Windows 11 Pro_1.jpg",
+        "Products/HP EliteDesk 800 G9 Mini Desktop Intel Core i7-14700T 16GB RAM 256GB PCIe SSD Windows 11 Pro_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "309",
+      "image": "Products/DELL Desktop OptiPlex 3040 SFF Intel Core i5 6th Gen 6500 (3.20GHz) 16 GB DDR4 256 GB SSD DVD Intel.jpg",
+      "title": "DELL Desktop OptiPlex 3040 SFF Intel Core i5 6th Gen 6500 (3.20GHz) 16 GB DDR4 256 GB SSD DVD Intel",
+      "price": "101.01",
+      "description": "-\\tForm Factor: Slim/Small Form Factor\\n -\\tType: Business Desktops &amp; Workstations\\n -\\tUsage: Business\\n -\\tProcessor: Intel Core i5-6500 3.20 GHz\\n -\\tModel #: 22VFDEDT02001",
+      "list_anh": [
+        "Products/DELL Desktop OptiPlex 3040 SFF Intel Core i5 6th Gen 6500 (3.20GHz) 16 GB DDR4 256 GB SSD DVD Intel_0.jpg",
+        "Products/DELL Desktop OptiPlex 3040 SFF Intel Core i5 6th Gen 6500 (3.20GHz) 16 GB DDR4 256 GB SSD DVD Intel_1.jpg",
+        "Products/DELL Desktop OptiPlex 3040 SFF Intel Core i5 6th Gen 6500 (3.20GHz) 16 GB DDR4 256 GB SSD DVD Intel_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "310",
+      "image": "Products/Zotac MEK HERO AI Enhanced Gaming Desktop PC, AMD Ryzen 5 5500, Nvidia GeForce RTX 3050, 16GB DDR4.jpg",
+      "title": "Zotac MEK HERO AI Enhanced Gaming Desktop PC, AMD Ryzen 5 5500, Nvidia GeForce RTX 3050, 16GB DDR4",
+      "price": "689.99",
+      "description": "-\\tPower Supply: 650 Watt 80+ Gold\\n -\\tLAN Speed: 10/100/1000Mbps\\n -\\tWiFi Generation: Wi-Fi 6E\\n -\\tDimensions (H x W x D): 16inch x 8.5inch x 15inch\\n -\\tModel #: MEK3050A55000V6",
+      "list_anh": [
+        "Products/Zotac MEK HERO AI Enhanced Gaming Desktop PC, AMD Ryzen 5 5500, Nvidia GeForce RTX 3050, 16GB DDR4_0.jpg",
+        "Products/Zotac MEK HERO AI Enhanced Gaming Desktop PC, AMD Ryzen 5 5500, Nvidia GeForce RTX 3050, 16GB DDR4_1.jpg",
+        "Products/Zotac MEK HERO AI Enhanced Gaming Desktop PC, AMD Ryzen 5 5500, Nvidia GeForce RTX 3050, 16GB DDR4_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "311",
+      "image": "Products/Dell Inspiron 3020 Desktop,32GB DDR4,512GB SSD Plus 1TB HDD,13th Gen Intel Core i5-13400 10-Core.jpg",
+      "title": "Dell Inspiron 3020 Desktop,32GB DDR4,512GB SSD Plus 1TB HDD,13th Gen Intel Core i5-13400 10-Core",
+      "price": "689.99",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tForm Factor: Desktop\\n -\\tLAN Speed: 10/100/1000Mbps\\n -\\tWLAN: 802.11ax Wireless LAN\\n -\\tModel #: INS3020i532512SD1TBZND",
+      "list_anh": [
+        "Products/Dell Inspiron 3020 Desktop,32GB DDR4,512GB SSD Plus 1TB HDD,13th Gen Intel Core i5-13400 10-Core_0.jpg",
+        "Products/Dell Inspiron 3020 Desktop,32GB DDR4,512GB SSD Plus 1TB HDD,13th Gen Intel Core i5-13400 10-Core_1.jpg",
+        "Products/Dell Inspiron 3020 Desktop,32GB DDR4,512GB SSD Plus 1TB HDD,13th Gen Intel Core i5-13400 10-Core_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "312",
+      "image": "Products/MSI Business Desktop PRO DP21 13M-661US Intel Core i3-13100 8GB DDR4 1TB PCIe SSD Intel UHD.jpg",
+      "title": "MSI Business Desktop PRO DP21 13M-661US Intel Core i3-13100 8GB DDR4 1TB PCIe SSD Intel UHD",
+      "price": "499.00",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tLAN Speed: 10/100/1000Mbps\\n -\\tWLAN: AC3168\\n -\\tUsage: Business\\n -\\tModel #: PRO DP21 13M-661US",
+      "list_anh": [
+        "Products/MSI Business Desktop PRO DP21 13M-661US Intel Core i3-13100 8GB DDR4 1TB PCIe SSD Intel UHD_0.jpg",
+        "Products/MSI Business Desktop PRO DP21 13M-661US Intel Core i3-13100 8GB DDR4 1TB PCIe SSD Intel UHD_1.jpg",
+        "Products/MSI Business Desktop PRO DP21 13M-661US Intel Core i3-13100 8GB DDR4 1TB PCIe SSD Intel UHD_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "313",
+      "image": "Products/Acer Nitro 50 Gaming Desktop PC, Intel Core i5-14400F, GeForce RTX 3050, 16GB DDR5, 1 TB PCIe SSD.jpg",
+      "title": "Acer Nitro 50 Gaming Desktop PC, Intel Core i5-14400F, GeForce RTX 3050, 16GB DDR5, 1 TB PCIe SSD",
+      "price": "759.99",
+      "description": "-\\tPower Supply: 500W 80 Plus Gold\\n -\\tLAN Speed: Realtek 8118AS Dragon Gigabit Ethernet\\n -\\tWiFi Generation: Wi-Fi 6E\\n -\\tDimensions (H x W x D): 15.43inch x 6.89inch x 15.20inch\\n -\\tModel #: DG.E3VAA.001",
+      "list_anh": [
+        "Products/Acer Nitro 50 Gaming Desktop PC, Intel Core i5-14400F, GeForce RTX 3050, 16GB DDR5, 1 TB PCIe SSD_0.jpg",
+        "Products/Acer Nitro 50 Gaming Desktop PC, Intel Core i5-14400F, GeForce RTX 3050, 16GB DDR5, 1 TB PCIe SSD_1.jpg",
+        "Products/Acer Nitro 50 Gaming Desktop PC, Intel Core i5-14400F, GeForce RTX 3050, 16GB DDR5, 1 TB PCIe SSD_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "314",
+      "image": "Products/MSI Desktop Computer Cubi NUC 1MG-008US Intel Core 5 120U 16GB DDR5 1TB PCIe SSD Intel Graphics.jpg",
+      "title": "MSI Desktop Computer Cubi NUC 1MG-008US Intel Core 5 120U 16GB DDR5 1TB PCIe SSD Intel Graphics",
+      "price": "749.99",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tForm Factor: Mini PC\\n -\\tLAN Speed: 2.5Gbps\\n -\\tWLAN: WIFI 6E - AX 211\\n -\\tModel #: Cubi NUC 1MG-008US",
+      "list_anh": [
+        "Products/MSI Desktop Computer Cubi NUC 1MG-008US Intel Core 5 120U 16GB DDR5 1TB PCIe SSD Intel Graphics_0.jpg",
+        "Products/MSI Desktop Computer Cubi NUC 1MG-008US Intel Core 5 120U 16GB DDR5 1TB PCIe SSD Intel Graphics_1.jpg",
+        "Products/MSI Desktop Computer Cubi NUC 1MG-008US Intel Core 5 120U 16GB DDR5 1TB PCIe SSD Intel Graphics_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "315",
+      "image": "Products/MSI Gaming Desktop PC Codex Z2 B8NUC-297US AMD Ryzen 5 8400F 16GB DDR5 1TB NVMe SSD GeForce RTX.jpg",
+      "title": "MSI Gaming Desktop PC Codex Z2 B8NUC-297US AMD Ryzen 5 8400F 16GB DDR5 1TB NVMe SSD GeForce RTX",
+      "price": "899.00",
+      "description": "-\\tPower Supply: 650W 80+ Gold\\n -\\tLAN Speed: 2.5Gbps\\n -\\tWiFi Generation: Wi-Fi 6E\\n -\\tDimensions (H x W x D): 16inch x 8.38inch x 19inch\\n -\\tModel #: Codex Z2 B8NUC-297US",
+      "list_anh": [
+        "Products/MSI Gaming Desktop PC Codex Z2 B8NUC-297US AMD Ryzen 5 8400F 16GB DDR5 1TB NVMe SSD GeForce RTX_0.jpg",
+        "Products/MSI Gaming Desktop PC Codex Z2 B8NUC-297US AMD Ryzen 5 8400F 16GB DDR5 1TB NVMe SSD GeForce RTX_1.jpg",
+        "Products/MSI Gaming Desktop PC Codex Z2 B8NUC-297US AMD Ryzen 5 8400F 16GB DDR5 1TB NVMe SSD GeForce RTX_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "316",
+      "image": "Products/MSI Desktop Computer Cubi NUC 1MG-007US Intel Core 7 150U 32GB DDR5 1TB PCIe SSD Intel Graphics.jpg",
+      "title": "MSI Desktop Computer Cubi NUC 1MG-007US Intel Core 7 150U 32GB DDR5 1TB PCIe SSD Intel Graphics",
+      "price": "1,057.99",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tForm Factor: Mini PC\\n -\\tLAN Speed: 2.5Gbps\\n -\\tWLAN: WIFI 6E - AX 211\\n -\\tModel #: Cubi NUC 1MG-007US",
+      "list_anh": [
+        "Products/MSI Desktop Computer Cubi NUC 1MG-007US Intel Core 7 150U 32GB DDR5 1TB PCIe SSD Intel Graphics_0.jpg",
+        "Products/MSI Desktop Computer Cubi NUC 1MG-007US Intel Core 7 150U 32GB DDR5 1TB PCIe SSD Intel Graphics_1.jpg",
+        "Products/MSI Desktop Computer Cubi NUC 1MG-007US Intel Core 7 150U 32GB DDR5 1TB PCIe SSD Intel Graphics_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "317",
+      "image": "Products/MSI Desktop Computer Cubi NUC 1MG-015US Intel Core 7 150U 32GB DDR5 1TB PCIe SSD Intel Graphics.jpg",
+      "title": "MSI Desktop Computer Cubi NUC 1MG-015US Intel Core 7 150U 32GB DDR5 1TB PCIe SSD Intel Graphics",
+      "price": "1,029.00",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tForm Factor: Mini PC\\n -\\tLAN Speed: 2.5Gbps\\n -\\tWLAN: WIFI 6E - AX 211\\n -\\tModel #: Cubi NUC 1MG-015US",
+      "list_anh": [
+        "Products/MSI Desktop Computer Cubi NUC 1MG-015US Intel Core 7 150U 32GB DDR5 1TB PCIe SSD Intel Graphics_0.jpg",
+        "Products/MSI Desktop Computer Cubi NUC 1MG-015US Intel Core 7 150U 32GB DDR5 1TB PCIe SSD Intel Graphics_1.jpg",
+        "Products/MSI Desktop Computer Cubi NUC 1MG-015US Intel Core 7 150U 32GB DDR5 1TB PCIe SSD Intel Graphics_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "318",
+      "image": "Products/HP Elite 600 G9 Desktop PC, Intel Core i7-13700T Upto 4.9GHz, 16GB RAM, 512GB SSD, Windows 11 Pro.jpg",
+      "title": "HP Elite 600 G9 Desktop PC, Intel Core i7-13700T Upto 4.9GHz, 16GB RAM, 512GB SSD, Windows 11 Pro",
+      "price": "1,169.99",
+      "description": "-\\tType: Student / Home Office\\n -\\tLAN Speed: 10/100/1000Mbps\\n -\\tWLAN: 802.11ax Wireless LAN\\n -\\tPart Number: B19XTUA#ABA\\n -\\tModel #: 600G9Mini7-16512nP",
+      "list_anh": [
+        "Products/HP Elite 600 G9 Desktop PC, Intel Core i7-13700T Upto 4.9GHz, 16GB RAM, 512GB SSD, Windows 11 Pro_0.jpg",
+        "Products/HP Elite 600 G9 Desktop PC, Intel Core i7-13700T Upto 4.9GHz, 16GB RAM, 512GB SSD, Windows 11 Pro_1.jpg",
+        "Products/HP Elite 600 G9 Desktop PC, Intel Core i7-13700T Upto 4.9GHz, 16GB RAM, 512GB SSD, Windows 11 Pro_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "319",
+      "image": "Products/MSI Desktop Computer Cubi NUC 1MG-009US Intel Core 5 120U 16GB DDR5 1TB PCIe SSD Intel Graphics.jpg",
+      "title": "MSI Desktop Computer Cubi NUC 1MG-009US Intel Core 5 120U 16GB DDR5 1TB PCIe SSD Intel Graphics",
+      "price": "729.99",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tForm Factor: Mini PC\\n -\\tLAN Speed: 2.5Gbps\\n -\\tWLAN: WIFI 6E - AX 211\\n -\\tModel #: Cubi NUC 1MG-009US",
+      "list_anh": [
+        "Products/MSI Desktop Computer Cubi NUC 1MG-009US Intel Core 5 120U 16GB DDR5 1TB PCIe SSD Intel Graphics_0.jpg",
+        "Products/MSI Desktop Computer Cubi NUC 1MG-009US Intel Core 5 120U 16GB DDR5 1TB PCIe SSD Intel Graphics_1.jpg",
+        "Products/MSI Desktop Computer Cubi NUC 1MG-009US Intel Core 5 120U 16GB DDR5 1TB PCIe SSD Intel Graphics_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "320",
+      "image": "Products/Lenovo ThinkCentre Neo 50a Business All-in-One, 23.8 inch FHD Anti-Glare Display, Intel Core.jpg",
+      "title": "Lenovo ThinkCentre Neo 50a Business All-in-One, 23.8 inch FHD Anti-Glare Display, Intel Core",
+      "price": "859.00",
+      "description": "-\\tType: All-in-One PC\\n -\\tMonitor: Monitor included\\n -\\tMemory Spec: 32 GB x 1\\n -\\tScreen Size: 23.8inch\\n -\\tModel #: THINKCENTRE7039_CTO_N1-C",
+      "list_anh": [
+        "Products/Lenovo ThinkCentre Neo 50a Business All-in-One, 23.8 inch FHD Anti-Glare Display, Intel Core_0.jpg",
+        "Products/Lenovo ThinkCentre Neo 50a Business All-in-One, 23.8 inch FHD Anti-Glare Display, Intel Core_1.jpg",
+        "Products/Lenovo ThinkCentre Neo 50a Business All-in-One, 23.8 inch FHD Anti-Glare Display, Intel Core_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "321",
+      "image": "Products/MSI Desktop Computer Cubi 5 12M-202US Intel Core i5-1235U 16GB DDR4 500GB PCIe SSD Intel Iris Xe.jpg",
+      "title": "MSI Desktop Computer Cubi 5 12M-202US Intel Core i5-1235U 16GB DDR4 500GB PCIe SSD Intel Iris Xe",
+      "price": "599.00",
+      "description": "-\\tType: Nettop Computer\\n -\\tForm Factor: Mini PC\\n -\\tWLAN: WIFI 6E - AX 211\\n -\\tUsage: Consumer\\n -\\tModel #: Cubi 5 12M-202US",
+      "list_anh": [
+        "Products/MSI Desktop Computer Cubi 5 12M-202US Intel Core i5-1235U 16GB DDR4 500GB PCIe SSD Intel Iris Xe_0.jpg",
+        "Products/MSI Desktop Computer Cubi 5 12M-202US Intel Core i5-1235U 16GB DDR4 500GB PCIe SSD Intel Iris Xe_1.jpg",
+        "Products/MSI Desktop Computer Cubi 5 12M-202US Intel Core i5-1235U 16GB DDR4 500GB PCIe SSD Intel Iris Xe_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "322",
+      "image": "Products/MSI Desktop Computer Cubi N ADL-005US Intel N200 4GB DDR4 128 GB M.2 SATA SSD Intel UHD Graphics.jpg",
+      "title": "MSI Desktop Computer Cubi N ADL-005US Intel N200 4GB DDR4 128 GB M.2 SATA SSD Intel UHD Graphics",
+      "price": "340.18",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tForm Factor: Ultra Small\\n -\\tLAN Speed: 10/100/1000Mbps\\n -\\tWLAN: AC3168\\n -\\tModel #: Cubi N ADL-005US",
+      "list_anh": [
+        "Products/MSI Desktop Computer Cubi N ADL-005US Intel N200 4GB DDR4 128 GB M.2 SATA SSD Intel UHD Graphics_0.jpg",
+        "Products/MSI Desktop Computer Cubi N ADL-005US Intel N200 4GB DDR4 128 GB M.2 SATA SSD Intel UHD Graphics_1.jpg",
+        "Products/MSI Desktop Computer Cubi N ADL-005US Intel N200 4GB DDR4 128 GB M.2 SATA SSD Intel UHD Graphics_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "323",
+      "image": "Products/HP Business Desktop EliteDesk 800 G4-MINI Intel Core i5-8500T 16GB DDR4 256GB SSD Intel UHD.jpg",
+      "title": "HP Business Desktop EliteDesk 800 G4-MINI Intel Core i5-8500T 16GB DDR4 256GB SSD Intel UHD",
+      "price": "179.92",
+      "description": "-\\tForm Factor: Mini PC\\n -\\tType: Business Desktops &amp; Workstations\\n -\\tUsage: Business\\n -\\tProcessor: Intel Core i5-8500T 2.10 GHz\\n -\\tModel #: NE1-22249",
+      "list_anh": [
+        "Products/HP Business Desktop EliteDesk 800 G4-MINI Intel Core i5-8500T 16GB DDR4 256GB SSD Intel UHD_0.jpg",
+        "Products/HP Business Desktop EliteDesk 800 G4-MINI Intel Core i5-8500T 16GB DDR4 256GB SSD Intel UHD_1.jpg",
+        "Products/HP Business Desktop EliteDesk 800 G4-MINI Intel Core i5-8500T 16GB DDR4 256GB SSD Intel UHD_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "324",
+      "image": "Products/Machcreator Business Mini Desktop, AMD 12-Core Ryzen 9 7940HS, AMD Ryzen AI with Radeon 780M, 64GB.jpg",
+      "title": "Machcreator Business Mini Desktop, AMD 12-Core Ryzen 9 7940HS, AMD Ryzen AI with Radeon 780M, 64GB",
+      "price": "669.00",
+      "description": "-\\tType: Desktop PC\\n -\\tOperating System: Windows 11 Pro\\n -\\tModel #: MACHCREATOR6338_CTO_N1-E",
+      "list_anh": [
+        "Products/Machcreator Business Mini Desktop, AMD 12-Core Ryzen 9 7940HS, AMD Ryzen AI with Radeon 780M, 64GB_0.jpg",
+        "Products/Machcreator Business Mini Desktop, AMD 12-Core Ryzen 9 7940HS, AMD Ryzen AI with Radeon 780M, 64GB_1.jpg",
+        "Products/Machcreator Business Mini Desktop, AMD 12-Core Ryzen 9 7940HS, AMD Ryzen AI with Radeon 780M, 64GB_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "325",
+      "image": "Products/DELL Business Desktop OptiPlex 3060-SFF Intel Core i5-8500 16GB DDR4 500 GB M.2 NVMe SSD Intel UHD.jpg",
+      "title": "DELL Business Desktop OptiPlex 3060-SFF Intel Core i5-8500 16GB DDR4 500 GB M.2 NVMe SSD Intel UHD",
+      "price": "205.00",
+      "description": "-\\tForm Factor: Slim/Small Form Factor\\n -\\tType: Business Desktops &amp; Workstations\\n -\\tUsage: Business\\n -\\tProcessor: Intel Core i5-8500 3.00 GHz\\n -\\tModel #: NE1-22208",
+      "list_anh": [
+        "Products/DELL Business Desktop OptiPlex 3060-SFF Intel Core i5-8500 16GB DDR4 500 GB M.2 NVMe SSD Intel UHD_0.jpg",
+        "Products/DELL Business Desktop OptiPlex 3060-SFF Intel Core i5-8500 16GB DDR4 500 GB M.2 NVMe SSD Intel UHD_1.jpg",
+        "Products/DELL Business Desktop OptiPlex 3060-SFF Intel Core i5-8500 16GB DDR4 500 GB M.2 NVMe SSD Intel UHD_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "326",
+      "image": "Products/MSI Desktop Computer PRO DP20ZA 5M-223US AMD Ryzen 7 5700G 16GB DDR4 500GB PCIe SSD AMD Radeon.jpg",
+      "title": "MSI Desktop Computer PRO DP20ZA 5M-223US AMD Ryzen 7 5700G 16GB DDR4 500GB PCIe SSD AMD Radeon",
+      "price": "749.00",
+      "description": "-\\tType: Student / Home Office\\n -\\tForm Factor: Micro Form Factor\\n -\\tLAN Speed: 10/100/1000Mbps\\n -\\tWLAN: WiFi 5 (802.11ac) 433Mbps\\nDual Band 2.4GHz, 5GHz\\n -\\tModel #: PRO DP20ZA 5M-223US",
+      "list_anh": [
+        "Products/MSI Desktop Computer PRO DP20ZA 5M-223US AMD Ryzen 7 5700G 16GB DDR4 500GB PCIe SSD AMD Radeon_0.jpg",
+        "Products/MSI Desktop Computer PRO DP20ZA 5M-223US AMD Ryzen 7 5700G 16GB DDR4 500GB PCIe SSD AMD Radeon_1.jpg",
+        "Products/MSI Desktop Computer PRO DP20ZA 5M-223US AMD Ryzen 7 5700G 16GB DDR4 500GB PCIe SSD AMD Radeon_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "327",
+      "image": "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - Radeon RX 7900 XTX - 32GB DDR5 6000MHz - 2TB M.2.jpg",
+      "title": "Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - Radeon RX 7900 XTX - 32GB DDR5 6000MHz - 2TB M.2",
+      "price": "2,899.99",
+      "description": "-\\tPower Supply: Cooler Master MWE 850W Gold\\n -\\tDimensions (H x W x D): 19.7 inch x 8.3 inch x 19.7 inch\\n -\\tGraphics: AMD Radeon RX 7900 XTX\\n -\\tType: Gaming &amp; Entertainment\\n -\\tModel #: AYG-M6C7-AAHGIA32-N2",
+      "list_anh": [
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - Radeon RX 7900 XTX - 32GB DDR5 6000MHz - 2TB M.2_0.jpg",
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - Radeon RX 7900 XTX - 32GB DDR5 6000MHz - 2TB M.2_1.jpg",
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - Radeon RX 7900 XTX - 32GB DDR5 6000MHz - 2TB M.2_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "328",
+      "image": "Products/HP Business Desktop EliteDesk 800 G4-MINI Intel Core i5-8500T 16GB DDR4 512GB SSD Intel UHD.jpg",
+      "title": "HP Business Desktop EliteDesk 800 G4-MINI Intel Core i5-8500T 16GB DDR4 512GB SSD Intel UHD",
+      "price": "199.99",
+      "description": "-\\tForm Factor: Mini PC\\n -\\tType: Business Desktops &amp; Workstations\\n -\\tUsage: Business\\n -\\tProcessor: Intel Core i5-8500T 2.10 GHz\\n -\\tModel #: NE1-22349",
+      "list_anh": [
+        "Products/HP Business Desktop EliteDesk 800 G4-MINI Intel Core i5-8500T 16GB DDR4 512GB SSD Intel UHD_0.jpg",
+        "Products/HP Business Desktop EliteDesk 800 G4-MINI Intel Core i5-8500T 16GB DDR4 512GB SSD Intel UHD_1.jpg",
+        "Products/HP Business Desktop EliteDesk 800 G4-MINI Intel Core i5-8500T 16GB DDR4 512GB SSD Intel UHD_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "329",
+      "image": "Products/Yeyian Yumi Gaming PC, Intel Core i5-13400F, GeForce RTX 4060 - AI Accelerated, 32GB DDR5 5600MHz.jpg",
+      "title": "Yeyian Yumi Gaming PC, Intel Core i5-13400F, GeForce RTX 4060 - AI Accelerated, 32GB DDR5 5600MHz",
+      "price": "1,049.99",
+      "description": "-\\tPower Supply: YEYIAN 650W 80+ Gold\\n -\\tWiFi Generation: Wi-Fi 6\\n -\\tGraphics: GeForce RTX 4060 (ASUS) - AI Accelereted\\n -\\tType: Gaming &amp; Entertainment\\n -\\tModel #: YPI-YU34F0C-4601N",
+      "list_anh": [
+        "Products/Yeyian Yumi Gaming PC, Intel Core i5-13400F, GeForce RTX 4060 - AI Accelerated, 32GB DDR5 5600MHz_0.jpg",
+        "Products/Yeyian Yumi Gaming PC, Intel Core i5-13400F, GeForce RTX 4060 - AI Accelerated, 32GB DDR5 5600MHz_1.jpg",
+        "Products/Yeyian Yumi Gaming PC, Intel Core i5-13400F, GeForce RTX 4060 - AI Accelerated, 32GB DDR5 5600MHz_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "330",
+      "image": "Products/MSI Desktop Computer PRO DP21 13M-498US Intel Core i3-13100 8GB DDR4 500GB PCIe SSD Intel UHD.jpg",
+      "title": "MSI Desktop Computer PRO DP21 13M-498US Intel Core i3-13100 8GB DDR4 500GB PCIe SSD Intel UHD",
+      "price": "549.00",
+      "description": "-\\tType: Student / Home Office\\n -\\tLAN Speed: 10/100/1000Mbps\\n -\\tWLAN: 802.11ac Wireless LAN\\n -\\tUsage: Consumer\\n -\\tModel #: PRO DP21 13M-498US",
+      "list_anh": [
+        "Products/MSI Desktop Computer PRO DP21 13M-498US Intel Core i3-13100 8GB DDR4 500GB PCIe SSD Intel UHD_0.jpg",
+        "Products/MSI Desktop Computer PRO DP21 13M-498US Intel Core i3-13100 8GB DDR4 500GB PCIe SSD Intel UHD_1.jpg",
+        "Products/MSI Desktop Computer PRO DP21 13M-498US Intel Core i3-13100 8GB DDR4 500GB PCIe SSD Intel UHD_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "331",
+      "image": "Products/MSI Desktop Computer PRO DP10 13M-059US Intel Core i5-1340P 8GB DDR4 1TB PCIe SSD Intel Iris Xe.jpg",
+      "title": "MSI Desktop Computer PRO DP10 13M-059US Intel Core i5-1340P 8GB DDR4 1TB PCIe SSD Intel Iris Xe",
+      "price": "999.00",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tLAN Speed: 2.5Gbps\\n -\\tWLAN: WIFI 6E - AX 211\\n -\\tUsage: Business\\n -\\tModel #: PRO DP10 13M-059US",
+      "list_anh": [
+        "Products/MSI Desktop Computer PRO DP10 13M-059US Intel Core i5-1340P 8GB DDR4 1TB PCIe SSD Intel Iris Xe_0.jpg",
+        "Products/MSI Desktop Computer PRO DP10 13M-059US Intel Core i5-1340P 8GB DDR4 1TB PCIe SSD Intel Iris Xe_1.jpg",
+        "Products/MSI Desktop Computer PRO DP10 13M-059US Intel Core i5-1340P 8GB DDR4 1TB PCIe SSD Intel Iris Xe_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "332",
+      "image": "Products/Dell OptiPlex 7020 Desktop Computer - Intel Core i5 14th Gen i5-14500T - 16 GB - 256 GB SSD .jpg",
+      "title": "Dell OptiPlex 7020 Desktop Computer - Intel Core i5 14th Gen i5-14500T - 16 GB - 256 GB SSD ",
+      "price": "766.28",
+      "description": "-\\tType: Student / Home Office\\n -\\tForm Factor: Tiny\\n -\\tProcessor: Intel Core i5 14th Gen i5-14500T\\n -\\tMemory: 16 GB\\n -\\tModel #: 1WRXW",
+      "list_anh": [
+        "Products/Dell OptiPlex 7020 Desktop Computer - Intel Core i5 14th Gen i5-14500T - 16 GB - 256 GB SSD _0.jpg",
+        "Products/Dell OptiPlex 7020 Desktop Computer - Intel Core i5 14th Gen i5-14500T - 16 GB - 256 GB SSD _1.jpg",
+        "Products/Dell OptiPlex 7020 Desktop Computer - Intel Core i5 14th Gen i5-14500T - 16 GB - 256 GB SSD _2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "333",
+      "image": "Products/ABS Cyclone Aqua Gaming PC Powered by Asus - Windows 11 - Intel i5 13400F - GeForce RTX 4060 8GB .jpg",
+      "title": "ABS Cyclone Aqua Gaming PC Powered by Asus - Windows 11 - Intel i5 13400F - GeForce RTX 4060 8GB ",
+      "price": "899.99",
+      "description": "-\\tPower Supply: ABS 650W 80+ Gold\\n -\\tDimensions (H x W x D): 415mm x 200mm x 320.5mm\\n -\\tGraphics: Asus Dual RTX 4060 with support for DLSS 3 - AI-Powered Performance\\n -\\tType: Gaming &amp; Entertainment\\n -\\tModel #: CA13400F40602",
+      "list_anh": [
+        "Products/ABS Cyclone Aqua Gaming PC Powered by Asus - Windows 11 - Intel i5 13400F - GeForce RTX 4060 8GB _0.jpg",
+        "Products/ABS Cyclone Aqua Gaming PC Powered by Asus - Windows 11 - Intel i5 13400F - GeForce RTX 4060 8GB _1.jpg",
+        "Products/ABS Cyclone Aqua Gaming PC Powered by Asus - Windows 11 - Intel i5 13400F - GeForce RTX 4060 8GB _2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "334",
+      "image": "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - Radeon RX 7800 XT - 32GB DDR5 6000MHz - 2TB M.2.jpg",
+      "title": "Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - Radeon RX 7800 XT - 32GB DDR5 6000MHz - 2TB M.2",
+      "price": "2,199.99",
+      "description": "-\\tPower Supply: Cooler Master MWE 750W Gold\\n -\\tDimensions (H x W x D): 19.7 inch x 8.3 inch x 19.7 inch\\n -\\tGraphics: AMD Radeon RX 7800 XT\\n -\\tType: Gaming &amp; Entertainment\\n -\\tModel #: AYG-M6C7-AAIGIA32-N1",
+      "list_anh": [
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - Radeon RX 7800 XT - 32GB DDR5 6000MHz - 2TB M.2_0.jpg",
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - Radeon RX 7800 XT - 32GB DDR5 6000MHz - 2TB M.2_1.jpg",
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - Radeon RX 7800 XT - 32GB DDR5 6000MHz - 2TB M.2_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "335",
+      "image": "Products/Yeyian Yumi Gaming Desktop, Intel Core i5-14400F, RTX 4060 – AI Integrated, 32GB DDR5 6000MHz RGB.jpg",
+      "title": "Yeyian Yumi Gaming Desktop, Intel Core i5-14400F, RTX 4060 – AI Integrated, 32GB DDR5 6000MHz RGB",
+      "price": "899.99",
+      "description": "-\\tPower Supply: YEYIAN 650W 80+ Gold\\n -\\tWiFi Generation: Wi-Fi 6\\n -\\tGraphics: NVIDIA GeForce RTX 4060\\n -\\tType: Gaming &amp; Entertainment\\n -\\tModel #: YPI-YU44F0C-4602N",
+      "list_anh": [
+        "Products/Yeyian Yumi Gaming Desktop, Intel Core i5-14400F, RTX 4060 – AI Integrated, 32GB DDR5 6000MHz RGB_0.jpg",
+        "Products/Yeyian Yumi Gaming Desktop, Intel Core i5-14400F, RTX 4060 – AI Integrated, 32GB DDR5 6000MHz RGB_1.jpg",
+        "Products/Yeyian Yumi Gaming Desktop, Intel Core i5-14400F, RTX 4060 – AI Integrated, 32GB DDR5 6000MHz RGB_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "336",
+      "image": "Products/Mini PC Windows 11 GK41 Mini Desktop Computers 8GB DDR4 256GB SSD Intel Celeron J4125 Processor.jpg",
+      "title": "Mini PC Windows 11 GK41 Mini Desktop Computers 8GB DDR4 256GB SSD Intel Celeron J4125 Processor",
+      "price": "132.00",
+      "description": "-\\tType: Desktop PC\\n -\\tMonitor: N/A\\n -\\tScreen Size: 0inch\\n -\\tModel #: GK410",
+      "list_anh": [
+        "Products/Mini PC Windows 11 GK41 Mini Desktop Computers 8GB DDR4 256GB SSD Intel Celeron J4125 Processor_0.jpg",
+        "Products/Mini PC Windows 11 GK41 Mini Desktop Computers 8GB DDR4 256GB SSD Intel Celeron J4125 Processor_1.jpg",
+        "Products/Mini PC Windows 11 GK41 Mini Desktop Computers 8GB DDR4 256GB SSD Intel Celeron J4125 Processor_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "337",
+      "image": "Products/MSI Codex R2 Gaming PC, Intel Core i5-14400F, GeForce RTX 4060, 32GB DDR5, 2 TB PCIe SSD, Windows.jpg",
+      "title": "MSI Codex R2 Gaming PC, Intel Core i5-14400F, GeForce RTX 4060, 32GB DDR5, 2 TB PCIe SSD, Windows",
+      "price": "1,099.00",
+      "description": "-\\tPower Supply: 650W 80+ Gold\\n -\\tLAN Speed: 2.5Gbps\\n -\\tWiFi Generation: Wi-Fi 7\\n -\\tDimensions (H x W x D): 16.00inch x 8.38inch x 19.00inch\\n -\\tModel #: Codex R2 B14NUC5-212US",
+      "list_anh": [
+        "Products/MSI Codex R2 Gaming PC, Intel Core i5-14400F, GeForce RTX 4060, 32GB DDR5, 2 TB PCIe SSD, Windows_0.jpg",
+        "Products/MSI Codex R2 Gaming PC, Intel Core i5-14400F, GeForce RTX 4060, 32GB DDR5, 2 TB PCIe SSD, Windows_1.jpg",
+        "Products/MSI Codex R2 Gaming PC, Intel Core i5-14400F, GeForce RTX 4060, 32GB DDR5, 2 TB PCIe SSD, Windows_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "338",
+      "image": "Products/MSI Desktop Computer Cubi 5 12M-266US Intel Core i3-1215U 8GB DDR4 1TB PCIe SSD Intel UHD Graphics.jpg",
+      "title": "MSI Desktop Computer Cubi 5 12M-266US Intel Core i3-1215U 8GB DDR4 1TB PCIe SSD Intel UHD Graphics",
+      "price": "596.99",
+      "description": "-\\tType: Business Desktops &amp; Workstations\\n -\\tForm Factor: Mini PC\\n -\\tLAN Speed: 2.5Gbps + 1Gbps\\n -\\tWLAN: WIFI 6E - AX 211\\n -\\tModel #: Cubi 5 12M-266US",
+      "list_anh": [
+        "Products/MSI Desktop Computer Cubi 5 12M-266US Intel Core i3-1215U 8GB DDR4 1TB PCIe SSD Intel UHD Graphics_0.jpg",
+        "Products/MSI Desktop Computer Cubi 5 12M-266US Intel Core i3-1215U 8GB DDR4 1TB PCIe SSD Intel UHD Graphics_1.jpg",
+        "Products/MSI Desktop Computer Cubi 5 12M-266US Intel Core i3-1215U 8GB DDR4 1TB PCIe SSD Intel UHD Graphics_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "339",
+      "image": "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - Radeon RX 7900 XT - 32GB DDR5 6000MHz - 2TB M.2.jpg",
+      "title": "Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - Radeon RX 7900 XT - 32GB DDR5 6000MHz - 2TB M.2",
+      "price": "2,699.99",
+      "description": "-\\tPower Supply: Cooler Master MWE 850W Gold\\n -\\tDimensions (H x W x D): 19.7 inch x 8.3 inch x 19.7 inch\\n -\\tGraphics: AMD Radeon RX 7900 XT\\n -\\tType: Gaming &amp; Entertainment\\n -\\tModel #: AYG-M6C7-AAHGIA32-N1",
+      "list_anh": [
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - Radeon RX 7900 XT - 32GB DDR5 6000MHz - 2TB M.2_0.jpg",
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - Radeon RX 7900 XT - 32GB DDR5 6000MHz - 2TB M.2_1.jpg",
+        "Products/Cooler Master TD5 Pro - Intel Core Ultra 7-265KF - Radeon RX 7900 XT - 32GB DDR5 6000MHz - 2TB M.2_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "340",
+      "image": "Products/MSI Desktop Computer PRO DP21 13M-499US Intel Core i7-13700 8GB DDR4 500GB PCIe SSD Intel UHD.jpg",
+      "title": "MSI Desktop Computer PRO DP21 13M-499US Intel Core i7-13700 8GB DDR4 500GB PCIe SSD Intel UHD",
+      "price": "849.99",
+      "description": "-\\tType: Student / Home Office\\n -\\tLAN Speed: 10/100/1000Mbps\\n -\\tWLAN: 802.11ax Wireless LAN\\n -\\tUsage: Consumer\\n -\\tModel #: PRO DP21 13M-499US",
+      "list_anh": [
+        "Products/MSI Desktop Computer PRO DP21 13M-499US Intel Core i7-13700 8GB DDR4 500GB PCIe SSD Intel UHD_0.jpg",
+        "Products/MSI Desktop Computer PRO DP21 13M-499US Intel Core i7-13700 8GB DDR4 500GB PCIe SSD Intel UHD_1.jpg",
+        "Products/MSI Desktop Computer PRO DP21 13M-499US Intel Core i7-13700 8GB DDR4 500GB PCIe SSD Intel UHD_2.jpg"
+      ],
+      "category": "PC"
+    },
+    {
+      "id": "341",
+      "image": "Products/SUPERMICRO GPU-CAD 3D Design Workstation, AMD Threadripper PRO 5975WX 32-Core-64-Thread - 960GB.jpg",
+      "title": "SUPERMICRO GPU-CAD 3D Design Workstation, AMD Threadripper PRO 5975WX 32-Core-64-Thread - 960GB",
+      "price": "12,999.99",
+      "description": "-\\tCPU Socket: Socket SP3\\n -\\tCache Memory: 128 MB L3 Cache\\n -\\tMAX Processors: 1\\n -\\tMemory Features: 4 x 32GB DDR4 3200 2Rx8 RDIMM\\n -\\tModel #: AS-5014A-TT-575-12829",
+      "list_anh": [
+        "Products/SUPERMICRO GPU-CAD 3D Design Workstation, AMD Threadripper PRO 5975WX 32-Core-64-Thread - 960GB_0.jpg",
+        "Products/SUPERMICRO GPU-CAD 3D Design Workstation, AMD Threadripper PRO 5975WX 32-Core-64-Thread - 960GB_1.jpg",
+        "Products/SUPERMICRO GPU-CAD 3D Design Workstation, AMD Threadripper PRO 5975WX 32-Core-64-Thread - 960GB_2.jpg"
+      ],
+      "category": "PC"
     }
   ]
 }

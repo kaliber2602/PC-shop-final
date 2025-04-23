@@ -1,154 +1,68 @@
-import React from 'react';
-import { Line, Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, PointElement, LineElement } from 'chart.js';
+import React, { useState } from 'react';
 import Menu from "./Menu";
-
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    LineElement, 
-    PointElement, 
-    Title,
-    Tooltip,
-    Legend
-);
+import AccountManagement from "./AccountManagement";
+import RevenueManagement from "./RevenueManagement";
+import ProductList from "./ProductList";
+import OrderManagement from "./OrderManagement";
+import UserProfile from "./UserProfile";
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 const Dashboard = () => {
-    const lineChartData = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [
-            {
-                label: 'Revenue',
-                data: [20, 30, 40, 50, 60, 40, 30],  
-                fill: false,
-                borderColor: '#42A5F5',
-                tension: 0.1,
-            },
-        ],
-    };
+    const [selectedOption, setSelectedOption] = useState("Account Management");
 
-    const barChartData = {
-        labels: ['Product A', 'Product B', 'Product C', 'Product D', 'Product E'],
-        datasets: [
-            {
-                label: 'Sales',
-                data: [2, 3, 1, 5, 4],  
-                backgroundColor: '#FF7043',
-                borderColor: '#FF7043',
-                borderWidth: 1,
-            },
-        ],
-    };
+    // Mock data for Account Management
+    const accounts = [
+        { id: 1, name: "Admin1", email: "admin1@example.com", role: "Admin", status: "Active" },
+        { id: 2, name: "User1", email: "user1@example.com", role: "User", status: "Inactive" },
+    ];
 
-    const lineChartData2 = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [
-            {
-                label: 'Profit',
-                data: [10, 20, 30, 40, 50, 60, 70],  
-                fill: false,
-                borderColor: '#FF6347',
-                tension: 0.1,
-            },
-        ],
-    };
+    const accountColumns = [
+        { name: "Name", selector: row => row.name, sortable: true },
+        { name: "Email", selector: row => row.email, sortable: true },
+        { name: "Role", selector: row => row.role, sortable: true },
+        { name: "Status", selector: row => row.status, sortable: true },
+    ];
 
-    const barChartData2 = {
-        labels: ['Category A', 'Category B', 'Category C', 'Category D', 'Category E'],
-        datasets: [
-            {
-                label: 'Expenses',
-                data: [5, 4, 6, 3, 7],  
-                backgroundColor: '#66BB6A',
-                borderColor: '#66BB6A',
-                borderWidth: 1,
-            },
-        ],
+    // Mock data for Revenue Management
+    const revenueData = [
+        { month: "January", revenue: "$5000" },
+        { month: "February", revenue: "$7000" },
+    ];
+
+    const revenueColumns = [
+        { name: "Month", selector: row => row.month, sortable: true },
+        { name: "Revenue", selector: row => row.revenue, sortable: true },
+    ];
+
+    // Function to render content based on the selected menu option
+    const renderContent = () => {
+        switch (selectedOption) {
+            case "Account Management":
+                return <AccountManagement accounts={accounts} accountColumns={accountColumns} />;
+            case "Revenue Management":
+                return <RevenueManagement revenueData={revenueData} revenueColumns={revenueColumns} />;
+            case "Product List":
+                return <ProductList />;
+            case "Order Management":
+                return <OrderManagement />;
+            case "User Profile":
+                return <UserProfile />;
+            default:
+                return <h2>Welcome to the Admin Dashboard</h2>;
+        }
     };
 
     return (
-        <div className="dashboard-container container">
-            <div className="dashboard-body row">
-                <div className='col-4'>
-                    <Menu />
+        <div className="container-fluid overflow-hidden mt-3">
+            <div className="row">
+                {/* Menu Container */}
+                <div className="col-md-4 col-lg-4 col-xl-4 col-sm-4">
+                    <Menu onSelectOption={setSelectedOption} />
                 </div>
-                <div className='col-8'>
-                    <div className="dashboard-content">
-                        <div className="dashboard-cards">
-                            <div className="dashboard-card">
-                                <h3>Revenue Chart</h3>
-                                <div className="chart-container">
-                                    <Line
-                                        data={lineChartData}
-                                        options={{
-                                            responsive: true,
-                                            maintainAspectRatio: false,
-                                            plugins: {
-                                                legend: {
-                                                    display: true,
-                                                },
-                                            },
-                                        }}
-                                    />
-                                </div>
-                            </div>
 
-                            <div className="dashboard-card">
-                                <h3>Sales by Product</h3>
-                                <div className="chart-container">
-                                    <Bar
-                                        data={barChartData}
-                                        options={{
-                                            responsive: true,
-                                            maintainAspectRatio: false,
-                                            plugins: {
-                                                legend: {
-                                                    display: true,
-                                                },
-                                            },
-                                        }}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="dashboard-card">
-                                <h3>Profit Chart</h3>
-                                <div className="chart-container">
-                                    <Line
-                                        data={lineChartData2}
-                                        options={{
-                                            responsive: true,
-                                            maintainAspectRatio: false,
-                                            plugins: {
-                                                legend: {
-                                                    display: true,
-                                                },
-                                            },
-                                        }}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="dashboard-card">
-                                <h3>Expenses by Category</h3>
-                                <div className="chart-container">
-                                    <Bar
-                                        data={barChartData2}
-                                        options={{
-                                            responsive: true,
-                                            maintainAspectRatio: false,
-                                            plugins: {
-                                                legend: {
-                                                    display: true,
-                                                },
-                                            },
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                {/* Content Container */}
+                <div className="col-md-8 col-lg-8 col-xl-8  col-sm-8">
+                    {renderContent()}
                 </div>
             </div>
         </div>

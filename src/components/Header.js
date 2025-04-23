@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import logo from "./Logo.png"
-import "./Header.css"
+import logo from "./Logo.png";
+import "./Header.css";
+
 export default function Header({ isLoggedIn, setIsLoggedIn }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
+  const [visibleResults, setVisibleResults] = useState(10); // Number of visible results
   const [showOverlay, setShowOverlay] = useState(false);
   const navigate = useNavigate();
 
@@ -45,6 +47,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
         product.title.toLowerCase().includes(query)
       );
       setFilteredResults(results);
+      setVisibleResults(10); // Reset visible results to 10
       setShowOverlay(results.length > 0);
     }
   };
@@ -56,11 +59,19 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
 
   const handleAuthClick = () => {
     if (isLoggedIn) {
-      setIsLoggedIn(false); 
+      setIsLoggedIn(false);
       alert("Log out successfully");
-      navigate("/"); 
+      navigate("/");
     } else {
-      navigate("/Login"); 
+      navigate("/Login");
+    }
+  };
+
+  // Lazy loading: Load more results when scrolling
+  const handleScroll = (e) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.target;
+    if (scrollTop + clientHeight >= scrollHeight - 10) {
+      setVisibleResults((prev) => Math.min(prev + 10, filteredResults.length));
     }
   };
 
@@ -94,10 +105,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
           max-height: 400px;
           overflow-y: auto;
         }
-              `
-      }
-      </style>
-
+      `}</style>
 
       <header
         style={{
@@ -171,8 +179,9 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                       </li>
                       <li className="nav-item">
                         <button
-                          className={`nav-link bg-transparent border-0 ${isLoggedIn ? "text-danger" : ""
-                            }`}
+                          className={`nav-link bg-transparent border-0 ${
+                            isLoggedIn ? "text-danger" : ""
+                          }`}
                           onClick={handleAuthClick}
                         >
                           <b>{isLoggedIn ? "Logout" : "Login"}</b>
@@ -192,9 +201,10 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
           <div
             className="search-results-container"
             onClick={(e) => e.stopPropagation()}
+            onScroll={handleScroll} // Attach scroll event
           >
             <ul className="list-group">
-              {filteredResults.map((item) => (
+              {filteredResults.slice(0, visibleResults).map((item) => (
                 <li
                   key={item.id}
                   className="list-group-item d-flex align-items-center"
