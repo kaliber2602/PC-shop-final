@@ -14,32 +14,22 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
 
   const [products, setProducts] = useState([]);
 
-  async function getProducts() {
-    try {
-      const response = await fetch("http://localhost:3000/products/");
-      const Products = await response.json();
-      const formattedProducts = Products.map((product) => ({
-        id: Number(product.id),
-        image: product.image,
-        title: product.title,
-        price: product.price,
-        description: product.description,
-        list_anh: product.list_anh,
-        category: product.category,
-      }));
-      return formattedProducts;
-    } catch (error) {
-      console.error("Lỗi khi fetch products:", error);
-      return [];
+
+    async function getProducts() {
+        try {
+            // Lấy dữ liệu từ API PHP thay vì từ JSON
+            const response = await fetch("http://localhost/PC-shop-final-main-1/backend/getProducts.php");
+            const fetchedProducts = await response.json();
+            setProducts(fetchedProducts);
+        } catch (error) {
+            console.error("Lỗi khi fetch products:", error);
+        }
     }
-  }
 
-  useEffect(() => {
-    getProducts().then((fetchedProducts) => {
-      setProducts(fetchedProducts);
-    });
-  }, []);
-
+    useEffect(() => {
+        getProducts();
+    }, []);
+    
   const handleSearchClick = () => {
     const query = searchQuery.trim().toLowerCase();
     if (query.length > 0) {
@@ -56,14 +46,17 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
     navigate(`/product-detail/${id}`);
     setShowOverlay(false);
   };
-
+  const logout = () => {
+    localStorage.removeItem("userId"); // Xóa userId khỏi localStorage
+    setIsLoggedIn(false); // Cập nhật trạng thái đăng nhập
+    alert("Log out successfully");
+    navigate("/"); // Chuyển hướng về trang chủ
+  };
   const handleAuthClick = () => {
     if (isLoggedIn) {
-      setIsLoggedIn(false);
-      alert("Log out successfully");
-      navigate("/");
+      logout(); // Gọi hàm logout
     } else {
-      navigate("/Login");
+      navigate("/Login"); // Chuyển hướng đến trang đăng nhập
     }
   };
 

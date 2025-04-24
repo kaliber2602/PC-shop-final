@@ -1,19 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AccountManagement = () => {
-    // Mock data for accounts
-    const [accounts, setAccounts] = useState([
-        { id: 1, name: "Admin1", email: "admin1@example.com", role: true, status: "Active" },
-        { id: 2, name: "User1", email: "user1@example.com", role: false, status: "Inactive" },
-        { id: 3, name: "Admin2", email: "admin2@example.com", role: true, status: "Active" },
-        { id: 4, name: "User2", email: "user2@example.com", role: false, status: "Active" },
-    ]);
+    const [accounts, setAccounts] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
 
-    const [newAccount, setNewAccount] = useState({ name: "", email: "", role: false, status: "Active" });
+    const fetchAccounts = async () => {
+        try {
+            const response = await fetch("http://localhost/PC-shop-final-main-1/backend/getAccounts.php");
+            if (!response.ok) throw new Error("Failed to fetch accounts");
+            const data = await response.json();
+            setAccounts(data);
+        } catch (error) {
+            console.error("Error fetching accounts:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchAccounts();
+    }, []);
+    
+    const [newAccount, setNewAccount] = useState({ first_name: "", last_name: "", email: "", role: false });
     const [editingAccount, setEditingAccount] = useState(null);
     const [accountToDelete, setAccountToDelete] = useState(null); // State for account to delete
-    const [searchQuery, setSearchQuery] = useState(""); // State for search query
+    
 
     // Handle adding a new account
     const handleAddAccount = () => {
@@ -30,22 +40,67 @@ const AccountManagement = () => {
         setEditingAccount(account);
     };
 
-    const handleSaveEdit = () => {
-        setAccounts(accounts.map(acc => acc.id === editingAccount.id ? editingAccount : acc));
-        setEditingAccount(null);
+    const handleSaveEdit = async () => {
+        try {
+            const response = await fetch("http://localhost/PC-shop-final-main-1/backend/updateAccount.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id: editingAccount.id,
+                    first_name: editingAccount.first_name,
+                    last_name: editingAccount.last_name,
+                    email: editingAccount.email,
+                    role: editingAccount.role ? 1 : 0,
+                }),
+            });
+    
+            if (!response.ok) throw new Error("Failed to update account");
+    
+            const result = await response.json();
+            if (result.success) {
+                setAccounts(accounts.map(acc => acc.id === editingAccount.id ? editingAccount : acc));
+                setEditingAccount(null);
+            } else {
+                console.error("Error updating account:", result.error);
+            }
+        } catch (error) {
+            console.error("Error saving changes:", error);
+        }
     };
-
     // Handle deleting an account
-    const handleDeleteAccount = () => {
-        setAccounts(accounts.filter(account => account.id !== accountToDelete.id));
-        setAccountToDelete(null); // Close the delete confirmation modal
+    const handleDeleteAccount = async () => {
+        if (window.confirm(`Are you sure you want to delete the account "${accountToDelete.first_name} ${accountToDelete.last_name}"?`)) {
+            try {
+                const response = await fetch("http://localhost/PC-shop-final-main-1/backend/deleteAccount.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ id: accountToDelete.id }),
+                });
+    
+                const result = await response.json();
+                if (result.success) {
+                    alert("Account deleted successfully!");
+                    setAccounts(accounts.filter(account => account.id !== accountToDelete.id)); // Cập nhật danh sách tài khoản
+                    setAccountToDelete(null); // Đóng modal xác nhận xóa
+                } else {
+                    alert("Failed to delete account: " + result.error);
+                }
+            } catch (error) {
+                console.error("Error deleting account:", error);
+                alert("An error occurred while deleting the account.");
+            }
+        }
     };
 
     // Filter accounts based on search query
     const filteredAccounts = accounts.filter(
         (account) =>
-            account.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            account.email.toLowerCase().includes(searchQuery.toLowerCase())
+            `${account.first_name} ${account.last_name}`.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (account.email && account.email.toLowerCase().includes(searchQuery.toLowerCase()))
     );
 
     return (
@@ -122,21 +177,22 @@ const AccountManagement = () => {
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
+                                <th>First_name</th>
+                                <th>Last_name</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th>Active</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
                             {filteredAccounts.map((account) => (
                                 <tr key={account.id}>
                                     <td>{account.id}</td>
-                                    <td>{account.name}</td>
+                                    <td>{account.first_name}</td> {/* Ô riêng cho First Name */}
+                                    <td>{account.last_name}</td>  {/* Ô riêng cho Last Name */}
                                     <td>{account.email}</td>
                                     <td>{account.role ? "Admin" : "User"}</td>
-                                    <td>{account.status}</td>
                                     <td>
                                         <button
                                             className="btn btn-warning btn-sm me-2 p-3"
@@ -185,44 +241,43 @@ const AccountManagement = () => {
                                         ></button>
                                     </div>
                                     <div className="modal-body">
-                                        <input
-                                            type="text"
-                                            className="form-control mb-2"
-                                            placeholder="Name"
-                                            value={editingAccount.name}
-                                            onChange={(e) =>
-                                                setEditingAccount({ ...editingAccount, name: e.target.value })
-                                            }
-                                        />
-                                        <input
-                                            type="email"
-                                            className="form-control mb-2"
-                                            placeholder="Email"
-                                            value={editingAccount.email}
-                                            onChange={(e) =>
-                                                setEditingAccount({ ...editingAccount, email: e.target.value })
-                                            }
-                                        />
-                                        <select
-                                            className="form-control mb-2"
-                                            value={editingAccount.role}
-                                            onChange={(e) =>
-                                                setEditingAccount({ ...editingAccount, role: e.target.value === "true" })
-                                            }
-                                        >
-                                            <option value="false">User</option>
-                                            <option value="true">Admin</option>
-                                        </select>
-                                        <select
-                                            className="form-control"
-                                            value={editingAccount.status}
-                                            onChange={(e) =>
-                                                setEditingAccount({ ...editingAccount, status: e.target.value })
-                                            }
-                                        >
-                                            <option value="Active">Active</option>
-                                            <option value="Inactive">Inactive</option>
-                                        </select>
+                                    <input
+                                        type="text"
+                                        className="form-control mb-2"
+                                        placeholder="First Name"
+                                        value={editingAccount.first_name}
+                                        onChange={(e) =>
+                                            setEditingAccount({ ...editingAccount, first_name: e.target.value })
+                                        }
+                                    />
+                                    <input
+                                        type="text"
+                                        className="form-control mb-2"
+                                        placeholder="Last Name"
+                                        value={editingAccount.last_name}
+                                        onChange={(e) =>
+                                            setEditingAccount({ ...editingAccount, last_name: e.target.value })
+                                        }
+                                    />
+                                    <input
+                                        type="email"
+                                        className="form-control mb-2"
+                                        placeholder="Email"
+                                        value={editingAccount.email}
+                                        onChange={(e) =>
+                                            setEditingAccount({ ...editingAccount, email: e.target.value })
+                                        }
+                                    />
+                                    <select
+                                        className="form-control mb-2"
+                                        value={editingAccount.role ? "true" : "false"} // Hiển thị giá trị hiện tại
+                                        onChange={(e) =>
+                                            setEditingAccount({ ...editingAccount, role: e.target.value === "true" })
+                                        }
+                                    >
+                                        <option value="false">User</option>
+                                        <option value="true">Admin</option>
+                                    </select>
                                     </div>
                                     <div className="modal-footer">
                                         <button

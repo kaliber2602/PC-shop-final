@@ -26,21 +26,21 @@ const Cart_popup = () => {
   const fetchCartItems = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3000/cartItems?user_id=${userId}`);
-      if (!response.ok) throw new Error("Failed to fetch cart items");
-      const json = await response.json();
-      if (!Array.isArray(json)) {
-        throw new Error("Expected an array of cart items");
-      }
-      setCartItems(json);
-      setError(null);
+        const response = await fetch(`http://localhost/PC-shop-final-main-1/backend/getCartItems.php?user_id=${userId}`);
+        if (!response.ok) throw new Error("Failed to fetch cart items");
+        const json = await response.json();
+        if (!Array.isArray(json.cartItems)) {
+            throw new Error("Expected an array of cart items");
+        }
+        setCartItems(json.cartItems);
+        setError(null);
     } catch (error) {
-      console.error("Error fetching cart items:", error);
-      setError(error.message);
+        console.error("Error fetching cart items:", error);
+        setError(error.message);
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  }, [userId]);
+}, [userId]);
 
   useEffect(() => {
     fetchCartItems();
@@ -67,74 +67,76 @@ const Cart_popup = () => {
     setError(null);
     const newQuantity = record.quantity + 1;
     const updatedItem = {
-      ...record,
-      quantity: newQuantity,
-      totalPrice: parseFloat((record.price * newQuantity).toFixed(2)),
+        ...record,
+        quantity: newQuantity,
+        total_price: parseFloat((record.price * newQuantity).toFixed(2)),
     };
 
     try {
-      const response = await fetch(`http://localhost:3000/cartItems/${record.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedItem),
-      });
-      if (!response.ok) throw new Error("Failed to update quantity");
-      setCartItems(prevItems =>
-        prevItems.map(item => (item.id === record.id ? updatedItem : item))
-      );
+        const response = await fetch(`http://localhost/PC-shop-final-main-1/backend/updateCartItem.php`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedItem),
+        });
+        if (!response.ok) throw new Error("Failed to update quantity");
+        setCartItems(prevItems =>
+            prevItems.map(item => (item.id === record.id ? updatedItem : item))
+        );
     } catch (error) {
-      console.error("Error increasing quantity:", error);
-      setError(error.message);
+        console.error("Error increasing quantity:", error);
+        setError(error.message);
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
+};
+
+const decreaseQuantity = async (record) => {
+  if (record.quantity <= 1) return;
+  setLoading(true);
+  setError(null);
+  const newQuantity = record.quantity - 1;
+  const updatedItem = {
+      ...record,
+      quantity: newQuantity,
+      total_price: parseFloat((record.price * newQuantity).toFixed(2)),
   };
 
-  const decreaseQuantity = async (record) => {
-    if (record.quantity <= 1) return;
-    setLoading(true);
-    setError(null);
-    const newQuantity = record.quantity - 1;
-    const updatedItem = {
-      ...record,
-      quantity: newQuantity,
-      totalPrice: parseFloat((record.price * newQuantity).toFixed(2)),
-    };
-
-    try {
-      const response = await fetch(`http://localhost:3000/cartItems/${record.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updatedItem),
+  try {
+      const response = await fetch(`http://localhost/PC-shop-final-main-1/backend/updateCartItem.php`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedItem),
       });
       if (!response.ok) throw new Error("Failed to update quantity");
       setCartItems(prevItems =>
-        prevItems.map(item => (item.id === record.id ? updatedItem : item))
+          prevItems.map(item => (item.id === record.id ? updatedItem : item))
       );
-    } catch (error) {
+  } catch (error) {
       console.error("Error decreasing quantity:", error);
       setError(error.message);
-    } finally {
+  } finally {
       setLoading(false);
-    }
-  };
+  }
+};
 
-  const removeItem = async (record) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(`http://localhost:3000/cartItems/${record.id}`, {
-        method: "DELETE",
+const removeItem = async (record) => {
+  setLoading(true);
+  setError(null);
+  try {
+      const response = await fetch(`http://localhost/PC-shop-final-main-1/backend/deleteCartItem.php`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: record.id }),
       });
       if (!response.ok) throw new Error("Failed to delete item");
       setCartItems(prevItems => prevItems.filter(item => item.id !== record.id));
-    } catch (error) {
+  } catch (error) {
       console.error("Error deleting item:", error);
       setError(error.message);
-    } finally {
+  } finally {
       setLoading(false);
-    }
-  };
+  }
+};
 
   const columns = [
     {

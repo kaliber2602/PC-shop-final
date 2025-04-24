@@ -10,29 +10,31 @@ const Reset = () => {
   const sendEmail = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     const email = form.current.email.value;
     try {
-      const response = await fetch(`http://localhost:3000/users?email=${email}`);
+      // Gửi yêu cầu đến API PHP để kiểm tra email
+      const response = await fetch(`http://localhost/PC-shop-final-main-1/backend/getUserByEmail.php?email=${email}`);
       if (!response.ok) throw new Error("Failed to fetch user data");
-      const users = await response.json();
-
-      if (users.length === 0) {
+      const data = await response.json();
+  
+      if (!data.success || !data.user) {
         alert("No account found with this email!");
         setLoading(false);
         return;
       }
-      
-      const user = users[0];
+  
+      const user = data.user;
       const password = user.password;
-
+  
+      // Gửi email bằng emailjs
       const templateParams = {
         name: user.user_name,
         email: email,
         password: password,
       };
-
-      emailjs.send(
+  
+      await emailjs.send(
         "service_1no4qpi",
         "template_vo3kk0d",
         templateParams,
@@ -40,7 +42,7 @@ const Reset = () => {
           publicKey: "lOjokhuzil0qZUyCu",
         }
       );
-
+  
       alert("Password has been sent to your email!");
       form.current.reset();
     } catch (error) {

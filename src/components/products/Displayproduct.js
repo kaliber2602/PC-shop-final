@@ -9,31 +9,23 @@ const Displayproduct = ({ selectedCategory, priceFilter, sortOrder }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 20;
 
+  
   async function getProducts() {
     try {
-      const response = await fetch("http://localhost:3000/products/");
-      const Products = await response.json();
-      const formattedProducts = Products.map((product) => ({
-        id: product.id,
-        image: product.image,
-        title: product.title,
-        price: product.price,
-        description: product.description,
-        list_anh: product.list_anh,
-        category: product.category,
-      }));
-      return formattedProducts;
+        // Lấy dữ liệu từ API PHP thay vì từ JSON
+        const response = await fetch("http://localhost/PC-shop-final-main-1/backend/getProducts.php");
+        const fetchedProducts = await response.json();
+        setProducts(fetchedProducts);
     } catch (error) {
-      console.error("Error fetching products:", error);
-      return [];
+        console.error("Lỗi khi fetch products:", error);
     }
-  }
+}
 
-  useEffect(() => {
-    getProducts().then((fetchedProducts) => {
-      setProducts(fetchedProducts);
-    });
-  }, []);
+useEffect(() => {
+    getProducts();
+}, []);
+
+ 
 
   // Filter products by category and price
   let filteredProducts = products

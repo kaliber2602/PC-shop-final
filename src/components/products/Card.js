@@ -10,11 +10,16 @@ const userId = parseInt(localStorage.getItem("userId"), 10) || 1;
 
 // Lấy toàn bộ danh sách cartItems để kiểm tra
 async function getCartItems() {
+  if (!userId) {
+    console.warn("No userId found. Returning an empty cart.");
+    return []; // Nếu không có userId, trả về mảng rỗng
+  }
+
   try {
-    const response = await fetch("http://localhost:3000/cartItems");
+    const response = await fetch(`http://localhost/PC-shop-final-main-1/backend/getCartItems.php?user_id=${userId}`);
     if (!response.ok) throw new Error("Failed to fetch cart items");
-    const cartItems = await response.json();
-    return cartItems;
+    const data = await response.json();
+    return data.cartItems || [];
   } catch (error) {
     console.error("Error fetching cart items:", error);
     return [];
@@ -24,71 +29,85 @@ async function getCartItems() {
   // Lấy ID lớn nhất từ danh sách cartItems
   async function getLastCartItemId() {
     try {
-      const response = await fetch("http://localhost:3000/cartItems");
-      if (!response.ok) throw new Error("Failed to fetch cart items");
-      const cartItems = await response.json();
-      if (cartItems.length === 0) return 0; // Nếu danh sách rỗng, bắt đầu từ 0
-      // Tìm ID lớn nhất (chuyển id về số nếu server trả về chuỗi)
-      const maxId = Math.max(...cartItems.map(item => Number(item.id)));
-      return maxId;
+        const response = await fetch("http://localhost/PC-shop-final-main-1/backend/getLastCartItemId.php");
+        if (!response.ok) throw new Error("Failed to fetch last cart item ID");
+        const data = await response.json();
+        return data.lastId || 0;
     } catch (error) {
-      console.error("Error fetching cart items:", error);
-      return 0;
+        console.error("Error fetching last cart item ID:", error);
+        return 0;
     }
-  }
+}
 
   // Khởi tạo lastCartItemId khi component mount
   useEffect(() => {
+    if (!userId) {
+      console.warn("No userId found. Skipping cart initialization.");
+      return;
+    }
+
     getLastCartItemId().then(id => {
       setLastCartItemId(id);
     });
-  }, []);
+  }, [userId]);
 
   // Gửi dữ liệu lên server
-  async function postData(data) {
-    try {
-      const response = await fetch("http://localhost:3000/cartItems", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) throw new Error("Failed to add to cart");
-      const result = await response.json();
-      console.log("Success:", result);
-      // Cập nhật lastCartItemId dựa trên ID vừa thêm
-      setLastCartItemId(prev => prev + 1);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  }
 
   const addToCart = async (productId, productImage, productTitle, productPrice, quantity) => {
-    const cartItems = await getCartItems();
-
-    const existProduct = cartItems.some(item => Number(item.product_id) === Number(productId));
-
-    if (existProduct) {
-      alert("Already have this item in cart");
+    if (!userId) {
+      alert("Please log in to add items to your cart.");
       return;
     }
-    const lastId = await getLastCartItemId();
-    const newId = lastId + 1;
-    const totalPrice = quantity * parseFloat(productPrice);
-    const data = {
-      id: newId.toString(),
-      user_id: userId.toString(),
-      product_id: productId,
-      image: "/" + productImage,
-      title: productTitle,
-      price: parseFloat(productPrice),
-      quantity: quantity,
-      totalPrice: totalPrice,
-    };
-    await postData(data);
-    
-    alert("Added products to the cart");
+  
+    try {
+      const cartItems = await getCartItems();
+  
+      const existingCartItem = cartItems.find(item => Number(item.product_id) === Number(productId));
+  
+      if (existingCartItem) {
+        const updatedQuantity = existingCartItem.quantity + quantity;
+        const updatedTotalPrice = parseFloat((updatedQuantity * productPrice).toFixed(2));
+  
+        const updateData = {
+          id: existingCartItem.id,
+          quantity: updatedQuantity,
+          total_price: updatedTotalPrice,
+        };
+  
+        const response = await fetch("http://localhost/PC-shop-final-main-1/backend/updateCartItem.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updateData),
+        });
+  
+        if (!response.ok) throw new Error("Failed to update cart item");
+        alert("Updated product quantity in the cart");
+      } else {
+        const totalPrice = parseFloat((quantity * productPrice).toFixed(2));
+        const newData = {
+          user_id: userId,
+          product_id: productId,
+          quantity: quantity,
+          total_price: totalPrice,
+        };
+  
+        const response = await fetch("http://localhost/PC-shop-final-main-1/backend/addToCart.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newData),
+        });
+  
+        if (!response.ok) throw new Error("Failed to add product to cart");
+        alert("Added product to the cart");
+      }
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert("An error occurred while adding the product to the cart.");
+    }
   };
 
   const handleRating = (rate) => console.log("Rated:", rate);

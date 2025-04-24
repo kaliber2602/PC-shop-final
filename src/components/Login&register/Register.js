@@ -24,103 +24,45 @@ const Register = () => {
     gender: "",
   });
 
-  const [lastUserID, setlastUserID] = useState(0);
 
-  // Lấy toàn bộ danh sách users để kiểm tra
-  async function getUsers() {
-    try {
-      const response = await fetch("http://localhost:3000/users");
-      if (!response.ok) throw new Error("Failed to fetch users");
-      const users = await response.json();
-      return users;
-    } catch (error) {
-      console.error("Error fetching users:", error);
-      return [];
-    }
-  }
-
-  // Lấy ID lớn nhất từ danh sách users
-  async function getlastUserID() {
-    try {
-      const response = await fetch("http://localhost:3000/users");
-      if (!response.ok) throw new Error("Failed to fetch users");
-      const users = await response.json();
-      if (users.length === 0) return 0; // Nếu danh sách rỗng, bắt đầu từ 0
-      // Tìm ID lớn nhất (chuyển id về số nếu server trả về chuỗi)
-      const maxId = Math.max(...users.map((item) => Number(item.id)));
-      return maxId;
-    } catch (error) {
-      console.error("Error fetching user:", error);
-      return 0;
-    }
-  }
-
-  // Khởi tạo lastUserID khi component mount
-  useEffect(() => {
-    getlastUserID().then((id) => {
-      setlastUserID(id);
-    });
-  }, []);
-
-  // Gửi dữ liệu lên server
-  async function postData(data) {
-    try {
-      const response = await fetch("http://localhost:3000/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) throw new Error("Failed to add user");
-      const result = await response.json();
-      console.log("Success:", result);
-      setlastUserID((prev) => prev + 1);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  }
 
   const register = async (userName, firstName, lastName, phoneNumber, address, email, password, gender) => {
-    const users = await getUsers();
-
-    const existPhone = users.some(
-      (user) => (user.phone_number) === (phoneNumber)
-    );
-
-    const existEmail = users.some(
-      (user) => (user.email) === (email)
-    );
-
-    if (existPhone) {
-      alert("This phone number has been used");
-      return;
+    try {
+      const response = await fetch("http://localhost/PC-shop-final-main-1/backend/register.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          user_name: userName,
+          first_name: firstName,
+          last_name: lastName,
+          phone_number: phoneNumber,
+          address: address,
+          email: email,
+          password: password,
+          gender: gender
+        }),
+      });
+  
+      const result = await response.json();
+  
+      if (!result.success) {
+        setToast({ type: "danger", message: result.message });
+        return;
+      }
+  
+      setToast({ type: "success", message: result.message || "Đăng ký thành công!" });
+      setTimeout(() => {
+        navigate("/Login");
+      }, 1250);
+    } catch (error) {
+      setToast({ type: "danger", message: "Lỗi kết nối máy chủ!" });
+      console.error("Lỗi khi gửi yêu cầu đăng ký:", error);
     }
-    if (existEmail) {
-      alert("This email has been used");
-      return;
-    }
-    const lastId = await getlastUserID();
-    const newId = lastId + 1;
-    const data = {
-      id: newId.toString(),
-      user_name: userName,
-      first_name: firstName,
-      last_name: lastName,
-      phone_number: phoneNumber,
-      address: address,
-      email: email,
-      password: password,
-      gender: gender,
-      admin: false
-    };
-    await postData(data);
-
-    setToast({ type: "success", message: "Registration successful!" });
-    setTimeout(() => {
-      navigate("/Login");
-    }, 1250);
   };
+  
+  
 
   const handleToastClose = () => {
     setToast(null);
@@ -223,22 +165,17 @@ const Register = () => {
       });
       return;
     }
-
-
-    //add
-    const Username = document.getElementById("userName").value;
-    const firstName = document.getElementById("firstName").value;
-    const lastName = document.getElementById("lastName").value;
-    const phoneNumber = document.getElementById("phoneNumber").value;
-    const address = document.getElementById("address").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    // const gender = document.getElementById("gender").value;
-    const gender = document.querySelector('input[name="gender"]:checked').value;
-
-
-    register(Username, firstName, lastName, phoneNumber, address, email, password, gender);
-
+    register(
+      formData.userName,
+      formData.firstName,
+      formData.lastName,
+      formData.phoneNumber,
+      formData.address,
+      formData.email,
+      formData.password,
+      formData.gender
+    );
+    
   };
 
   return (
@@ -393,7 +330,7 @@ const Register = () => {
           </div>
         </form>
 
-
+       
       </div>
       {/* Toast Message Call */}
       <div id="toast">

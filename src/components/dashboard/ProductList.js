@@ -1,24 +1,9 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useDropzone } from 'react-dropzone';
+import React, { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useDropzone } from "react-dropzone";
 
 const ProductList = () => {
-    const [products, setProducts] = useState([
-        {
-            id: "1",
-            image: "Products/ProMounts Large Universal Tabletop TV Brackets (VESA 800x400) AMSF6401-02.jpg",
-            title: "ProMounts Large Universal Tabletop TV Brackets (VESA 800x400) AMSF6401-02",
-            price: "50.99",
-            description: "ProMounts Tabletop TV Stand brackets features...",
-            list_anh: [
-                "Products/ProMounts Large Universal Tabletop TV Brackets (VESA 800x400) AMSF6401-02_0.jpg",
-                "Products/ProMounts Large Universal Tabletop TV Brackets (VESA 800x400) AMSF6401-02_1.jpg",
-                "Products/ProMounts Large Universal Tabletop TV Brackets (VESA 800x400) AMSF6401-02_2.jpg"
-            ],
-            category: "Stands & Mounts"
-        },
-    ]);
-
+    const [products, setProducts] = useState([]);
     const [newProduct, setNewProduct] = useState({
         id: "",
         image: "",
@@ -28,25 +13,78 @@ const ProductList = () => {
         category: "",
         list_anh: [],
     });
-
     const [editingProduct, setEditingProduct] = useState(null);
 
+    // Pagination states
+    const [currentPage, setCurrentPage] = useState(1);
+    const productsPerPage = 20; // Số lượng sản phẩm trên mỗi trang
+
+    // Fetch products from the backend
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch("http://localhost/PC-shop-final-main-1/backend/getProducts.php");
+            if (!response.ok) throw new Error("Failed to fetch products");
+            const data = await response.json();
+            setProducts(data);
+        } catch (error) {
+            console.error("Error fetching products:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    // Tính toán sản phẩm hiển thị trên trang hiện tại
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+    // Tổng số trang
+    const totalPages = Math.ceil(products.length / productsPerPage);
+
+    // Hàm thay đổi trang
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    // Tính toán các nút phân trang hiển thị (giới hạn 5 nút)
+    const getPaginationRange = () => {
+        const totalNodes = 5; // Số lượng nút phân trang hiển thị
+        const start = Math.max(1, currentPage - Math.floor(totalNodes / 2));
+        const end = Math.min(totalPages, start + totalNodes - 1);
+
+        // Điều chỉnh lại start nếu end vượt quá totalPages
+        const adjustedStart = Math.max(1, end - totalNodes + 1);
+
+        return Array.from({ length: end - adjustedStart + 1 }, (_, index) => adjustedStart + index);
+    };
+
     // Handle adding a new product
-    const handleAddProduct = () => {
+    const handleAddProduct = async () => {
         if (!newProduct.title || !newProduct.price || !newProduct.category || !newProduct.description || !newProduct.image) {
             alert("All fields are required!");
             return;
         }
+        try {
+            const response = await fetch("http://localhost/PC-shop-final-main-1/backend/addProducts.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newProduct),
+            });
 
-        const newId = (products.length > 0 ? Math.max(...products.map(product => parseInt(product.id))) : 0) + 1;
-
-        const productToAdd = {
-            ...newProduct,
-            id: newId.toString(),
-        };
-
-        setProducts([...products, productToAdd]);
-        setNewProduct({ id: "", image: "", title: "", price: "", description: "", category: "", list_anh: [] });
+            const result = await response.json();
+            if (result.success) {
+                alert("Product added successfully!");
+                fetchProducts(); // Refresh the product list
+                setNewProduct({ id: "", image: "", title: "", price: "", description: "", category: "", list_anh: [] });
+            } else {
+                alert("Failed to add product: " + result.error);
+            }
+        } catch (error) {
+            console.error("Error adding product:", error);
+            alert("An error occurred while adding the product.");
+        }
     };
 
     // Handle editing a product
@@ -60,9 +98,28 @@ const ProductList = () => {
     };
 
     // Handle deleting a product
-    const handleDeleteProduct = (id) => {
+    const handleDeleteProduct = async (id) => {
         if (window.confirm("Are you sure you want to delete this product?")) {
-            setProducts(products.filter(product => product.id !== id));
+            try {
+                const response = await fetch("http://localhost/PC-shop-final-main-1/backend/deleteProduct.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ id }),
+                });
+    
+                const result = await response.json();
+                if (result.success) {
+                    alert("Product deleted successfully!");
+                    fetchProducts(); // Làm mới danh sách sản phẩm
+                } else {
+                    alert("Failed to delete product: " + result.error);
+                }
+            } catch (error) {
+                console.error("Error deleting product:", error);
+                alert("An error occurred while deleting the product.");
+            }
         }
     };
 
@@ -201,7 +258,7 @@ const ProductList = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {products.map((product) => (
+                            {currentProducts.map((product) => (
                                 <tr key={product.id}>
                                     <td>{product.id}</td>
                                     <td>
@@ -233,129 +290,70 @@ const ProductList = () => {
                             ))}
                         </tbody>
                     </table>
-                </div>
-            </div>
 
-            {/* Edit Product Modal */}
-            {editingProduct && (
-                <div className="modal show d-block" tabIndex="-1"  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background
-                    position: "fixed", 
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: "100vw",
-                    height: "100vh",
-                    zIndex: 1050,
-                  }}>
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title">Edit Product</h5>
-                                <button
-                                    type="button"
-                                    className="btn-close"
-                                    onClick={() => setEditingProduct(null)}
-                                ></button>
-                            </div>
-                            <div className="modal-body">
-                                <input
-                                    type="text"
-                                    className="form-control mb-2"
-                                    placeholder="Title"
-                                    value={editingProduct.title}
-                                    onChange={(e) =>
-                                        setEditingProduct({ ...editingProduct, title: e.target.value })
-                                    }
-                                />
-                                <input
-                                    type="text"
-                                    className="form-control mb-2"
-                                    placeholder="Price"
-                                    value={editingProduct.price}
-                                    onChange={(e) =>
-                                        setEditingProduct({ ...editingProduct, price: e.target.value })
-                                    }
-                                />
-                                <input
-                                    type="text"
-                                    className="form-control mb-2"
-                                    placeholder="Category"
-                                    value={editingProduct.category}
-                                    onChange={(e) =>
-                                        setEditingProduct({ ...editingProduct, category: e.target.value })
-                                    }
-                                />
-                                <textarea
-                                    className="form-control mb-2"
-                                    placeholder="Description"
-                                    rows="3"
-                                    value={editingProduct.description}
-                                    onChange={(e) =>
-                                        setEditingProduct({ ...editingProduct, description: e.target.value })
-                                    }
-                                ></textarea>
-                                {/* Dropzone for Main Image */}
-                                <h5>Upload Main Image</h5>
-                                <div
-                                    {...getMainImageRootProps()}
-                                    className="border border-primary p-3 text-center"
-                                    style={{ cursor: "pointer" }}
-                                >
-                                    <input {...getMainImageInputProps()} />
-                                    <p>Drag and drop the main image here, or click to select a file</p>
-                                </div>
-                                {editingProduct.image && (
-                                    <div className="mt-3">
-                                        <img
-                                            src={editingProduct.image}
-                                            alt="Main"
-                                            className="img-thumbnail"
-                                            style={{ width: "200px", height: "auto" }}
-                                        />
-                                    </div>
-                                )}
-                                {/* Dropzone for Additional Images */}
-                                <h5>Upload Additional Images</h5>
-                                <div
-                                    {...getAdditionalImagesRootProps()}
-                                    className="border border-primary p-3 text-center"
-                                    style={{ cursor: "pointer" }}
-                                >
-                                    <input {...getAdditionalImagesInputProps()} />
-                                    <p>Drag and drop additional images here, or click to select files</p>
-                                </div>
-                                <div className="row mt-3">
-                                    {editingProduct.list_anh.map((image, index) => (
-                                        <div className="col-md-3 mb-3" key={index}>
-                                            <img
-                                                src={image}
-                                                alt={`Uploaded ${index}`}
-                                                className="img-thumbnail"
-                                                style={{ width: "100%", height: "auto" }}
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="modal-footer">
-                                <button
-                                    className="btn btn-secondary"
-                                    onClick={() => setEditingProduct(null)}
-                                >
-                                    Cancel
-                                </button>
-                                <button className="btn btn-primary" onClick={handleSaveEdit}>
-                                    Save Changes
-                                </button>
-                            </div>
-                        </div>
+                    {/* Pagination */}
+                    <div className="d-flex justify-content-center mt-3">
+                        <nav>
+                            <ul className="pagination">
+                                {/* Nút Previous */}
+                                <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                                    <button
+                                        className="page-link"
+                                        onClick={() => paginate(1)}
+                                        disabled={currentPage === 1}
+                                    >
+                                        First
+                                    </button>
+                                </li>
+                                <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                                    <button
+                                        className="page-link"
+                                        onClick={() => paginate(currentPage - 1)}
+                                        disabled={currentPage === 1}
+                                    >
+                                        Previous
+                                    </button>
+                                </li>
+
+                                {/* Hiển thị các nút phân trang */}
+                                {getPaginationRange().map((pageNumber) => (
+                                    <li
+                                        key={pageNumber}
+                                        className={`page-item ${currentPage === pageNumber ? "active" : ""}`}
+                                    >
+                                        <button
+                                            className="page-link"
+                                            onClick={() => paginate(pageNumber)}
+                                        >
+                                            {pageNumber}
+                                        </button>
+                                    </li>
+                                ))}
+
+                                {/* Nút Next */}
+                                <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
+                                    <button
+                                        className="page-link"
+                                        onClick={() => paginate(currentPage + 1)}
+                                        disabled={currentPage === totalPages}
+                                    >
+                                        Next
+                                    </button>
+                                </li>
+                                <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
+                                    <button
+                                        className="page-link"
+                                        onClick={() => paginate(totalPages)}
+                                        disabled={currentPage === totalPages}
+                                    >
+                                        Last
+                                    </button>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
-            )}
+            </div>
         </div>
     );
 };

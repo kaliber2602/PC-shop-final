@@ -74,11 +74,11 @@ const Login = ({ onLoginSuccess }) => {
     }
   
     try {
-      const response = await fetch("http://localhost:3000/login", {
+      const response = await fetch("http://localhost/PC-shop-final-main-1/backend/login.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          user_name: formData.userName,
+          userName: formData.userName,
           password: formData.password,
         }),
       });
@@ -88,7 +88,7 @@ const Login = ({ onLoginSuccess }) => {
       if (result.success) {
         // Lưu user_id vào localStorage
         localStorage.setItem("userId", result.id);
-        localStorage.setItem("isAdmin", result.admin); // Tùy chọn: lưu quyền admin
+        localStorage.setItem("isAdmin", result.admin); // nếu có quyền admin
   
         setToast({ type: "success", message: "Login successful!" });
         setTimeout(() => {
@@ -106,6 +106,7 @@ const Login = ({ onLoginSuccess }) => {
       setToast({ type: "danger", message: "Error connecting to server!" });
     }
   };
+  
   
   return (
     <div className="container-fluid bg_image">
