@@ -28,7 +28,7 @@ const Register = () => {
 
   const register = async (userName, firstName, lastName, phoneNumber, address, email, password, gender) => {
     try {
-      const response = await fetch("http://localhost/PC-shop-final-main-1/backend/register.php", {
+      const response = await fetch("http://localhost/PC-shop-final-main/backend/register.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

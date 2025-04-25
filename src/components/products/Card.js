@@ -16,7 +16,7 @@ async function getCartItems() {
   }
 
   try {
-    const response = await fetch(`http://localhost/PC-shop-final-main-1/backend/getCartItems.php?user_id=${userId}`);
+    const response = await fetch(`http://localhost/PC-shop-final-main/backend/getCartItems.php?user_id=${userId}`);
     if (!response.ok) throw new Error("Failed to fetch cart items");
     const data = await response.json();
     return data.cartItems || [];
@@ -29,7 +29,7 @@ async function getCartItems() {
   // Lấy ID lớn nhất từ danh sách cartItems
   async function getLastCartItemId() {
     try {
-        const response = await fetch("http://localhost/PC-shop-final-main-1/backend/getLastCartItemId.php");
+        const response = await fetch("http://localhost/PC-shop-final-main/backend/getLastCartItemId.php");
         if (!response.ok) throw new Error("Failed to fetch last cart item ID");
         const data = await response.json();
         return data.lastId || 0;
@@ -74,7 +74,7 @@ async function getCartItems() {
           total_price: updatedTotalPrice,
         };
   
-        const response = await fetch("http://localhost/PC-shop-final-main-1/backend/updateCartItem.php", {
+        const response = await fetch("http://localhost/PC-shop-final-main/backend/updateCartItem.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -93,7 +93,7 @@ async function getCartItems() {
           total_price: totalPrice,
         };
   
-        const response = await fetch("http://localhost/PC-shop-final-main-1/backend/addToCart.php", {
+        const response = await fetch("http://localhost/PC-shop-final-main/backend/addToCart.php", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

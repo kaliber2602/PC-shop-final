@@ -26,7 +26,7 @@ const Cart_popup = () => {
   const fetchCartItems = useCallback(async () => {
     setLoading(true);
     try {
-        const response = await fetch(`http://localhost/PC-shop-final-main-1/backend/getCartItems.php?user_id=${userId}`);
+        const response = await fetch(`http://localhost/PC-shop-final-main/backend/getCartItems.php?user_id=${userId}`);
         if (!response.ok) throw new Error("Failed to fetch cart items");
         const json = await response.json();
         if (!Array.isArray(json.cartItems)) {
@@ -73,7 +73,7 @@ const Cart_popup = () => {
     };
 
     try {
-        const response = await fetch(`http://localhost/PC-shop-final-main-1/backend/updateCartItem.php`, {
+        const response = await fetch(`http://localhost/PC-shop-final-main/backend/updateCartItem.php`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updatedItem),
@@ -102,7 +102,7 @@ const decreaseQuantity = async (record) => {
   };
 
   try {
-      const response = await fetch(`http://localhost/PC-shop-final-main-1/backend/updateCartItem.php`, {
+      const response = await fetch(`http://localhost/PC-shop-final-main/backend/updateCartItem.php`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedItem),
@@ -123,7 +123,7 @@ const removeItem = async (record) => {
   setLoading(true);
   setError(null);
   try {
-      const response = await fetch(`http://localhost/PC-shop-final-main-1/backend/deleteCartItem.php`, {
+      const response = await fetch(`http://localhost/PC-shop-final-main/backend/deleteCartItem.php`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id: record.id }),
@@ -231,7 +231,9 @@ const removeItem = async (record) => {
             <div className="cart-footer">
               <div className="cart-total">
                 <span>Total:</span>
-                <span>${cartItems.reduce((sum, item) => sum + item.totalPrice, 0).toFixed(2)}</span>
+                <span>
+                  ${cartItems.reduce((sum, item) => sum + (parseFloat(item.total_price) || 0), 0).toFixed(2)}
+                </span>
               </div>
               <Button type="primary" className="checkout-btn" style={{ backgroundColor: "#4285f4", borderColor: "#4285f4" }}>
                 Checkout

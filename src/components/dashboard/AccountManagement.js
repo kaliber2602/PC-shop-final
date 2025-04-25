@@ -7,7 +7,7 @@ const AccountManagement = () => {
 
     const fetchAccounts = async () => {
         try {
-            const response = await fetch("http://localhost/PC-shop-final-main-1/backend/getAccounts.php");
+            const response = await fetch("http://localhost/PC-shop-final-main/backend/getAccounts.php");
             if (!response.ok) throw new Error("Failed to fetch accounts");
             const data = await response.json();
             setAccounts(data);
@@ -42,7 +42,7 @@ const AccountManagement = () => {
 
     const handleSaveEdit = async () => {
         try {
-            const response = await fetch("http://localhost/PC-shop-final-main-1/backend/updateAccount.php", {
+            const response = await fetch("http://localhost/PC-shop-final-main/backend/updateAccount.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -73,7 +73,7 @@ const AccountManagement = () => {
     const handleDeleteAccount = async () => {
         if (window.confirm(`Are you sure you want to delete the account "${accountToDelete.first_name} ${accountToDelete.last_name}"?`)) {
             try {
-                const response = await fetch("http://localhost/PC-shop-final-main-1/backend/deleteAccount.php", {
+                const response = await fetch("http://localhost/PC-shop-final-main/backend/deleteAccount.php", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

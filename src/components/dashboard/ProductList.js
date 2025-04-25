@@ -22,7 +22,7 @@ const ProductList = () => {
     // Fetch products from the backend
     const fetchProducts = async () => {
         try {
-            const response = await fetch("http://localhost/PC-shop-final-main-1/backend/getProducts.php");
+            const response = await fetch("http://localhost/PC-shop-final-main/backend/getProducts.php");
             if (!response.ok) throw new Error("Failed to fetch products");
             const data = await response.json();
             setProducts(data);
@@ -65,7 +65,7 @@ const ProductList = () => {
             return;
         }
         try {
-            const response = await fetch("http://localhost/PC-shop-final-main-1/backend/addProducts.php", {
+            const response = await fetch("http://localhost/PC-shop-final-main/backend/addProducts.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -101,7 +101,7 @@ const ProductList = () => {
     const handleDeleteProduct = async (id) => {
         if (window.confirm("Are you sure you want to delete this product?")) {
             try {
-                const response = await fetch("http://localhost/PC-shop-final-main-1/backend/deleteProduct.php", {
+                const response = await fetch("http://localhost/PC-shop-final-main/backend/deleteProduct.php", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

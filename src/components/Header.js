@@ -18,7 +18,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
     async function getProducts() {
         try {
             // Lấy dữ liệu từ API PHP thay vì từ JSON
-            const response = await fetch("http://localhost/PC-shop-final-main-1/backend/getProducts.php");
+            const response = await fetch("http://localhost/PC-shop-final-main/backend/getProducts.php");
             const fetchedProducts = await response.json();
             setProducts(fetchedProducts);
         } catch (error) {

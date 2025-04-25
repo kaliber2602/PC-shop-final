@@ -15,7 +15,7 @@ const fetchCartItems = async () => {
     if (!userId) {
       throw new Error("userId is missing");
     }
-    const response = await fetch(`http://localhost/PC-shop-final-main-1/backend/getCartItems.php?user_id=${userId}`);
+    const response = await fetch(`http://localhost/PC-shop-final-main/backend/getCartItems.php?user_id=${userId}`);
     if (!response.ok) throw new Error("Failed to fetch cart items");
     const json = await response.json();
     if (!Array.isArray(json.cartItems)) {

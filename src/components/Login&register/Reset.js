@@ -14,7 +14,7 @@ const Reset = () => {
     const email = form.current.email.value;
     try {
       // Gửi yêu cầu đến API PHP để kiểm tra email
-      const response = await fetch(`http://localhost/PC-shop-final-main-1/backend/getUserByEmail.php?email=${email}`);
+      const response = await fetch(`http://localhost/PC-shop-final-main/backend/getUserByEmail.php?email=${email}`);
       if (!response.ok) throw new Error("Failed to fetch user data");
       const data = await response.json();
   

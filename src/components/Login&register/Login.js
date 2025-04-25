@@ -74,7 +74,7 @@ const Login = ({ onLoginSuccess }) => {
     }
   
     try {
-      const response = await fetch("http://localhost/PC-shop-final-main-1/backend/login.php", {
+      const response = await fetch("http://localhost/PC-shop-final-main/backend/login.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
