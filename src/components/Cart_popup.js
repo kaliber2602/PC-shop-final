@@ -173,10 +173,11 @@ const removeItem = async (record) => {
     },
     {
       title: "Total Price",
-      dataIndex: "totalPrice",
       key: "totalPrice",
-      sorter: (a, b) => a.totalPrice - b.totalPrice,
       width: "10%",
+      render: (_, record) => (
+        <span>${(record.price * record.quantity).toFixed(2)}</span>
+      ),
     },
     {
       title: "Action",
