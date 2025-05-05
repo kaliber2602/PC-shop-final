@@ -19,9 +19,8 @@ $products = [];
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        // Giải mã chuỗi JSON trong cột images thành mảng
         $row["list_anh"] = json_decode($row["images"]);
-        unset($row["images"]); // Xoá trường gốc nếu không cần
+        unset($row["images"]); 
         $products[] = $row;
     }
 }

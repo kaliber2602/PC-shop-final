@@ -174,6 +174,19 @@ const Menu = ({ onSelectCategory, onPriceFilter, onSortPrice }) => {
           High to Low
         </button>
       </div>
+
+      {/* Bottleneck Calculator */}
+      <div className="p-3 mt-3" style={{ backgroundColor: "white" }}>
+        <h5 className="text-center">Tools</h5>
+        <a
+          href="https://pc-builds.com/bottleneck-calculator/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-outline-primary w-100"
+        >
+          Bottleneck Calculator
+        </a>
+      </div>
     </div>
   );
 };

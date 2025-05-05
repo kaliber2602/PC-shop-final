@@ -15,21 +15,20 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
   const [products, setProducts] = useState([]);
 
 
-    async function getProducts() {
-        try {
-            // Lấy dữ liệu từ API PHP thay vì từ JSON
-            const response = await fetch("http://localhost/PC-shop-final-main/backend/getProducts.php");
-            const fetchedProducts = await response.json();
-            setProducts(fetchedProducts);
-        } catch (error) {
-            console.error("Lỗi khi fetch products:", error);
-        }
+  async function getProducts() {
+    try {
+      const response = await fetch("http://localhost/PC-shop-final-main/backend/getProducts.php");
+      const fetchedProducts = await response.json();
+      setProducts(fetchedProducts);
+    } catch (error) {
+      console.error("Lỗi khi fetch products:", error);
     }
+  }
 
-    useEffect(() => {
-        getProducts();
-    }, []);
-    
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   const handleSearchClick = () => {
     const query = searchQuery.trim().toLowerCase();
     if (query.length > 0) {
@@ -170,11 +169,20 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                           <b>Contact</b>
                         </NavLink>
                       </li>
+                      {isLoggedIn && ( 
+                        <li className="nav-item">
+                          <NavLink
+                            className="nav-link"
+                            to={`/orders/${localStorage.getItem("userId")}`} 
+                          >
+                            <b>Order</b>
+                          </NavLink>
+                        </li>
+                      )}
                       <li className="nav-item">
                         <button
-                          className={`nav-link bg-transparent border-0 ${
-                            isLoggedIn ? "text-danger" : ""
-                          }`}
+                          className={`nav-link bg-transparent border-0 ${isLoggedIn ? "text-danger" : ""
+                            }`}
                           onClick={handleAuthClick}
                         >
                           <b>{isLoggedIn ? "Logout" : "Login"}</b>

@@ -16,7 +16,9 @@ import ProductDetail from "./pages/ProductDetail";
 import CartPopup from "./components/Cart_popup.js";
 import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
-import Dashboard from "./components/dashboard/Dashboard.js"
+import Dashboard from "./components/dashboard/Dashboard.js";
+import OrderList from "./components/OrderList"; // Import OrderList
+
 const AppRoutes = ({ isLoggedIn, setIsLoggedIn, handleLoginSuccess }) => {
   const location = useLocation();
   const [showWelcome, setShowWelcome] = useState(false);
@@ -28,9 +30,10 @@ const AppRoutes = ({ isLoggedIn, setIsLoggedIn, handleLoginSuccess }) => {
       return () => clearTimeout(timer);
     }
   }, [location]);
+
   return (
     <>
-      {showWelcome && (alert("👋 Welcome back!"))}
+      {showWelcome && alert("👋 Welcome back!")}
 
       <Routes>
         <Route
@@ -76,8 +79,15 @@ const AppRoutes = ({ isLoggedIn, setIsLoggedIn, handleLoginSuccess }) => {
           }
         />
         <Route path="/dashboard" element={<Dashboard />} />
-
-
+        <Route
+          path="/orders/:customerId"
+          element={
+            <OrderList
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn} // Truyền thêm setIsLoggedIn
+            />
+          }
+        />
       </Routes>
     </>
   );

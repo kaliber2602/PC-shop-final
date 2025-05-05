@@ -237,7 +237,7 @@ const ProductList = () => {
                             </div>
                         </div>
                         <div className="col-md-12 mt-3">
-                            <button className="btn btn-success w-100" onClick={handleAddProduct}>
+                            <button className="btn btn-success  w-50 p-3" onClick={handleAddProduct}>
                                 Add Product
                             </button>
                         </div>
