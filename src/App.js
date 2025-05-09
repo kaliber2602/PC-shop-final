@@ -18,6 +18,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import Dashboard from "./components/dashboard/Dashboard.js";
 import OrderList from "./components/OrderList"; // Import OrderList
+import { storage } from './utils/storage';
 
 const AppRoutes = ({ isLoggedIn, setIsLoggedIn, handleLoginSuccess }) => {
   const location = useLocation();
@@ -95,6 +96,20 @@ const AppRoutes = ({ isLoggedIn, setIsLoggedIn, handleLoginSuccess }) => {
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      try {
+        const userId = storage.get("userId");
+        setIsLoggedIn(!!userId);
+      } catch (error) {
+        console.warn("Error checking login status:", error);
+        setIsLoggedIn(false);
+      }
+    };
+    
+    checkLoginStatus();
+  }, []);
 
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);

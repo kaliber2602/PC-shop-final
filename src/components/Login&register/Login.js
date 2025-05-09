@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import ToastNotification from "./ToastNotification";
 import { useNavigate } from "react-router-dom";
+import { storage } from '../../utils/storage';
 
 const Login = ({ onLoginSuccess }) => {
 
@@ -55,24 +56,8 @@ const Login = ({ onLoginSuccess }) => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    let hasError = false;
-    const fields = ["userName", "password"];
-  
-    fields.forEach((field) => {
-      handleValidation(field);
-      const inputElement = document.getElementById(field);
-      if (inputElement && inputElement.classList.contains("invalid-input")) {
-        hasError = true;
-      }
-    });
-  
-    if (hasError) {
-      setToast({ type: "danger", message: "Please fix errors before submitting!" });
-      return;
-    }
-  
     try {
       const response = await fetch("http://localhost/PC-shop-final-main/backend/login.php", {
         method: "POST",
@@ -82,20 +67,24 @@ const Login = ({ onLoginSuccess }) => {
           password: formData.password,
         }),
       });
-  
+
       const result = await response.json();
-  
+
       if (result.success) {
-        // Lưu user_id vào localStorage
-        localStorage.setItem("userId", result.id);
-        localStorage.setItem("isAdmin", result.admin); // nếu có quyền admin
-  
+        if (!storage.set("userId", result.id.toString())) {
+          throw new Error("Failed to save user session");
+        }
+        
+        if (result.admin && !storage.set("isAdmin", "true")) {
+          throw new Error("Failed to save admin status");
+        }
+
         setToast({ type: "success", message: "Login successful!" });
         setTimeout(() => {
           if (result.admin) {
-            navigate("/dashboard", { state: { showWelcome: true } });
+            navigate("/dashboard");
           } else {
-            navigate("/", { state: { showWelcome: true } });
+            navigate("/");
             onLoginSuccess();
           }
         }, 1000);
@@ -103,11 +92,10 @@ const Login = ({ onLoginSuccess }) => {
         setToast({ type: "danger", message: result.message });
       }
     } catch (error) {
-      setToast({ type: "danger", message: "Error connecting to server!" });
+      setToast({ type: "danger", message: error.message });
     }
   };
-  
-  
+
   return (
     <div className="container-fluid bg_image">
       <div className="row">
@@ -139,7 +127,7 @@ const Login = ({ onLoginSuccess }) => {
 
           <button
             className="btn submit gradient-hover-effect w-75 mb-3 p-3 shadow mx-auto"
-            onClick={handleSubmit}
+            onClick={handleLogin}
           >
             <b className="h3">Login</b>
           </button>

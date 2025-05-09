@@ -22,7 +22,8 @@ const Home_body = () => {
         pagination={{ clickable: true }}
         navigation
         autoplay={{ delay: 3000, disableOnInteraction: false }}
-        onSlideChange={() => console.log('slide change')}
+        // console.log('slide change')
+        onSlideChange={() => {}}
         modules={[Autoplay, Navigation, Pagination, EffectFade]}
         onSwiper={(swiper) => console.log(swiper)}
       >
@@ -75,9 +76,11 @@ const Home_body = () => {
         pagination={{ clickable: true }}
         navigation
         autoplay
-        onSlideChange={() => console.log('slide change')}
+        // console.log('slide change')
+        onSlideChange={() => {}}
         modules={[Autoplay, Navigation, Pagination]}
-        onSwiper={(swiper) => console.log(swiper)}
+        // console.log(swiper)
+        onSwiper={(swiper) => {}}
       >
         <SwiperSlide><img src="Home_image/Home_products/1.png" alt="First slide" style={{ height: "100%", width: "100%", objectFit: "cover" }} /></SwiperSlide>
         <SwiperSlide><img src="Home_image/Home_products/2.png" alt="First slide" style={{ height: "100%", width: "100%", objectFit: "cover" }} /></SwiperSlide>

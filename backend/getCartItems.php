@@ -13,10 +13,15 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $user_id = $_GET['user_id'] ?? null;
+    $user_id = isset($_GET['user_id']) ? intval($_GET['user_id']) : 0;
 
     if (!$user_id) {
         echo json_encode(["cartItems" => []]); // Nếu không có user_id, trả về mảng rỗng
+        exit;
+    }
+
+    if ($user_id === 0) {
+        echo json_encode([]);
         exit;
     }
 
@@ -27,7 +32,7 @@ try {
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
     $stmt->execute();
     $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+    // if ($cartItems.Number)
     echo json_encode(["cartItems" => $cartItems]);
 } catch (PDOException $e) {
     echo json_encode(["error" => $e->getMessage()]);

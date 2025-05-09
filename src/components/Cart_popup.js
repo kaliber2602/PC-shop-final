@@ -1,9 +1,10 @@
 import React, { useState, useEffect, memo, useCallback } from "react";
-import { Badge, Button, Table, Typography, Space } from "antd";
+import { Badge, Button, Table, Typography, Space, Modal, Input } from "antd";
 import { ShoppingCartOutlined, DeleteOutlined, PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import './Cart_popup.css';
+import { storage } from '../utils/storage';
 
 const { Title } = Typography;
 
@@ -12,8 +13,10 @@ const Cart_popup = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showAddressModal, setShowAddressModal] = useState(false);
+  const [address, setAddress] = useState('');
 
-  const userId = parseInt(localStorage.getItem("userId"), 10) || 1;
+  const userId = parseInt(storage.get("userId"), 10) || null;
 
   const processImage = (image) => {
     return image.startsWith("/") ? image : `/${image}`;
@@ -24,23 +27,28 @@ const Cart_popup = () => {
   };
 
   const fetchCartItems = useCallback(async () => {
+    if (!userId) {
+      setCartItems([]);
+      return;
+    }
+
     setLoading(true);
     try {
-        const response = await fetch(`http://localhost/PC-shop-final-main/backend/getCartItems.php?user_id=${userId}`);
-        if (!response.ok) throw new Error("Failed to fetch cart items");
-        const json = await response.json();
-        if (!Array.isArray(json.cartItems)) {
-            throw new Error("Expected an array of cart items");
-        }
-        setCartItems(json.cartItems);
-        setError(null);
+      const response = await fetch(`http://localhost/PC-shop-final-main/backend/getCartItems.php?user_id=${userId}`);
+      const json = await response.json();
+      if (!Array.isArray(json.cartItems)) {
+        throw new Error("Expected an array of cart items");
+      }
+      setCartItems(json.cartItems);
+      setError(null);
     } catch (error) {
-        console.error("Error fetching cart items:", error);
-        setError(error.message);
+      console.error("Error fetching cart items:", error);
+      setError(error.message);
+      setCartItems([]);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-}, [userId]);
+  }, [userId]);
 
   useEffect(() => {
     fetchCartItems();
@@ -137,6 +145,79 @@ const removeItem = async (record) => {
       setLoading(false);
   }
 };
+
+const showModal = () => {
+  setShowAddressModal(true);
+};
+
+const handleCancel = () => {
+  setShowAddressModal(false);
+  setAddress('');
+};
+
+const handleCheckout = async () => {
+    if (!userId) {
+        alert("Please login to checkout");
+        return;
+    }
+
+    if (!cartItems.length) {
+        alert("Your cart is empty");
+        return;
+    }
+
+    if (!address.trim()) {
+        alert("Please enter delivery address");
+        return;
+    }
+
+    setLoading(true);
+
+    try {
+        const formattedCartItems = cartItems.map(item => ({
+            product_id: item.product_id,
+            quantity: item.quantity,
+            total_price: parseFloat((item.price * item.quantity).toFixed(2))
+        }));
+
+        const response = await fetch('http://localhost/PC-shop-final-main/backend/checkout.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user_id: userId,
+                cart_items: formattedCartItems,
+                address: address
+            }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            alert("Checkout successful!");
+            setCartItems([]); // Clear cart
+            setShowAddressModal(false); // Close address modal
+            setIsOpen(false); // Close cart popup
+            setAddress(''); // Reset address
+        } else {
+            throw new Error(data.error || "Checkout failed");
+        }
+    } catch (error) {
+        console.error("Error during checkout:", error);
+        alert(error.message || "An error occurred during checkout");
+    } finally {
+        setLoading(false);
+    }
+};
+
+useEffect(() => {
+    return () => {
+        // Cleanup when component unmounts
+        setShowAddressModal(false);
+        setIsOpen(false);
+    };
+}, []);
 
   const columns = [
     {
@@ -236,13 +317,41 @@ const removeItem = async (record) => {
                   ${cartItems.reduce((sum, item) => sum + (parseFloat(item.total_price) || 0), 0).toFixed(2)}
                 </span>
               </div>
-              <Button type="primary" className="checkout-btn" style={{ backgroundColor: "#4285f4", borderColor: "#4285f4" }}>
+              <Button
+                type="primary"
+                className="checkout-btn"
+                style={{ backgroundColor: "#4285f4", borderColor: "#4285f4" }}
+                onClick={showModal}
+                disabled={loading || cartItems.length === 0}>
                 Checkout
               </Button>
             </div>
           )}
         </div>
       )}
+
+      <Modal
+        title="Delivery Address"
+        open={showAddressModal}
+        onOk={handleCheckout}
+        onCancel={handleCancel}
+        okText="Confirm Checkout"
+        cancelText="Cancel"
+        confirmLoading={loading}
+        maskClosable={false}
+        destroyOnClose={true}
+      >
+        <div style={{ marginBottom: '16px' }}>
+          <p>Please enter your delivery address:</p>
+          <Input.TextArea
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            placeholder="Enter your delivery address"
+            rows={4}
+            disabled={loading}
+          />
+        </div>
+      </Modal>
     </div>
   );
 };

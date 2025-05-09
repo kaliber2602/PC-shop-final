@@ -274,3 +274,50 @@
   }  
 }
 
+/* Replace the existing modal styles with these new ones */
+.ant-modal-wrap {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 1001;
+}
+
+.ant-modal {
+    position: relative !important;
+    top: 0 !important;
+    margin: auto !important;
+    padding: 0;
+    transform: none !important;
+    width: 520px;
+}
+
+.ant-modal-content {
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+    width: 100%;
+}
+
+.ant-modal-mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    z-index: 1000;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .ant-modal {
+        width: 90% !important;
+        max-width: 520px;
+    }
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -7,52 +7,80 @@ const OrderList = ({ isLoggedIn, setIsLoggedIn }) => {
     const [selectedOrder, setSelectedOrder] = useState(null); // Đơn hàng được chọn để chỉnh sửa
     const [showModal, setShowModal] = useState(false); // Hiển thị modal
 
-    useEffect(() => {
-        // Fetch danh sách đơn hàng (mock data hoặc API)
-        const fetchOrders = async () => {
-            const mockOrders = [
-                {
-                    id: 1,
-                    productName: "Gaming Laptop",
-                    pricePerUnit: 1500,
-                    quantity: 2,
-                    totalPrice: 3000,
-                    status: "Processing",
-                    address: "123 Main St, City A",
-                },
-                {
-                    id: 2,
-                    productName: "Mechanical Keyboard",
-                    pricePerUnit: 75,
-                    quantity: 1,
-                    totalPrice: 75,
-                    status: "Shipping",
-                    address: "456 Elm St, City B",
-                },
-                {
-                    id: 3,
-                    productName: "Gaming Mouse",
-                    pricePerUnit: 40,
-                    quantity: 3,
-                    totalPrice: 120,
-                    status: "Completed",
-                    address: "789 Pine St, City C",
-                },
-            ];
-            setOrders(mockOrders);
-        };
+    const userId = parseInt(localStorage.getItem("userId"), 10) || 1;
 
+    // Fetch danh sách đơn hàng (mock data hoặc API)
+    const fetchOrders = useCallback(async () => {
+        try {
+            const response = await fetch(`http://localhost/PC-shop-final-main/backend/getOrderList.php?user_id=${userId}`);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch orders: ${response.statusText}`);
+            }
+            const data = await response.json();
+            
+            // Check if data is array
+            if (!Array.isArray(data)) {
+                console.error("Invalid response format:", data);
+                setOrders([]);
+                return;
+            }
+    
+            // Map the data to ensure all required fields are present
+            const formattedOrders = data.map(order => ({
+                order_detail_id: order.order_detail_id,
+                title: order.title || 'Unknown Product',
+                price: parseFloat(order.price) || 0,
+                quantity: parseInt(order.quantity) || 0,
+                total_price: parseFloat(order.total_price) || 0,
+                order_date: order.order_date || '',
+                expect_date: order.expect_date || '',
+                status: order.status || 'Pending',
+                address: order.address || ''
+            }));
+    
+            setOrders(formattedOrders);
+        } catch (error) {
+            console.error("Error fetching orders:", error);
+            setOrders([]);
+        }
+    }, [userId]);
+
+    useEffect(() => {
         fetchOrders();
-    }, []);
+    }, [fetchOrders]);
 
     const handleEditClick = (order) => {
         setSelectedOrder(order); // Chọn đơn hàng để chỉnh sửa
         setShowModal(true); // Hiển thị modal
     };
 
-    const handleDeleteClick = (orderId) => {
-        // Xóa đơn hàng khỏi danh sách
-        setOrders((prevOrders) => prevOrders.filter((order) => order.id !== orderId));
+    const handleDeleteOrder = async (orderDetailId) => {
+        if (!window.confirm("Are you sure you want to delete this order detail?")) return;
+    
+        try {
+            const response = await fetch("http://localhost/PC-shop-final-main/backend/deleteOrder.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ order_detail_id: orderDetailId }), // Gửi order_detail_id
+            });
+    
+            const data = await response.json();
+    
+            if (data.success) {
+                // alert("Order detail deleted successfully!");
+                setOrders((prevOrders) =>
+                    prevOrders.filter((order) => order.order_detail_id !== orderDetailId)
+                );
+            } else {
+                console.error("Error:", data.error);
+                alert("Failed to delete order detail: " + data.error);
+            }
+        } catch (error) {
+            console.error("Error deleting order detail:", error);
+            alert("An error occurred while deleting the order detail.");
+        }
     };
 
     const handleSaveChanges = () => {
@@ -93,42 +121,46 @@ const OrderList = ({ isLoggedIn, setIsLoggedIn }) => {
                     <table className="table table-bordered table-striped">
                         <thead className="table-dark">
                             <tr>
-                                <th>ID</th>
                                 <th>Product Name</th>
                                 <th>Price per Unit</th>
                                 <th>Quantity</th>
                                 <th>Total Price</th>
+                                <th>Order Date</th>
+                                <th>Expected Date</th>
                                 <th>Status</th>
                                 <th>Address</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {orders.map((order) => (
-                                <tr key={order.id}>
-                                    <td>{order.id}</td>
-                                    <td>{order.productName}</td>
-                                    <td>${order.pricePerUnit.toFixed(2)}</td>
-                                    <td>{order.quantity}</td>
-                                    <td>${order.totalPrice.toFixed(2)}</td>
-                                    <td>{order.status}</td>
-                                    <td>{order.address}</td>
-                                    <td>
-                                        <button
-                                            className="btn btn-warning btn-sm me-2"
-                                            onClick={() => handleEditClick(order)}
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            className="btn btn-danger btn-sm"
-                                            onClick={() => handleDeleteClick(order.id)}
-                                        >
-                                            Delete
-                                        </button>
+                            {Array.isArray(orders) && orders.length > 0 ? (
+                                orders.map((order) => (
+                                    <tr key={order.order_detail_id}>
+                                        <td>{order.title}</td>
+                                        <td>${parseFloat(order.price).toFixed(2)}</td>
+                                        <td>{order.quantity}</td>
+                                        <td>${parseFloat(order.total_price).toFixed(2)}</td>
+                                        <td>{order.order_date}</td>
+                                        <td>{order.expect_date}</td>
+                                        <td>{order.status}</td>
+                                        <td>{order.address}</td>
+                                        <td>
+                                            <button
+                                                className="btn btn-danger btn-sm"
+                                                onClick={() => handleDeleteOrder(order.order_detail_id)}
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="9" className="text-center">
+                                        No orders found.
                                     </td>
                                 </tr>
-                            ))}
+                            )}
                         </tbody>
                     </table>
                 </div>
