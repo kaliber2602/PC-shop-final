@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 24, 2025 lúc 07:42 AM
+-- Thời gian đã tạo: Th5 10, 2025 lúc 09:17 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `gearzone`
 --
-CREATE DATABASE IF NOT EXISTS `gearzone` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `gearzone`;
 
 -- --------------------------------------------------------
 
@@ -48,7 +46,8 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`ID_account`, `first_name`, `last_name`, `user_name`, `phone_number`, `address`, `email`, `password`, `gender`, `admin`) VALUES
 (2, 'PHAM', 'NGOC DUONG', 'admin', '0342902381', 'C13/QV50 đường Nguyễn Văn Linh', 'ngocduong7825@gmail.com', '$2y$10$zGIXMABkWDhwgKCewIc6PeQUhiYix5hlSvVZAVSGzjetQUifZ.Kju', 'Male', 1),
-(4, 'PHAM', 'NGOC DUONG', 'user', '0342902382', 'C13/QV50 đường Nguyễn Văn Linh', 'ngocduong7828@gmail.com', '$2y$10$QhrBrIfnLS9C4KDvClQBEuudTsgAz5vhupdUhn8S/mrfogRxTs7gO', 'Male', 0);
+(4, 'PHAM', 'NGOC DUONG', 'user', '0342902382', 'C13/QV50 đường Nguyễn Văn Linh', 'ngocduong7828@gmail.com', '$2y$10$QhrBrIfnLS9C4KDvClQBEuudTsgAz5vhupdUhn8S/mrfogRxTs7gO', 'Male', 0),
+(6, 'Ngô', 'Thuận', 'thuan', '0000202020', '123', 'ngochithuanvc2019@gmail.com', '$2y$10$FWuXczL2aKFyWEwnBqEwo.fPHIzi0WNol1s4aQ1L.WjGc9EoyCz3u', 'Male', 0);
 
 -- --------------------------------------------------------
 
@@ -74,6 +73,35 @@ INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`, `total_price`) VA
 (8, 4, 10, 1, 299.99),
 (9, 4, 5, 1, 99.00),
 (10, 4, 13, 1, 189.99);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `order`
+--
+
+CREATE TABLE `order` (
+  `order_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `order_date` date NOT NULL,
+  `expect_date` date NOT NULL,
+  `address` text NOT NULL,
+  `status` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `order_detail`
+--
+
+CREATE TABLE `order_detail` (
+  `order_detail_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total_price` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1519,6 +1547,18 @@ ALTER TABLE `cart`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Chỉ mục cho bảng `order`
+--
+ALTER TABLE `order`
+  ADD PRIMARY KEY (`order_id`);
+
+--
+-- Chỉ mục cho bảng `order_detail`
+--
+ALTER TABLE `order_detail`
+  ADD PRIMARY KEY (`order_detail_id`);
+
+--
 -- Chỉ mục cho bảng `products`
 --
 ALTER TABLE `products`
@@ -1532,13 +1572,25 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT cho bảng `account`
 --
 ALTER TABLE `account`
-  MODIFY `ID_account` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_account` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+
+--
+-- AUTO_INCREMENT cho bảng `order`
+--
+ALTER TABLE `order`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+
+--
+-- AUTO_INCREMENT cho bảng `order_detail`
+--
+ALTER TABLE `order_detail`
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
