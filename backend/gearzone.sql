@@ -20,7 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `gearzone`
 --
-
+CREATE DATABASE IF NOT EXISTS `gearzone` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `gearzone`;
 -- --------------------------------------------------------
 
 --
