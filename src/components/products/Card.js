@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Rating } from "react-simple-star-rating";
 import { Toast } from "bootstrap/dist/js/bootstrap.bundle.min";
 
-const Card = ({ product }) => {
+const Card = ({ product, isLoggedIn }) => {
 const [lastCartItemId, setLastCartItemId] = useState(0);
 const userId = parseInt(localStorage.getItem("userId"), 10) || 1;
 
@@ -54,8 +54,8 @@ async function getCartItems() {
   // Gửi dữ liệu lên server
 
   const addToCart = async (productId, productImage, productTitle, productPrice, quantity) => {
-    if (!userId) {
-      alert("Please log in to add items to your cart.");
+    if (!isLoggedIn) {
+      alert("Please login to add items to your cart");
       return;
     }
   

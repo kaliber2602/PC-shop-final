@@ -93,6 +93,26 @@
   padding: 8px 0;
 }
 
+/* Style cho button khi disabled hoặc chưa chọn item */
+.checkout-btn[disabled],
+.ant-btn-default.checkout-btn {
+  background-color: #d9d9d9;
+  border-color: #d9d9d9;
+  color: rgba(0, 0, 0, 0.25);
+}
+
+/* Style cho button khi đã chọn item */
+.ant-btn-primary.checkout-btn {
+  background-color: #1890ff;
+  border-color: #1890ff;
+  color: white;
+}
+
+.ant-btn-primary.checkout-btn:hover {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+}
+
 .checkout-btn:hover {
   background-color: #3367d6;
 }
@@ -274,9 +294,14 @@
   }  
 }
 
-/* Replace the existing modal styles with these new ones */
+/* Modal styles */
+.ant-modal-root {
+    position: relative;
+    z-index: 1001;
+}
+
 .ant-modal-wrap {
-    position: fixed;
+    position: fixed !important;
     top: 0;
     right: 0;
     bottom: 0;
@@ -288,36 +313,85 @@
 }
 
 .ant-modal {
-    position: relative !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    max-width: 90vw;
     top: 0 !important;
-    margin: auto !important;
-    padding: 0;
     transform: none !important;
-    width: 520px;
 }
 
 .ant-modal-content {
     position: relative;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     background-color: #fff;
-    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08),
+        0 9px 28px 8px rgba(0, 0, 0, 0.05);
 }
 
-.ant-modal-mask {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.45);
-    z-index: 1000;
+/* Address Modal specific styles */
+.ant-modal.address-modal {
+    width: 500px !important;
+}
+
+/* Payment Modal specific styles */
+.payment-info {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.payment-info .qr-section {
+    flex: 0 0 40%;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+}
+
+.payment-info .qr-section img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+.payment-info .payment-details {
+    flex: 0 0 60%;
+}
+
+.payment-info .table {
+    margin-bottom: 1rem;
+}
+
+.payment-info .table td {
+    padding: 0.75rem;
+    vertical-align: middle;
+}
+
+.payment-info .payment-note {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #f0ad4e;
 }
 
 /* Responsive styles */
 @media (max-width: 768px) {
     .ant-modal {
-        width: 90% !important;
-        max-width: 520px;
+        width: 95vw !important;
+    }
+
+    .payment-info {
+        flex-direction: column;
+    }
+
+    .payment-info .qr-section,
+    .payment-info .payment-details {
+        flex: 1 1 auto;
     }
 }

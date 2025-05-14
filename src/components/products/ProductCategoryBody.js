@@ -12,7 +12,7 @@ import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import "swiper/css/effect-fade";
 
-const ProductCategoryBody = () => {
+const ProductCategoryBody = ({ isLoggedIn }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [priceFilter, setPriceFilter] = useState({ min: 0, max: 1000 });
   const [sortOrder, setSortOrder] = useState(null); // State for sorting order
@@ -87,6 +87,7 @@ const ProductCategoryBody = () => {
             selectedCategory={selectedCategory}
             priceFilter={priceFilter}
             sortOrder={sortOrder} // Pass sorting order to Displayproduct
+            isLoggedIn={isLoggedIn} // Add isLoggedIn prop here
           />
         </div>
       </section>

@@ -1,30 +1,30 @@
 export const storage = {
-  get: (key) => {
-    try {
-      return localStorage.getItem(key);
-    } catch (error) {
-      console.warn(`Error accessing localStorage for key ${key}:`, error);
-      return null;
-    }
-  },
+    set: (key, value) => {
+        try {
+            localStorage.setItem(key, value);
+            return true;
+        } catch (e) {
+            console.error('Error saving to storage:', e);
+            return false;
+        }
+    },
 
-  set: (key, value) => {
-    try {
-      localStorage.setItem(key, value);
-      return true;
-    } catch (error) {
-      console.warn(`Error setting localStorage for key ${key}:`, error);
-      return false;
-    }
-  },
+    get: (key) => {
+        try {
+            return localStorage.getItem(key);
+        } catch (e) {
+            console.error('Error reading from storage:', e);
+            return null;
+        }
+    },
 
-  remove: (key) => {
-    try {
-      localStorage.removeItem(key);
-      return true;
-    } catch (error) {
-      console.warn(`Error removing localStorage for key ${key}:`, error);
-      return false;
+    remove: (key) => {
+        try {
+            localStorage.removeItem(key);
+            return true;
+        } catch (e) {
+            console.error('Error removing from storage:', e);
+            return false;
+        }
     }
-  }
 };

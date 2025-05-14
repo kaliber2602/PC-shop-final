@@ -1,6 +1,7 @@
 import React, { useState, useEffect, memo, useCallback } from "react";
-import { Badge, Button, Table, Typography, Space, Modal, Input } from "antd";
+import { Badge, Button, Table, Typography, Space, Modal, Input, message } from "antd";
 import { ShoppingCartOutlined, DeleteOutlined, PlusOutlined, MinusOutlined } from "@ant-design/icons";
+import { useNavigate } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import './Cart_popup.css';
@@ -9,14 +10,46 @@ import { storage } from '../utils/storage';
 const { Title } = Typography;
 
 const Cart_popup = () => {
+  const [userId, setUserId] = useState(() => {
+    const storedUserId = storage.get("userId");
+    return storedUserId ? parseInt(storedUserId, 10) : null;
+  });
+  const navigate = useNavigate();
+
   const [isOpen, setIsOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showAddressModal, setShowAddressModal] = useState(false);
   const [address, setAddress] = useState('');
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [paymentInfo, setPaymentInfo] = useState(null);
+  const [selectedItems, setSelectedItems] = useState([]);
 
-  const userId = parseInt(storage.get("userId"), 10) || null;
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const storedUserId = storage.get("userId");
+      setUserId(storedUserId ? parseInt(storedUserId, 10) : null);
+    };
+
+    // Listen for storage changes
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Initial check
+    handleStorageChange();
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!userId) {
+      console.log("No userId found in storage");
+      setCartItems([]);
+      return;
+    }
+  }, [userId]);
 
   const processImage = (image) => {
     return image.startsWith("/") ? image : `/${image}`;
@@ -27,28 +60,33 @@ const Cart_popup = () => {
   };
 
   const fetchCartItems = useCallback(async () => {
-    if (!userId) {
-      setCartItems([]);
-      return;
+    const currentUserId = storage.get("userId");
+    if (!currentUserId) {
+        setCartItems([]);
+        setError("User not logged in");
+        return;
     }
 
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost/PC-shop-final-main/backend/getCartItems.php?user_id=${userId}`);
-      const json = await response.json();
-      if (!Array.isArray(json.cartItems)) {
-        throw new Error("Expected an array of cart items");
-      }
-      setCartItems(json.cartItems);
-      setError(null);
+        const response = await fetch(`http://localhost/PC-shop-final-main/backend/getCartItems.php?user_id=${currentUserId}`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch cart items: ${response.statusText}`);
+        }
+        const json = await response.json();
+        if (!Array.isArray(json.cartItems)) {
+            throw new Error("Expected an array of cart items");
+        }
+        setCartItems(json.cartItems);
+        setError(null);
     } catch (error) {
-      console.error("Error fetching cart items:", error);
-      setError(error.message);
-      setCartItems([]);
+        console.error("Error fetching cart items:", error);
+        setError(error.message);
+        setCartItems([]);
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
-  }, [userId]);
+}, []);
 
   useEffect(() => {
     fetchCartItems();
@@ -156,25 +194,26 @@ const handleCancel = () => {
 };
 
 const handleCheckout = async () => {
-    if (!userId) {
-        alert("Please login to checkout");
+    const currentUserId = storage.get("userId");
+    if (!currentUserId) {
+        message.error("Please login to checkout");
         return;
     }
 
-    if (!cartItems.length) {
-        alert("Your cart is empty");
+    if (selectedItems.length === 0) {
+        message.error("Please select items to checkout");
         return;
     }
 
     if (!address.trim()) {
-        alert("Please enter delivery address");
+        message.error("Please enter delivery address");
         return;
     }
 
     setLoading(true);
 
     try {
-        const formattedCartItems = cartItems.map(item => ({
+        const formattedCartItems = selectedItems.map(item => ({
             product_id: item.product_id,
             quantity: item.quantity,
             total_price: parseFloat((item.price * item.quantity).toFixed(2))
@@ -188,24 +227,35 @@ const handleCheckout = async () => {
             body: JSON.stringify({
                 user_id: userId,
                 cart_items: formattedCartItems,
-                address: address
+                address: address,
+                selected_item_ids: selectedItems.map(item => item.id)
             }),
         });
 
+        if (!response.ok) {
+            const errorText = await response.text();
+            try {
+                const errorJson = JSON.parse(errorText);
+                throw new Error(errorJson.error || "Checkout failed");
+            } catch (e) {
+                throw new Error("Server error: " + errorText);
+            }
+        }
+
         const data = await response.json();
 
-        if (data.success) {
-            alert("Checkout successful!");
-            setCartItems([]); // Clear cart
-            setShowAddressModal(false); // Close address modal
-            setIsOpen(false); // Close cart popup
-            setAddress(''); // Reset address
-        } else {
+        if (!data.success) {
             throw new Error(data.error || "Checkout failed");
         }
+
+        return {
+            success: true,
+            orderId: data.order_id
+        };
     } catch (error) {
         console.error("Error during checkout:", error);
-        alert(error.message || "An error occurred during checkout");
+        message.error(error.message || "An error occurred during checkout");
+        throw error;
     } finally {
         setLoading(false);
     }
@@ -218,6 +268,96 @@ useEffect(() => {
         setIsOpen(false);
     };
 }, []);
+
+const handlePaymentConfirmation = async (orderId) => {
+  if (!userId) {
+    message.error("Please login to continue");
+    return;
+  }
+
+  try {
+    const response = await fetch('http://localhost/PC-shop-final-main/backend/updatePaymentStatus.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        order_id: orderId,
+        user_id: userId,
+        selected_item_ids: selectedItems.map(item => item.id)
+      }),
+    });
+
+    const data = await response.json();
+    
+    if (!data.success) {
+      throw new Error(data.error || 'Failed to process order');
+    }
+
+    // Remove purchased items from cart
+    setCartItems(prevItems => 
+      prevItems.filter(item => !selectedItems.find(selected => selected.id === item.id))
+    );
+    setSelectedItems([]);
+    
+    // Reset all states
+    setShowPaymentModal(false);
+    setPaymentInfo(null);
+    setShowAddressModal(false);
+    setIsOpen(false);
+
+    // Navigate to orders page with userId
+    navigate(`/orders/${userId}`);
+    message.success('Order completed successfully!');
+
+  } catch (error) {
+    console.error('Error processing order:', error);
+    message.error(error.message);
+  }
+};
+
+const handlePayment = async (totalAmount, orderId) => {
+  try {
+    setLoading(true);
+    const response = await fetch('http://localhost/PC-shop-final-main/backend/create_payment.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        orderCode: orderId,
+        amount: totalAmount,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.error || 'Payment initialization failed');
+    }
+
+    // Thay vì chuyển hướng, hiển thị modal payment với thông tin QR
+    setPaymentInfo(data.paymentInfo);
+    setShowPaymentModal(true);
+    setShowAddressModal(false);
+
+  } catch (error) {
+    console.error('Payment error:', error);
+    message.error('Payment failed: ' + (error.message || 'Unknown error occurred'));
+  } finally {
+    setLoading(false);
+  }
+};
+
+// Thêm hàm xử lý đóng modal payment
+const handleClosePaymentModal = () => {
+  setShowPaymentModal(false);
+  setPaymentInfo(null);
+  setShowAddressModal(false);
+  setIsOpen(false);
+  setLoading(false);
+  // Không xóa items khỏi cart khi đóng modal
+};
 
   const columns = [
     {
@@ -272,7 +412,7 @@ useEffect(() => {
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
+      setSelectedItems(selectedRows);
     },
   };
 
@@ -291,7 +431,20 @@ useEffect(() => {
             <button className="close-btn" onClick={toggleCart}>×</button>
           </div>
           <div className="cart-items">
-            {loading ? (
+            {!userId ? (
+              <div className="text-center p-3">
+                <p className="empty-cart">Please login to view your cart</p>
+                <Button 
+                  type="primary" 
+                  onClick={() => {
+                    setIsOpen(false); // Đóng cart trước
+                    navigate('/login'); // Sau đó chuyển trang
+                  }}
+                >
+                  Login
+                </Button>
+              </div>
+            ) : loading ? (
               <p>Loading...</p>
             ) : error ? (
               <p style={{ color: "red" }}>{error}</p>
@@ -309,37 +462,85 @@ useEffect(() => {
               />
             )}
           </div>
-          {cartItems.length > 0 && !loading && !error && (
+          {cartItems.length > 0 && !loading && !error && userId && (
             <div className="cart-footer">
               <div className="cart-total">
                 <span>Total:</span>
                 <span>
-                  ${cartItems.reduce((sum, item) => sum + (parseFloat(item.total_price) || 0), 0).toFixed(2)}
+                  {selectedItems.length > 0 
+                    ? selectedItems.reduce((sum, item) => sum + (parseFloat(item.total_price)*25000 || 0), 0).toLocaleString('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND'
+                      })
+                    : cartItems.reduce((sum, item) => sum + (parseFloat(item.total_price)*25000 || 0), 0).toLocaleString('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND'
+                      })}
                 </span>
               </div>
               <Button
-                type="primary"
+                type={selectedItems.length > 0 ? "primary" : "default"} // Thay đổi type dựa trên số lượng items được chọn
                 className="checkout-btn"
-                style={{ backgroundColor: "#4285f4", borderColor: "#4285f4" }}
-                onClick={showModal}
-                disabled={loading || cartItems.length === 0}>
-                Checkout
+                onClick={() => {
+                  if (!userId) {
+                    alert("Please login to checkout");
+                    return;
+                  }
+                  if (selectedItems.length === 0) {
+                    alert("Please select items to checkout");
+                    return;
+                  }
+                  setShowAddressModal(true);
+                }}
+                disabled={loading || cartItems.length === 0 || selectedItems.length === 0}
+              >
+                Checkout Selected Items ({selectedItems.length})
               </Button>
             </div>
           )}
         </div>
       )}
 
+      {/* Address Modal */}
       <Modal
         title="Delivery Address"
         open={showAddressModal}
-        onOk={handleCheckout}
+        onOk={async () => {
+          if (!address.trim()) {
+            alert("Please enter delivery address");
+            return;
+          }
+
+          try {
+            setLoading(true);
+            const totalAmount = selectedItems.reduce(
+              (sum, item) => sum + parseFloat(item.price * item.quantity),
+              0
+            );
+
+            const orderResponse = await handleCheckout();
+            
+            if (orderResponse?.success && orderResponse?.orderId) {
+              await handlePayment((totalAmount * 25000), orderResponse.orderId);
+            } else {
+              throw new Error('Failed to create order');
+            }
+          } catch (error) {
+            console.error('Checkout error:', error);
+            alert('Checkout failed: ' + error.message);
+          } finally {
+            setLoading(false);
+          }
+        }}
         onCancel={handleCancel}
-        okText="Confirm Checkout"
+        okText="Proceed to Payment"
         cancelText="Cancel"
         confirmLoading={loading}
         maskClosable={false}
         destroyOnClose={true}
+        centered={true}
+        className="address-modal"
+        width={500}
       >
         <div style={{ marginBottom: '16px' }}>
           <p>Please enter your delivery address:</p>
@@ -349,8 +550,139 @@ useEffect(() => {
             placeholder="Enter your delivery address"
             rows={4}
             disabled={loading}
+            autoFocus
           />
         </div>
+      </Modal>
+
+      {/* Payment Modal */}
+      <Modal
+        title="Payment Information"
+        open={showPaymentModal}
+        onCancel={handleClosePaymentModal}
+        footer={[
+          <Button key="cancel" onClick={handleClosePaymentModal}>
+            Cancel
+          </Button>,
+          <Button
+            type="primary"
+            onClick={async () => {
+              try {
+                setLoading(true);
+                await handlePaymentConfirmation(paymentInfo.content.replace('GZO', ''));
+                message.success('Order placed successfully!');
+                navigate(`/orders/${userId}`);
+              } catch (error) {
+                message.error('Failed to process order: ' + error.message);
+              }
+            }}
+            loading={loading}
+          >
+            Complete Order
+          </Button>,
+        ]}
+        width={800}
+        maskClosable={false}
+        destroyOnClose={true}
+        centered={true}
+        className="payment-modal"
+      >
+        {paymentInfo && (
+          <div className="payment-info">
+            {/* Left column - QR Code */}
+            <div className="qr-section">
+              <img 
+                src={paymentInfo.qrCode || '#'} 
+                alt="Payment QR Code"
+                style={{ width: '100%', maxWidth: '300px', height: 'auto' }}
+                className="mb-3"
+                onError={(e) => {
+                    console.error('Error loading QR code:', e);
+                    console.log('QR URL:', paymentInfo.qrCode);
+                }}
+              />
+              {console.log('QR URL:', paymentInfo.qrCode)}
+              <p className="mb-0 text-muted">Scan QR code to pay</p>
+            </div>
+
+            {/* Right column - Payment Details */}
+            <div className="payment-details">
+              <table className="table table-bordered">
+                <tbody>
+                  <tr>
+                    <td className="fw-bold" style={{width: "35%"}}>Bank Name:</td>
+                    <td>{paymentInfo.bankName}</td>
+                  </tr>
+                  <tr>
+                    <td className="fw-bold">Account Number:</td>
+                    <td>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <span>{paymentInfo.accountNumber}</span>
+                        <Button 
+                          size="small" 
+                          type="primary"
+                          onClick={() => {
+                            navigator.clipboard.writeText(paymentInfo.accountNumber);
+                            alert('Copied to clipboard!');
+                          }}
+                        >
+                          Copy
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="fw-bold">Account Name:</td>
+                    <td>{paymentInfo.accountName}</td>
+                  </tr>
+                  <tr>
+                    <td className="fw-bold">Amount:</td>
+                    <td className="text-danger fw-bold">
+                      {paymentInfo.amount.toLocaleString('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND'
+                      })}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="fw-bold">Content:</td>
+                    <td>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <span>{paymentInfo.content}</span>
+                        <Button 
+                          size="small" 
+                          type="primary"
+                          onClick={() => {
+                            navigator.clipboard.writeText(paymentInfo.content);
+                            alert('Copied to clipboard!');
+                          }}
+                        >
+                          Copy
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div className="payment-note mt-3">
+                <p className="text-info">
+                  <i className="fas fa-info-circle me-2"></i>
+                  After completing the transfer, please click the button above to confirm
+                </p>
+                <p className="text-danger mb-2">
+                  <i className="fas fa-exclamation-circle me-2"></i>
+                  Please make the transfer with exactly the amount and content above
+                </p>
+                <p className="mb-0">
+                  <i className="fas fa-info-circle me-2"></i>
+                  The order will be automatically confirmed after we receive your payment
+                </p>
+                {/* {console.log('QR URL after:', paymentInfo.qrCode)} */}
+              </div>
+            </div>
+          </div>
+        )}
       </Modal>
     </div>
   );

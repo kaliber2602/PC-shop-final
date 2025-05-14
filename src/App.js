@@ -19,6 +19,7 @@ import ScrollToTopButton from "./components/ScrollToTopButton";
 import Dashboard from "./components/dashboard/Dashboard.js";
 import OrderList from "./components/OrderList"; // Import OrderList
 import { storage } from './utils/storage';
+import { message } from 'antd';
 
 const AppRoutes = ({ isLoggedIn, setIsLoggedIn, handleLoginSuccess }) => {
   const location = useLocation();
@@ -109,6 +110,22 @@ function App() {
     };
     
     checkLoginStatus();
+  }, []);
+
+  useEffect(() => {
+    // Check for payment status in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+    
+    if (status === 'success') {
+      message.success('Payment successful!');
+      // Clear status from URL
+      window.history.replaceState({}, '', '/orders');
+    } else if (status === 'cancelled') {
+      message.info('Payment was cancelled');
+      // Clear status from URL
+      window.history.replaceState({}, '', '/');
+    }
   }, []);
 
   const handleLoginSuccess = () => {

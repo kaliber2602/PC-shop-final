@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import { FaAngleLeft, FaAngleRight, FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa';
 
 const OrderList = ({ isLoggedIn, setIsLoggedIn }) => {
     const [orders, setOrders] = useState([]); // State lưu danh sách đơn hàng
     const [selectedOrder, setSelectedOrder] = useState(null); // Đơn hàng được chọn để chỉnh sửa
     const [showModal, setShowModal] = useState(false); // Hiển thị modal
+    const [currentPage, setCurrentPage] = useState(1);
+    const ordersPerPage = 10;
 
     const userId = parseInt(localStorage.getItem("userId"), 10) || 1;
 
@@ -109,6 +112,29 @@ const OrderList = ({ isLoggedIn, setIsLoggedIn }) => {
         }));
     };
 
+    // Calculate pagination values
+    const indexOfLastOrder = currentPage * ordersPerPage;
+    const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+    const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
+    const totalPages = Math.ceil(orders.length / ordersPerPage);
+
+    // Handle page changes
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    // Calculate pagination range
+    const getPaginationGroup = () => {
+        let start = Math.max(currentPage - 2, 1);
+        let end = Math.min(start + 4, totalPages);
+
+        if (end - start < 4) {
+            start = Math.max(end - 4, 1);
+        }
+
+        return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+    };
+
     return (
         <>
             {/* Header */}
@@ -133,8 +159,8 @@ const OrderList = ({ isLoggedIn, setIsLoggedIn }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {Array.isArray(orders) && orders.length > 0 ? (
-                                orders.map((order) => (
+                            {Array.isArray(currentOrders) && currentOrders.length > 0 ? (
+                                currentOrders.map((order) => (
                                     <tr key={order.order_detail_id}>
                                         <td>{order.title}</td>
                                         <td>${parseFloat(order.price).toFixed(2)}</td>
@@ -145,12 +171,19 @@ const OrderList = ({ isLoggedIn, setIsLoggedIn }) => {
                                         <td>{order.status}</td>
                                         <td>{order.address}</td>
                                         <td>
-                                            <button
-                                                className="btn btn-danger btn-sm"
-                                                onClick={() => handleDeleteOrder(order.order_detail_id)}
-                                            >
-                                                Delete
-                                            </button>
+                                            <div title={order.status === 'Completed' ? "Cannot delete completed orders" : ""}>
+                                                <button
+                                                    className={`btn btn-sm ${order.status === 'Completed' ? 'btn-secondary' : 'btn-danger'}`}
+                                                    onClick={() => handleDeleteOrder(order.order_detail_id)}
+                                                    disabled={order.status === 'Completed'}
+                                                    style={{
+                                                        opacity: order.status === 'Completed' ? 0.65 : 1,
+                                                        cursor: order.status === 'Completed' ? 'not-allowed' : 'pointer'
+                                                    }}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))
@@ -164,6 +197,66 @@ const OrderList = ({ isLoggedIn, setIsLoggedIn }) => {
                         </tbody>
                     </table>
                 </div>
+
+                {/* Pagination */}
+                <nav className="mt-4">
+                    <ul className="pagination justify-content-center">
+                        {/* First Page Button */}
+                        <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                            <button
+                                className="page-link"
+                                onClick={() => paginate(1)}
+                            >
+                                <FaAngleDoubleLeft />
+                            </button>
+                        </li>
+
+                        {/* Previous Button */}
+                        <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                            <button
+                                className="page-link"
+                                onClick={() => paginate(currentPage - 1)}
+                            >
+                                <FaAngleLeft />
+                            </button>
+                        </li>
+
+                        {/* Page Numbers */}
+                        {getPaginationGroup().map(pageNumber => (
+                            <li 
+                                key={pageNumber}
+                                className={`page-item ${currentPage === pageNumber ? 'active' : ''}`}
+                            >
+                                <button
+                                    className="page-link"
+                                    onClick={() => paginate(pageNumber)}
+                                >
+                                    {pageNumber}
+                                </button>
+                            </li>
+                        ))}
+
+                        {/* Next Button */}
+                        <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                            <button
+                                className="page-link"
+                                onClick={() => paginate(currentPage + 1)}
+                            >
+                                <FaAngleRight />
+                            </button>
+                        </li>
+
+                        {/* Last Page Button */}
+                        <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                            <button
+                                className="page-link"
+                                onClick={() => paginate(totalPages)}
+                            >
+                                <FaAngleDoubleRight />
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
 
                 {/* Modal for editing order */}
                 {showModal && selectedOrder && (

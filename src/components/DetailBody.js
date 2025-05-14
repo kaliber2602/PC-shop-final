@@ -6,7 +6,7 @@ import LeftSidebar from "./products/LeftSidebar";
 import Carousel from "./products/Carousel";
 import "../index.css";
 
-const DetailBody = ({ product }) => {
+const DetailBody = ({ product, isLoggedIn }) => {
   const userId = parseInt(localStorage.getItem("userId"), 10) || 1;
   const [products, setProducts] = useState([]);
   const images = product.list_anh || [];
@@ -87,8 +87,8 @@ const DetailBody = ({ product }) => {
 
   // Hàm thêm vào giỏ hàng với kiểm tra tồn tại
   const addToCart = async (productId, productImage, productTitle, productPrice, quantity) => {
-    if (!userId) {
-      alert("Please log in to add items to your cart.");
+    if (!isLoggedIn) {
+      alert("Please login to add items to your cart");
       return;
     }
   

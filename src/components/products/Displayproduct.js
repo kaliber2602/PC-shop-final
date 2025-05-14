@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import Pagination from "react-bootstrap/Pagination";
 
-const Displayproduct = ({ selectedCategory, priceFilter, sortOrder }) => {
+const Displayproduct = ({ selectedCategory, priceFilter, sortOrder, isLoggedIn }) => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 20;
@@ -113,7 +113,7 @@ useEffect(() => {
               className="col-lg-3 col-xl-3 col-md-3 col-sm-6 mb-4"
               key={product.id}
             >
-              <Card product={product} />
+              <Card product={product} isLoggedIn={isLoggedIn} />
             </div>
           ))}
         </div>

@@ -1,234 +1,305 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { message } from "antd";
 
 const OrderManagement = () => {
-    // Mock data for orders
-    const [orders, setOrders] = useState([
-        {
-            id: 1,
-            productName: "Gaming Laptop",
-            quantity: 2,
-            totalPrice: 3000,
-            buyerId: "U123",
-            address: "123 Main St, City A",
-            status: "Processing",
-        },
-        {
-            id: 2,
-            productName: "Mechanical Keyboard",
-            quantity: 1,
-            totalPrice: 150,
-            buyerId: "U456",
-            address: "456 Elm St, City B",
-            status: "Shipping",
-        },
-        {
-            id: 3,
-            productName: "Gaming Mouse",
-            quantity: 3,
-            totalPrice: 120,
-            buyerId: "U789",
-            address: "789 Pine St, City C",
-            status: "Completed",
-        },
-    ]);
+    const [orders, setOrders] = useState([]);
+    const [selectedOrder, setSelectedOrder] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [loading, setLoading] = useState(false);
+    // Add new states for search
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchBy, setSearchBy] = useState('customer'); // 'customer' or 'product'
 
-    const [selectedOrder, setSelectedOrder] = useState(null); // State for the selected order
-    const [showModal, setShowModal] = useState(false); // State for modal visibility
+    // Add pagination states
+    const [currentPage, setCurrentPage] = useState(1);
+    const ordersPerPage = 10; // Same as ProductList
 
-    const handleEditClick = (order) => {
-        setSelectedOrder(order); // Set the selected order
-        setShowModal(true); // Show the modal
-    };
-
-    const handleSaveChanges = () => {
-        // Save changes to the orders list
-        setOrders((prevOrders) =>
-            prevOrders.map((order) =>
-                order.id === selectedOrder.id ? selectedOrder : order
-            )
-        );
-        setShowModal(false); // Close modal
-    };
-
-    const handleCloseModal = () => {
-        setShowModal(false); // Close modal
-    };
-
-    const handleInputChange = (field, value) => {
-        setSelectedOrder((prevOrder) => {
-            const updatedOrder = { ...prevOrder, [field]: value };
-
-            // Giới hạn số lượng thấp nhất là 1
-            if (field === "quantity") {
-                const pricePerUnit = prevOrder.totalPrice / prevOrder.quantity;
-                updatedOrder.quantity = Math.max(1, value); // Đảm bảo số lượng không nhỏ hơn 1
-                updatedOrder.totalPrice = pricePerUnit * updatedOrder.quantity;
+    // Fetch orders from database
+    const fetchOrders = async () => {
+        try {
+            const response = await fetch('http://localhost/PC-shop-final-main/backend/getAllOrders.php');
+            if (!response.ok) throw new Error('Failed to fetch orders');
+            const data = await response.json();
+            
+            if (!data.success) {
+                throw new Error(data.message || 'Failed to fetch orders');
             }
+                
+            const formattedOrders = data.orders.map(order => ({
+                id: order.order_id,
+                order_detail_id: order.order_detail_id,
+                productName: order.title,
+                quantity: parseInt(order.quantity),
+                totalPrice: parseFloat(order.total_price),
+                buyerId: order.user_id,
+                buyerName: `${order.first_name} ${order.last_name}`,
+                address: order.address,
+                status: order.status,
+                orderDate: order.order_date,
+                expectDate: order.expect_date
+            }));
 
-            return updatedOrder;
-        });
+            setOrders(formattedOrders);
+        } catch (error) {
+            console.error('Error fetching orders:', error);
+            message.error('Failed to load orders');
+        }
     };
 
-    const handleDeleteOrder = (orderId) => {
-        setOrders((prevOrders) => prevOrders.filter((order) => order.id !== orderId));
+    useEffect(() => {
+        fetchOrders();
+    }, []);
+
+    // Update order status
+    const handleStatusChange = async (orderId, newStatus) => {
+        const isConfirmed = window.confirm(`Are you sure you want to change the order status to ${newStatus}?`);
+        
+        if (!isConfirmed) {
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const response = await fetch('http://localhost/PC-shop-final-main/backend/updateOrderStatus.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    order_id: orderId,
+                    status: newStatus
+                })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                message.success('Order status updated successfully');
+                await fetchOrders(); // Refresh orders list
+            } else {
+                throw new Error(data.error || 'Failed to update status');
+            }
+        } catch (error) {
+            console.error('Error updating status:', error);
+            message.error('Failed to update order status');
+        } finally {
+            setLoading(false);
+        }
     };
 
+    // Delete order
+    const handleDeleteOrder = async (orderId) => {
+        try {
+            const response = await fetch('http://localhost/PC-shop-final-main/backend/deleteOrder.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ order_id: orderId })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                message.success('Order deleted successfully');
+                fetchOrders(); // Refresh orders list
+            } else {
+                throw new Error(data.error || 'Failed to delete order');
+            }
+        } catch (error) {
+            console.error('Error deleting order:', error);
+            message.error('Failed to delete order');
+        }
+    };
+
+    // Filtered orders based on search query and search type
+    const filteredOrders = orders.filter(order => {
+        const searchLower = searchTerm.toLowerCase();
+        if (!searchTerm) return true; // Show all orders when no search term
+
+        if (searchBy === 'customer') {
+            return order.buyerName.toLowerCase().includes(searchLower);
+        } else {
+            return order.productName.toLowerCase().includes(searchLower);
+        }
+    });
+
+    // Add pagination calculation functions
+    const indexOfLastOrder = currentPage * ordersPerPage;
+    const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+    const currentOrders = filteredOrders.slice(indexOfFirstOrder, indexOfLastOrder);
+    const totalPages = Math.ceil(filteredOrders.length / ordersPerPage);
+
+    // Add pagination handler
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    // Add pagination range calculation
+    const getPaginationRange = () => {
+        const totalNodes = 5; // Number of pagination buttons to show
+        const start = Math.max(1, currentPage - Math.floor(totalNodes / 2));
+        const end = Math.min(totalPages, start + totalNodes - 1);
+
+        // Adjust start if end exceeds totalPages
+        const adjustedStart = Math.max(1, end - totalNodes + 1);
+
+        return Array.from(
+            { length: end - adjustedStart + 1 }, 
+            (_, index) => adjustedStart + index
+        );
+    };
+
+    // Update table JSX to show real data
     return (
         <div className="container mt-4">
             <h2 className="text-center mb-4">Order Management</h2>
+            
+            {/* Search Bar */}
+            <div className="row mb-3">
+                <div className="col-md-6 offset-md-3">
+                    <div className="input-group">
+                        <select 
+                            className="form-select flex-grow-0"
+                            style={{ maxWidth: '200px' }}
+                            value={searchBy}
+                            onChange={(e) => setSearchBy(e.target.value)}
+                        >
+                            <option value="customer">Search by Customer</option>
+                            <option value="product">Search by Product</option>
+                        </select>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder={`Search by ${searchBy === 'customer' ? 'customer name' : 'product name'}`}
+                            value={searchTerm}
+                            onChange={(e) => {
+                                setSearchTerm(e.target.value);
+                                // Optional: Reset any pagination if you add it later
+                            }}
+                        />
+                    </div>
+                </div>
+            </div>
+
             <div className="table-responsive">
                 <table className="table table-bordered table-striped">
                     <thead className="table-dark">
                         <tr>
-                            <th>ID</th>
+                            <th>Order ID</th>
+                            <th>Customer Name</th>
                             <th>Product Name</th>
-                            <th>Price per Unit</th>
                             <th>Quantity</th>
                             <th>Total Price</th>
-                            <th>Buyer ID</th>
+                            <th>Order Date</th>
+                            <th>Expected Date</th>
                             <th>Address</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {orders.map((order) => (
-                            <tr key={order.id}>
-                                <td>{order.id}</td>
-                                <td>{order.productName}</td>
-                                <td>${(order.totalPrice / order.quantity).toFixed(2)}</td>
-                                <td>{order.quantity}</td>
-                                <td>${order.totalPrice.toFixed(2)}</td>
-                                <td>{order.buyerId}</td>
-                                <td>{order.address}</td>
-                                <td>
-                                    <select
-                                        className="form-select form-select-sm"
-                                        value={order.status}
-                                        onChange={(e) =>
-                                            setOrders((prevOrders) =>
-                                                prevOrders.map((o) =>
-                                                    o.id === order.id
-                                                        ? { ...o, status: e.target.value }
-                                                        : o
-                                                )
-                                            )
-                                        }
-                                    >
-                                        <option value="Processing">Processing</option>
-                                        <option value="Shipping">Shipping</option>
-                                        <option value="Completed">Completed</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <button
-                                        className="btn btn-warning btn-sm me-2"
-                                        onClick={() => handleEditClick(order)}
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        className="btn btn-danger btn-sm"
-                                        onClick={() => handleDeleteOrder(order.id)}
-                                    >
-                                        Delete
-                                    </button>
+                        {currentOrders.length > 0 ? (
+                            currentOrders.map((order) => (
+                                <tr key={order.order_detail_id}>
+                                    <td>{order.id}</td>
+                                    <td>{order.buyerName}</td>
+                                    <td>{order.productName}</td>
+                                    <td>{order.quantity}</td>
+                                    <td>${order.totalPrice.toFixed(2)}</td>
+                                    <td>{order.orderDate}</td>
+                                    <td>{order.expectDate}</td>
+                                    <td>{order.address}</td>
+                                    <td>
+                                        <select
+                                            className="form-select form-select-sm"
+                                            value={order.status}
+                                            onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                                            disabled={loading}
+                                        >
+                                            <option value="Pending">Pending</option>
+                                            <option value="Processing">Processing</option>
+                                            <option value="Shipping">Shipping</option>
+                                            <option value="Completed">Completed</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <button
+                                            className="btn btn-danger btn-sm"
+                                            onClick={() => handleDeleteOrder(order.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="10" className="text-center">
+                                    {searchTerm 
+                                        ? `No orders found matching "${searchTerm}"`
+                                        : 'No orders available'}
                                 </td>
                             </tr>
-                        ))}
+                        )}
                     </tbody>
                 </table>
             </div>
 
-            {/* Modal for editing order */}
-            {selectedOrder && showModal && (
-                <div
-                    className="modal show d-block"
-                    tabIndex="-1"
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        position: "fixed",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        width: "100vw",
-                        height: "auto",
-                        zIndex: 1050,
-                    }}
-                >
-                    <div className="modal-dialog" style={{ maxWidth: "500px", width: "100%" }}>
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title">Edit Order</h5>
+            {/* Add Pagination */}
+            {filteredOrders.length > 0 && (
+                <div className="d-flex justify-content-center mt-3">
+                    <nav>
+                        <ul className="pagination">
+                            <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
                                 <button
-                                    type="button"
-                                    className="btn-close"
-                                    onClick={handleCloseModal} // Đóng modal khi nhấn nút X
-                                ></button>
-                            </div>
-                            <div className="modal-body">
-                                <form>
-                                    <div className="mb-3">
-                                        <label className="form-label">Product Name</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            value={selectedOrder.productName}
-                                            disabled
-                                        />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">Quantity</label>
-                                        <input
-                                            type="number"
-                                            className="form-control"
-                                            value={selectedOrder.quantity}
-                                            min="1"
-                                            onChange={(e) =>
-                                                handleInputChange("quantity", Math.max(1, Number(e.target.value)))
-                                            }
-                                        />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">Address</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            value={selectedOrder.address}
-                                            onChange={(e) =>
-                                                handleInputChange("address", e.target.value)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label className="form-label">Total Price</label>
-                                        <input
-                                            type="number"
-                                            className="form-control"
-                                            value={selectedOrder.totalPrice.toFixed(2)}
-                                            disabled
-                                        />
-                                    </div>
-                                </form>
-                            </div>
-                            <div className="modal-footer">
-                                <button
-                                    className="btn btn-secondary"
-                                    onClick={handleCloseModal}
+                                    className="page-link"
+                                    onClick={() => paginate(1)}
+                                    disabled={currentPage === 1}
                                 >
-                                    Close
+                                    First
                                 </button>
+                            </li>
+                            <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
                                 <button
-                                    className="btn btn-primary"
-                                    onClick={handleSaveChanges}
+                                    className="page-link"
+                                    onClick={() => paginate(currentPage - 1)}
+                                    disabled={currentPage === 1}
                                 >
-                                    Save Changes
+                                    Previous
                                 </button>
-                            </div>
-                        </div>
-                    </div>
+                            </li>
+
+                            {getPaginationRange().map((pageNumber) => (
+                                <li
+                                    key={pageNumber}
+                                    className={`page-item ${currentPage === pageNumber ? "active" : ""}`}
+                                >
+                                    <button
+                                        className="page-link"
+                                        onClick={() => paginate(pageNumber)}
+                                    >
+                                        {pageNumber}
+                                    </button>
+                                </li>
+                            ))}
+
+                            <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
+                                <button
+                                    className="page-link"
+                                    onClick={() => paginate(currentPage + 1)}
+                                    disabled={currentPage === totalPages}
+                                >
+                                    Next
+                                </button>
+                            </li>
+                            <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
+                                <button
+                                    className="page-link"
+                                    onClick={() => paginate(totalPages)}
+                                    disabled={currentPage === totalPages}
+                                >
+                                    Last
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             )}
         </div>

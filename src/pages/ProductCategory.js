@@ -8,7 +8,7 @@ const ProductCategory = ({ isLoggedIn, setIsLoggedIn }) => {
   return (
     <>
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-      <ProductCategoryBody />
+      <ProductCategoryBody isLoggedIn={isLoggedIn} />
       <Footer />
     </>
   );

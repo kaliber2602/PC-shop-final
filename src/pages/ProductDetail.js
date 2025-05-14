@@ -38,7 +38,7 @@ const ProductDetail = ({ isLoggedIn, setIsLoggedIn }) => {
         <>
             <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
             {product ? (
-                <DetailBody product={product} />
+                <DetailBody product={product} isLoggedIn={isLoggedIn} />
             ) : (
                 <p>Product not found.</p>
             )}

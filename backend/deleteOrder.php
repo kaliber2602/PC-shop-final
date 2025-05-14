@@ -1,8 +1,14 @@
 <?php
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
-header("Access-Control-Allow-Methods: POST");
 header("Content-Type: application/json");
+
+// Handle preflight OPTIONS request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
 
 $servername = "localhost";
 $username = "root";
@@ -13,47 +19,60 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Lấy dữ liệu từ request
     $data = json_decode(file_get_contents("php://input"), true);
-
+    
     if (!isset($data['order_detail_id'])) {
-        echo json_encode(["success" => false, "error" => "Invalid input: order_detail_id is required"]);
-        exit;
+        throw new Exception("Order Detail ID is required");
+    }
+    
+    // Start transaction
+    $conn->beginTransaction();
+
+    // First verify the order exists and get related order_detail records
+    $checkStmt = $conn->prepare("
+        SELECT od.order_detail_id, o.status
+        FROM order_detail od
+        JOIN `order` o ON od.order_id = o.order_id 
+        WHERE od.order_detail_id = :order_detail_id
+    ");
+    $checkStmt->bindParam(':order_detail_id', $data['order_detail_id'], PDO::PARAM_INT);
+    $checkStmt->execute();
+
+    $orderInfo = $checkStmt->fetch(PDO::FETCH_ASSOC);
+    if (!$orderInfo) {
+        throw new Exception("Order detail not found");
     }
 
-    $order_detail_id = $data['order_detail_id'];
-
-    // Lấy order_id từ order_detail_id
-    $stmt = $conn->prepare("SELECT order_id FROM order_detail WHERE order_detail_id = :order_detail_id");
-    $stmt->bindParam(':order_detail_id', $order_detail_id, PDO::PARAM_INT);
-    $stmt->execute();
-    $order_id = $stmt->fetchColumn();
-
-    if (!$order_id) {
-        echo json_encode(["success" => false, "error" => "Order detail not found"]);
-        exit;
+    if ($orderInfo['status'] === 'Completed') {
+        throw new Exception("Cannot delete completed orders");
     }
 
-    // Xóa dữ liệu trong order_detail
-    $stmt = $conn->prepare("DELETE FROM order_detail WHERE order_detail_id = :order_detail_id");
-    $stmt->bindParam(':order_detail_id', $order_detail_id, PDO::PARAM_INT);
-    $stmt->execute();
+    // Delete the order detail
+    $deleteDetailStmt = $conn->prepare("DELETE FROM order_detail WHERE order_detail_id = :order_detail_id");
+    $deleteDetailStmt->bindParam(':order_detail_id', $data['order_detail_id'], PDO::PARAM_INT);
+    $deleteDetailStmt->execute();
 
-    // Kiểm tra xem còn dữ liệu nào trong order_detail với order_id không
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM order_detail WHERE order_id = :order_id");
-    $stmt->bindParam(':order_id', $order_id, PDO::PARAM_INT);
-    $stmt->execute();
-    $count = $stmt->fetchColumn();
+    // Commit transaction
+    $conn->commit();
 
-    if ($count == 0) {
-        // Nếu không còn dữ liệu nào trong order_detail, xóa dữ liệu trong order
-        $stmt = $conn->prepare("DELETE FROM `order` WHERE order_id = :order_id");
-        $stmt->bindParam(':order_id', $order_id, PDO::PARAM_INT);
-        $stmt->execute();
+    echo json_encode([
+        "success" => true,
+        "message" => "Order detail deleted successfully"
+    ]);
+
+} catch(Exception $e) {
+    if (isset($conn) && $conn->inTransaction()) {
+        $conn->rollBack();
     }
-
-    echo json_encode(["success" => true, "message" => "Order detail deleted successfully"]);
-} catch (PDOException $e) {
-    echo json_encode(["success" => false, "error" => $e->getMessage()]);
+    error_log("Error in deleteOrder.php: " . $e->getMessage());
+    http_response_code(500);
+    echo json_encode([
+        "success" => false,
+        "error" => $e->getMessage()
+    ]);
+} finally {
+    if (isset($conn)) {
+        $conn = null;
+    }
 }
 ?>

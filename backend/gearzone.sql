@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 10, 2025 lúc 09:17 AM
+-- Thời gian đã tạo: Th5 14, 2025 lúc 06:24 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -47,7 +47,8 @@ CREATE TABLE `account` (
 INSERT INTO `account` (`ID_account`, `first_name`, `last_name`, `user_name`, `phone_number`, `address`, `email`, `password`, `gender`, `admin`) VALUES
 (2, 'PHAM', 'NGOC DUONG', 'admin', '0342902381', 'C13/QV50 đường Nguyễn Văn Linh', 'ngocduong7825@gmail.com', '$2y$10$zGIXMABkWDhwgKCewIc6PeQUhiYix5hlSvVZAVSGzjetQUifZ.Kju', 'Male', 1),
 (4, 'PHAM', 'NGOC DUONG', 'user', '0342902382', 'C13/QV50 đường Nguyễn Văn Linh', 'ngocduong7828@gmail.com', '$2y$10$QhrBrIfnLS9C4KDvClQBEuudTsgAz5vhupdUhn8S/mrfogRxTs7gO', 'Male', 0),
-(6, 'Ngô', 'Thuận', 'thuan', '0000202020', '123', 'ngochithuanvc2019@gmail.com', '$2y$10$FWuXczL2aKFyWEwnBqEwo.fPHIzi0WNol1s4aQ1L.WjGc9EoyCz3u', 'Male', 0);
+(6, 'Ngô', 'Thuận', 'thuan', '0000202020', '123', 'ngochithuanvc2019@gmail.com', '$2y$10$FWuXczL2aKFyWEwnBqEwo.fPHIzi0WNol1s4aQ1L.WjGc9EoyCz3u', 'Male', 0),
+(9, 'Ngô', 'Thuận', 'thuan1', '0000202023', 'a', 'ngochithuan.dev@gmail.com', '$2y$10$YxzEytL3bQMj3cTRoUYRQ.8D.FmSmQ2KRRyYLm5g0mQCeS1CfUoMC', 'Female', 0);
 
 -- --------------------------------------------------------
 
@@ -72,7 +73,9 @@ INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`, `total_price`) VA
 (7, 4, 9, 1, 279.99),
 (8, 4, 10, 1, 299.99),
 (9, 4, 5, 1, 99.00),
-(10, 4, 13, 1, 189.99);
+(10, 4, 13, 1, 189.99),
+(113, 6, 18, 1, 519.99),
+(114, 6, 2, 1, 64.99);
 
 -- --------------------------------------------------------
 
@@ -86,8 +89,40 @@ CREATE TABLE `order` (
   `order_date` date NOT NULL,
   `expect_date` date NOT NULL,
   `address` text NOT NULL,
-  `status` varchar(50) NOT NULL
+  `status` varchar(50) NOT NULL,
+  `payment_status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `order`
+--
+
+INSERT INTO `order` (`order_id`, `user_id`, `order_date`, `expect_date`, `address`, `status`, `payment_status`) VALUES
+(87, 6, '2025-05-12', '2025-05-19', 'a1', 'Processing', 'pending'),
+(88, 6, '2025-05-12', '2025-05-19', 'a1', 'Processing', 'pending'),
+(89, 6, '2025-05-12', '2025-05-19', 'a1', 'Processing', 'pending'),
+(90, 6, '2025-05-12', '2025-05-19', 'a1', 'Processing', 'pending'),
+(91, 6, '2025-05-12', '2025-05-19', 'cgec111111', 'Processing', 'pending'),
+(92, 6, '2025-05-12', '2025-05-19', '11111111111', 'Processing', 'completed'),
+(93, 6, '2025-05-12', '2025-05-19', '12345', 'Processing', 'pending'),
+(94, 6, '2025-05-12', '2025-05-19', '12345', 'Processing', 'pending'),
+(95, 6, '2025-05-12', '2025-05-19', 'check mon1', 'Processing', 'pending'),
+(96, 6, '2025-05-12', '2025-05-19', 'checkmon2', 'Processing', 'pending'),
+(97, 6, '2025-05-12', '2025-05-19', 'check 22', 'Processing', 'pending'),
+(98, 6, '2025-05-12', '2025-05-19', 'check 22', 'Processing', 'pending'),
+(99, 6, '2025-05-12', '2025-05-19', 'check 22', 'Processing', 'pending'),
+(100, 6, '2025-05-12', '2025-05-19', 'check 22', 'Processing', 'pending'),
+(101, 6, '2025-05-12', '2025-05-19', 'check 22', 'Processing', 'pending'),
+(102, 6, '2025-05-12', '2025-05-19', 'check 22', 'Processing', 'pending'),
+(103, 6, '2025-05-12', '2025-05-19', 'check 22', 'Processing', 'pending'),
+(104, 6, '2025-05-12', '2025-05-19', 'checkkkkk', 'Processing', 'pending'),
+(106, 6, '2025-05-12', '2025-05-19', 'check112233', 'Processing', 'completed'),
+(107, 6, '2025-05-12', '2025-05-19', 'a', 'Completed', 'completed'),
+(108, 6, '2025-05-12', '2025-05-19', 'a11233', 'Processing', 'completed'),
+(109, 6, '2025-05-13', '2025-05-20', 'vietnam', 'Completed', 'pending'),
+(110, 6, '2025-05-13', '2025-05-20', 'vietnam', 'Completed', 'completed'),
+(111, 6, '2025-05-13', '2025-05-20', 'a', 'Pending', 'completed'),
+(112, 6, '2025-05-13', '2025-05-20', 'a2', 'Processing', 'completed');
 
 -- --------------------------------------------------------
 
@@ -102,6 +137,40 @@ CREATE TABLE `order_detail` (
   `quantity` int(11) NOT NULL,
   `total_price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `order_detail`
+--
+
+INSERT INTO `order_detail` (`order_detail_id`, `order_id`, `product_id`, `quantity`, `total_price`) VALUES
+(86, 87, 1388, 1, 0),
+(87, 88, 1388, 1, 0),
+(88, 89, 1388, 1, 0),
+(89, 90, 1388, 1, 0),
+(90, 91, 1388, 1, 0),
+(91, 92, 1388, 1, 0),
+(92, 93, 1388, 1, 0),
+(93, 94, 1388, 1, 0),
+(94, 95, 1388, 2, 0),
+(95, 96, 1388, 2, 0),
+(96, 97, 1388, 2, 0),
+(97, 98, 1388, 2, 0),
+(98, 99, 1388, 2, 0),
+(99, 100, 1388, 2, 0),
+(100, 101, 1388, 2, 0),
+(101, 102, 1388, 2, 0),
+(102, 103, 1388, 1, 0),
+(103, 104, 1388, 1, 0),
+(106, 106, 1, 1, 51),
+(107, 107, 2, 1, 65),
+(108, 107, 2, 1, 65),
+(109, 108, 1388, 1, 0),
+(110, 108, 1388, 1, 0),
+(111, 109, 1, 2, 102),
+(112, 110, 1, 2, 102),
+(113, 110, 1, 2, 102),
+(115, 111, 2, 2, 130),
+(117, 112, 8, 1, 460);
 
 -- --------------------------------------------------------
 
@@ -1572,31 +1641,31 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT cho bảng `account`
 --
 ALTER TABLE `account`
-  MODIFY `ID_account` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID_account` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT cho bảng `order`
 --
 ALTER TABLE `order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT cho bảng `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1388;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1389;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

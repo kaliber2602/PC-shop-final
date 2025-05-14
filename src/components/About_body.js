@@ -23,9 +23,9 @@ const About_body = () => {
       img: 'avatars/Thuan.jpg',
     },
     {
-      name: 'Pham Ngoc Duong',
+      name: 'Truong Cong Bac',
       role: 'Chartered Accountant C.A',
-      img: 'avatars/Duong.jpg',
+      img: 'avatars/Bac.jpg',
     },
   ];
   const items = [

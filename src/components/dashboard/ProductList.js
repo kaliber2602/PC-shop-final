@@ -14,6 +14,7 @@ const ProductList = () => {
         list_anh: [],
     });
     const [editingProduct, setEditingProduct] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
 
     // Pagination states
     const [currentPage, setCurrentPage] = useState(1);
@@ -35,13 +36,19 @@ const ProductList = () => {
         fetchProducts();
     }, []);
 
+    // Filtered products based on search query
+    const filteredProducts = products.filter(product => 
+        product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     // Tính toán sản phẩm hiển thị trên trang hiện tại
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+    const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
     // Tổng số trang
-    const totalPages = Math.ceil(products.length / productsPerPage);
+    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
     // Hàm thay đổi trang
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -150,6 +157,24 @@ const ProductList = () => {
                     <h2 className="mb-0">Product List</h2>
                 </div>
                 <div className="card-body">
+                    {/* Move Search Bar here */}
+                    <div className="row mb-4">
+                        <div className="col-md-6 offset-md-3">
+                            <div className="input-group">
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Search by Product Name or Category"
+                                    value={searchQuery}
+                                    onChange={(e) => {
+                                        setSearchQuery(e.target.value);
+                                        setCurrentPage(1);
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Add Product Form */}
                     <h4>Add New Product</h4>
                     <div className="row mb-3">
@@ -258,36 +283,44 @@ const ProductList = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {currentProducts.map((product) => (
-                                <tr key={product.id}>
-                                    <td>{product.id}</td>
-                                    <td>
-                                        <img
-                                            src={product.image}
-                                            alt={product.title}
-                                            style={{ width: "100px", height: "auto" }}
-                                        />
-                                    </td>
-                                    <td>{product.title}</td>
-                                    <td>${product.price}</td>
-                                    <td>{product.category}</td>
-                                    <td>{product.description}</td>
-                                    <td>
-                                        <button
-                                            className="btn btn-warning btn-sm me-2"
-                                            onClick={() => handleEditProduct(product)}
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            className="btn btn-danger btn-sm"
-                                            onClick={() => handleDeleteProduct(product.id)}
-                                        >
-                                            Delete
-                                        </button>
+                            {currentProducts.length > 0 ? (
+                                currentProducts.map((product) => (
+                                    <tr key={product.id}>
+                                        <td>{product.id}</td>
+                                        <td>
+                                            <img
+                                                src={product.image}
+                                                alt={product.title}
+                                                style={{ width: "100px", height: "auto" }}
+                                            />
+                                        </td>
+                                        <td>{product.title}</td>
+                                        <td>${product.price}</td>
+                                        <td>{product.category}</td>
+                                        <td>{product.description}</td>
+                                        <td>
+                                            <button
+                                                className="btn btn-warning btn-sm me-2"
+                                                onClick={() => handleEditProduct(product)}
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                className="btn btn-danger btn-sm"
+                                                onClick={() => handleDeleteProduct(product.id)}
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="7" className="text-center">
+                                        No products found matching your search
                                     </td>
                                 </tr>
-                            ))}
+                            )}
                         </tbody>
                     </table>
 
