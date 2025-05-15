@@ -141,7 +141,7 @@ function App() {
         setIsLoggedIn={setIsLoggedIn}
         handleLoginSuccess={handleLoginSuccess}
       />
-      <CartPopup />
+      <CartPopup isLoggedIn={isLoggedIn} />
     </Router>
   );
 }

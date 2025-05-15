@@ -9,7 +9,7 @@ import { storage } from '../utils/storage';
 
 const { Title } = Typography;
 
-const Cart_popup = () => {
+const Cart_popup = ({ isLoggedIn }) => {
   const [userId, setUserId] = useState(() => {
     const storedUserId = storage.get("userId");
     return storedUserId ? parseInt(storedUserId, 10) : null;
@@ -50,6 +50,13 @@ const Cart_popup = () => {
       return;
     }
   }, [userId]);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setCartItems([]);
+      return;
+    }
+  }, [isLoggedIn]);
 
   const processImage = (image) => {
     return image.startsWith("/") ? image : `/${image}`;
@@ -107,6 +114,32 @@ const Cart_popup = () => {
 
     return () => worker.terminate();
   }, [fetchCartItems, userId]);
+
+  useEffect(() => {
+    if (!isLoggedIn || !userId) {
+      setCartItems([]);
+      return;
+    }
+    fetchCartItems();
+  }, [isLoggedIn, userId, fetchCartItems]);
+
+  useEffect(() => {
+    if (!isLoggedIn || !userId) return;
+    const worker = new Worker(new URL("./cartWorker.js", import.meta.url));
+    worker.postMessage({ userId });
+    worker.onmessage = (e) => {
+      if (!e || !e.data) {
+        setError("Invalid message from worker");
+        return;
+      }
+      if (e.data.error) {
+        setError(e.data.error);
+      } else if (e.data.cartItems && Array.isArray(e.data.cartItems)) {
+        setCartItems(e.data.cartItems);
+      }
+    };
+    return () => worker.terminate();
+  }, [isLoggedIn, userId]);
 
   const increaseQuantity = async (record) => {
     setLoading(true);
@@ -194,8 +227,7 @@ const handleCancel = () => {
 };
 
 const handleCheckout = async () => {
-    const currentUserId = storage.get("userId");
-    if (!currentUserId) {
+    if (!isLoggedIn || !userId) {
         message.error("Please login to checkout");
         return;
     }
@@ -276,6 +308,7 @@ const handlePaymentConfirmation = async (orderId) => {
   }
 
   try {
+    setLoading(true); // Set loading khi bắt đầu xử lý
     const response = await fetch('http://localhost/PC-shop-final-main/backend/updatePaymentStatus.php', {
       method: 'POST',
       headers: {
@@ -298,13 +331,14 @@ const handlePaymentConfirmation = async (orderId) => {
     setCartItems(prevItems => 
       prevItems.filter(item => !selectedItems.find(selected => selected.id === item.id))
     );
-    setSelectedItems([]);
     
     // Reset all states
+    setSelectedItems([]);
     setShowPaymentModal(false);
     setPaymentInfo(null);
     setShowAddressModal(false);
     setIsOpen(false);
+    setLoading(false); // Set loading về false sau khi hoàn tất
 
     // Navigate to orders page with userId
     navigate(`/orders/${userId}`);
@@ -313,6 +347,7 @@ const handlePaymentConfirmation = async (orderId) => {
   } catch (error) {
     console.error('Error processing order:', error);
     message.error(error.message);
+    setLoading(false); // Set loading về false khi có lỗi
   }
 };
 
@@ -431,14 +466,14 @@ const handleClosePaymentModal = () => {
             <button className="close-btn" onClick={toggleCart}>×</button>
           </div>
           <div className="cart-items">
-            {!userId ? (
+            {!isLoggedIn ? (
               <div className="text-center p-3">
                 <p className="empty-cart">Please login to view your cart</p>
                 <Button 
                   type="primary" 
                   onClick={() => {
-                    setIsOpen(false); // Đóng cart trước
-                    navigate('/login'); // Sau đó chuyển trang
+                    setIsOpen(false);
+                    navigate('/login');
                   }}
                 >
                   Login
