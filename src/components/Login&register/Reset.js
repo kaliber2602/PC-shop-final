@@ -60,7 +60,7 @@ const Reset = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)", // Gradient nền
+        background: "linear-gradient(135deg, #f5f7fa 0%,rgb(55, 147, 170) 100%)", // Gradient nền
         padding: "20px",
       }}
     >

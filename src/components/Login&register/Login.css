@@ -1,13 +1,15 @@
 /* Phần background ảnh bên trái */
 .bg_image {
-  background-image: url('bg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   max-width: 100%;
   transition: transform 0.6s ease;
   width: 100%;
   height: 100vh;
+  background: linear-gradient(225deg, #5c44bb 0%, #141415 100%)
 }
+
+
 
 /* Phần form bên phải */
 .form_container {

@@ -4,7 +4,6 @@ import AccountManagement from "./AccountManagement";
 import RevenueManagement from "./RevenueManagement";
 import ProductList from "./ProductList";
 import OrderManagement from "./OrderManagement";
-import UserProfile from "./UserProfile";
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 const Dashboard = () => {
@@ -45,8 +44,6 @@ const Dashboard = () => {
                 return <ProductList />;
             case "Order Management":
                 return <OrderManagement />;
-            case "User Profile":
-                return <UserProfile />;
             default:
                 return <h2>Welcome to the Admin Dashboard</h2>;
         }

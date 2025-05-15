@@ -28,8 +28,7 @@ const Contact_body = () => {
       .then(
         () => {
           console.log('SUCCESS!');
-          const form = document.getElementById("contact-form");
-          form.reset();
+          form.current.reset(); // Sử dụng form.current thay vì getElementById
           alert("Sent gmail to Decor Dream Team");
         },
         (error) => {
@@ -47,8 +46,13 @@ const Contact_body = () => {
           <div className="col-lg-6" style={{ height: "400px" }}>
             <div className="contact-form shadow p-4" style={{ height: "100%" }}>
               <h2 className="text-center mb-3">Contact Us</h2>
-              <form id="contact-form d-flex" ref={form} onSubmit={sendEmail}>
-                <div className="mb-3">
+              <form 
+                id="contact-form" 
+                ref={form} 
+                onSubmit={sendEmail}
+                className="d-flex flex-column gap-3"
+              >
+                <div className="form-group">
                   <input
                     type="text"
                     className="form-control"
@@ -57,7 +61,7 @@ const Contact_body = () => {
                     required
                   />
                 </div>
-                <div className="mb-3">
+                <div className="form-group">
                   <input
                     type="email"
                     className="form-control"
@@ -66,7 +70,7 @@ const Contact_body = () => {
                     required
                   />
                 </div>
-                <div className="mb-3">
+                <div className="form-group">
                   <input
                     type="text"
                     className="form-control"
@@ -75,7 +79,7 @@ const Contact_body = () => {
                     required
                   />
                 </div>
-                <div className="mb-3">
+                <div className="form-group">
                   <textarea
                     className="form-control"
                     rows="5"
@@ -84,7 +88,7 @@ const Contact_body = () => {
                     required
                   ></textarea>
                 </div>
-                <button type="submit" value="Send" className="btn btn-primary w-100">
+                <button type="submit" className="btn btn-primary">
                   Send Message
                 </button>
               </form>

@@ -37,9 +37,6 @@ const Menu = ({ onSelectOption }) => {
                     <li className="menu-item" onClick={() => onSelectOption("Order Management")}>
                         <FaBox className="menu-icon" /> Order Management
                     </li>
-                    <li className="menu-item" onClick={() => onSelectOption("User Profile")}>
-                        <FaUserAlt className="menu-icon" /> User Profile
-                    </li>
                     
                 </ul>
             </div>
