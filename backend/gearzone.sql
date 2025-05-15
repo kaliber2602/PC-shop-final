@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 14, 2025 lúc 06:24 AM
+-- Thời gian đã tạo: Th5 15, 2025 lúc 10:51 AM
 -- Phiên bản máy phục vụ: 10.4.32-MariaDB
 -- Phiên bản PHP: 8.2.12
 
@@ -20,6 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Cơ sở dữ liệu: `gearzone`
 --
+
 CREATE DATABASE IF NOT EXISTS `gearzone` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `gearzone`;
 -- --------------------------------------------------------
@@ -46,8 +47,8 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`ID_account`, `first_name`, `last_name`, `user_name`, `phone_number`, `address`, `email`, `password`, `gender`, `admin`) VALUES
-(2, 'PHAM', 'NGOC DUONG', 'admin', '0342902381', 'C13/QV50 đường Nguyễn Văn Linh', 'ngocduong7825@gmail.com', '$2y$10$zGIXMABkWDhwgKCewIc6PeQUhiYix5hlSvVZAVSGzjetQUifZ.Kju', 'Male', 1),
-(4, 'PHAM', 'NGOC DUONG', 'user', '0342902382', 'C13/QV50 đường Nguyễn Văn Linh', 'ngocduong7828@gmail.com', '$2y$10$QhrBrIfnLS9C4KDvClQBEuudTsgAz5vhupdUhn8S/mrfogRxTs7gO', 'Male', 0),
+(2, 'ngo', 'chi thuan', 'admin', '0387364164', 'vietnam', 'ngochithuan@gmail.com', '$2y$10$zGIXMABkWDhwgKCewIc6PeQUhiYix5hlSvVZAVSGzjetQUifZ.Kju', 'Male', 1),
+(4, 'ngo', 'chi thuan', 'user', '0387364165', 'vietnam', 'ngochithuan1@gmail.com', '$2y$10$QhrBrIfnLS9C4KDvClQBEuudTsgAz5vhupdUhn8S/mrfogRxTs7gO', 'Male', 0),
 (6, 'Ngô', 'Thuận', 'thuan', '0000202020', '123', 'ngochithuanvc2019@gmail.com', '$2y$10$FWuXczL2aKFyWEwnBqEwo.fPHIzi0WNol1s4aQ1L.WjGc9EoyCz3u', 'Male', 0),
 (9, 'Ngô', 'Thuận', 'thuan1', '0000202023', 'a', 'ngochithuan.dev@gmail.com', '$2y$10$YxzEytL3bQMj3cTRoUYRQ.8D.FmSmQ2KRRyYLm5g0mQCeS1CfUoMC', 'Female', 0);
 
@@ -75,8 +76,7 @@ INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`, `total_price`) VA
 (8, 4, 10, 1, 299.99),
 (9, 4, 5, 1, 99.00),
 (10, 4, 13, 1, 189.99),
-(113, 6, 18, 1, 519.99),
-(114, 6, 2, 1, 64.99);
+(120, 6, 1, 1, 50.99);
 
 -- --------------------------------------------------------
 
@@ -123,7 +123,13 @@ INSERT INTO `order` (`order_id`, `user_id`, `order_date`, `expect_date`, `addres
 (109, 6, '2025-05-13', '2025-05-20', 'vietnam', 'Completed', 'pending'),
 (110, 6, '2025-05-13', '2025-05-20', 'vietnam', 'Completed', 'completed'),
 (111, 6, '2025-05-13', '2025-05-20', 'a', 'Pending', 'completed'),
-(112, 6, '2025-05-13', '2025-05-20', 'a2', 'Processing', 'completed');
+(112, 6, '2025-05-13', '2025-05-20', 'a2', 'Processing', 'completed'),
+(113, 6, '2025-05-15', '2025-05-22', 've', 'Processing', 'pending'),
+(114, 6, '2025-05-15', '2025-05-22', 'a1', 'Processing', 'pending'),
+(115, 6, '2025-05-15', '2025-05-22', 'vietnam', 'Processing', 'pending'),
+(116, 6, '2025-05-15', '2025-05-22', 'vietnam', 'Processing', 'completed'),
+(117, 6, '2025-05-15', '2025-05-22', 'vietnam', 'Processing', 'completed'),
+(118, 6, '2025-05-15', '2025-05-22', 'vietnam', 'Processing', 'completed');
 
 -- --------------------------------------------------------
 
@@ -171,7 +177,15 @@ INSERT INTO `order_detail` (`order_detail_id`, `order_id`, `product_id`, `quanti
 (112, 110, 1, 2, 102),
 (113, 110, 1, 2, 102),
 (115, 111, 2, 2, 130),
-(117, 112, 8, 1, 460);
+(117, 112, 8, 1, 460),
+(118, 113, 1, 1, 51),
+(119, 114, 1, 1, 51),
+(120, 115, 1, 1, 51),
+(121, 116, 1, 1, 51),
+(122, 116, 1, 1, 51),
+(123, 117, 6, 1, 108),
+(124, 118, 1, 1, 51),
+(125, 118, 1, 1, 51);
 
 -- --------------------------------------------------------
 
@@ -1648,19 +1662,19 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT cho bảng `order`
 --
 ALTER TABLE `order`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 
 --
 -- AUTO_INCREMENT cho bảng `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
+  MODIFY `order_detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
